@@ -7,6 +7,8 @@ This module can be considered as a restricted 3-D extension of mamba.
 
 # contributor: Nicolas BEUCHER
 
+import six
+
 import mamba
 import mambaComposed as mC
 import glob
@@ -64,9 +66,9 @@ class sequenceMb:
         
         # First we look into the dictionnary to see if they were specified
         # specifically by the user
-        if kwargs.has_key("rgbfilter"):
+        if "rgbfilter" in kwargs:
             self.rgbfilter = kwargs["rgbfilter"]
-        if kwargs.has_key("displayer"):
+        if "displayer" in kwargs:
             self.displayer = kwargs["displayer"]
             
         # We analyze the arguments given to the constructor
@@ -174,7 +176,7 @@ class sequenceMb:
             except ValueError:
                 # This file is not named <a_number>.ext
                 pass
-        files_keys = files_dict.keys()
+        files_keys = list(six.iterkeys(files_dict))
         files_keys.sort()
         
         if self.seq == []:

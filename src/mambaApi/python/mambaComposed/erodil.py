@@ -5,6 +5,8 @@ Mamba base functions.
 It works with imageMb instances as defined in Mamba.
 """
 
+from __future__ import print_function
+
 import mamba
 
 # Contributors : Nicolas BEUCHER, Michel BILODEAU, Serge BEUCHER
@@ -130,7 +132,7 @@ class structuringElement:
         |0, 1, 6]
         """
         
-        return self.rotate(self.neighbors/2)
+        return self.rotate(self.neighbors//2)
 
     def setAs(self, se):
         """
@@ -305,7 +307,7 @@ def dodecagonalErode(imIn, imOut, size, edge=mamba.FILLED):
     
     n1 = int(0.4641*size)
     n1 += abs(n1 % 2 - size % 2)
-    n2 =(size - n1)/2
+    n2 = (size - n1)//2
     conjugateHexagonalErode(imIn, imOut, n2, edge=edge)
     erode(imOut, imOut, n1, se=HEXAGON, edge=edge)
     
@@ -319,7 +321,7 @@ def dodecagonalDilate(imIn, imOut, size, edge=mamba.EMPTY):
     
     n1 = int(0.4641*size)
     n1 += abs(n1 % 2 - size % 2)
-    n2 =(size - n1)/2
+    n2 = (size - n1)//2
     conjugateHexagonalDilate(imIn, imOut, n2, edge=edge)
     dilate(imOut, imOut, n1, se=HEXAGON, edge=edge)
         

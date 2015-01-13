@@ -6,6 +6,8 @@ functions.
 """
 # Contributor: Serge BEUCHER
 
+from __future__ import print_function
+
 import mamba
 import mambaComposed as mC
 
@@ -63,7 +65,7 @@ def largeHexagonalErode(imIn, imOut, size, edge=mamba.FILLED):
     
     imWrk1 = mamba.imageMb(imIn)
     imWrk2 = mamba.imageMb(imIn)
-    sizemax = min(imIn.getSize())/2
+    sizemax = min(imIn.getSize())//2
     # if size larger than sizemax, the operation must be iterated to prevent edge effects.
     n = size
     mamba.copy(imIn, imOut)

@@ -4,6 +4,9 @@ modules such as mamba.py, mambaDraw.py and mambaExtra.py
 
 These functions are not meant to be used by the end user.
 """
+
+from __future__ import division
+
 import struct
 
 import mambaCore
@@ -187,7 +190,7 @@ def convertToPILFormat(im_in, palette=None):
             lpilim.append(pilim)
         pilim = Image.new("L", (w*2,h*2))
         for i,im in enumerate(lpilim):
-            pilim.paste(im, (w*(i%2),h*(i/2)))
+            pilim.paste(im, (w*(i%2),h*(i//2)))
     elif im_in.depth==1:
         # binary images
         im = create(im_in.width, im_in.height, 8)

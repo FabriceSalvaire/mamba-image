@@ -35,7 +35,7 @@ def getMedian(imIn):
     t = 0
     for i,v in enumerate(histo):
         t = t+v
-        if t>s/2:
+        if t>s/2: # py3k: int ?
             break
     return i
 
@@ -51,4 +51,4 @@ def getVariance(imIn):
     t = 0
     for i,v in enumerate(histo):
         t = t+v*(i-mean)*(i-mean)
-    return t/(s-1)
+    return t/(s-1) # py3k: int ?

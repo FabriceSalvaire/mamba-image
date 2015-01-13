@@ -3,12 +3,18 @@ This module provides functions, classes and methods to display mamba images
 using the Tkinter library.
 """
 
+from __future__ import division
+import six
+
 import mambaCore
 import mambaUtils as mbUtls
 from mambaError import raiseExceptionOnError, raiseWarning, MambaError
 
 try:
-    import Tkinter as tk
+    if six.PY3:
+        import tkinter as tk
+    else:
+        import Tkinter as tk
 except ImportError:
     print ("Missing Tkinter library")
     raise
@@ -207,13 +213,13 @@ class _imageDisplay(tk.Toplevel):
         # Indicates the position of the mouse inside the image.
         # Displays in the info bar the position inside the image along with the
         # pixel value.
-        x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])/2,0)
-        y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])/2,0)
+        x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])//2,0)
+        y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])//2,0)
         x = max(min(x,self.dsize[0]-1), 0)
         y = max(min(y,self.dsize[1]-1), 0)
         if self.mbIm.depth == 32:
-            x = int((float(x)/self.dsize[0])*self.osize[0])%(self.osize[0]/2)
-            y = int((float(y)/self.dsize[1])*self.osize[1])%(self.osize[1]/2)
+            x = int((float(x)/self.dsize[0])*self.osize[0])%(self.osize[0]//2)
+            y = int((float(y)/self.dsize[1])*self.osize[1])%(self.osize[1]//2)
             err, v = mambaCore.MB_GetPixel(self.mbIm, x, y)
             raiseExceptionOnError(err)
             v = hex(v)
@@ -270,14 +276,14 @@ class _imageDisplay(tk.Toplevel):
             # Mouse wheel under windows
             if event.delta>0:
                 # ZOOM IN
-                for i in range(abs(event.delta)/120):
+                for i in range(abs(event.delta)//120):
                     if self.zoom<=0.25:
                         self.setZoom(self.zoom*2)
                     else:
                         self.setZoom(self.zoom+0.25)
             else:
                 # ZOOM OUT
-                for i in range(abs(event.delta)/120):
+                for i in range(abs(event.delta)//120):
                     if self.zoom<=0.25:
                         zoom = self.zoom/2
                         if not (int(self.zoom*self.osize[0])<10 or int(self.zoom*self.osize[0])<10):
@@ -289,8 +295,8 @@ class _imageDisplay(tk.Toplevel):
         # Handles keyboard events,
         # such as zoom in (z) or out (a), activation of the color palette (p)
         # or restore original size (r).
-        xo = max((self.csize[0]-self.dsize[0])/2, 0)
-        yo = max((self.csize[1]-self.dsize[1])/2, 0)
+        xo = max((self.csize[0]-self.dsize[0])//2, 0)
+        yo = max((self.csize[1]-self.dsize[1])//2, 0)
         if event.char == "z":
             # ZOOM IN
             if self.zoom<=0.25:
@@ -323,7 +329,7 @@ class _imageDisplay(tk.Toplevel):
         self.canvas_hb.grid_remove()
         self.canvas_vb.grid_remove()
         if self.mbIm.depth==32:
-            imsize = [self.osize[0]/2,self.osize[1]/2]
+            imsize = [self.osize[0]//2,self.osize[1]//2]
         else:
             imsize = self.osize[:]
         self.zoom = 1.0
@@ -332,8 +338,8 @@ class _imageDisplay(tk.Toplevel):
             imsize[1] = imsize[1]*2
             self.zoom = self.zoom*2
         while imsize[0]>_MAXW or imsize[1]>_MAXH:
-            imsize[0] = imsize[0]/2
-            imsize[1] = imsize[1]/2
+            imsize[0] = imsize[0]//2
+            imsize[1] = imsize[1]//2
             self.zoom = self.zoom/2
         self.csize = imsize[:]
         self.dsize = imsize[:]
@@ -452,8 +458,8 @@ class _imageDisplay(tk.Toplevel):
         self.tkpi = ImageTk.PhotoImage(self.pilImage.resize(self.dsize, self.resize_process))
         if self.imid:
             self.canvas.delete(self.imid)
-        self.imid = self.canvas.create_image(max((self.csize[0]-self.dsize[0])/2, 0),
-                                             max((self.csize[1]-self.dsize[1])/2, 0),
+        self.imid = self.canvas.create_image(max((self.csize[0]-self.dsize[0])//2, 0),
+                                             max((self.csize[1]-self.dsize[1])//2, 0),
                                              anchor=tk.NW,
                                              image=self.tkpi)
         
@@ -496,8 +502,8 @@ class _imageDisplay(tk.Toplevel):
             imsize[1] = imsize[1]*2
             self.zoom = self.zoom*2
         while imsize[0]>_MAXW or imsize[1]>_MAXH:
-            imsize[0] = imsize[0]/2
-            imsize[1] = imsize[1]/2
+            imsize[0] = imsize[0]//2
+            imsize[1] = imsize[1]//2
             self.zoom = self.zoom/2
         self.csize = imsize[:]
         self.dsize = imsize[:]
@@ -507,7 +513,7 @@ class _imageDisplay(tk.Toplevel):
         # PIL image and icon
         self.resize_process = _default_resize_process
         m = max(self.osize)
-        self.icon_size = ((_icon_max_size*self.osize[0])/m,(_icon_max_size*self.osize[1])/m)
+        self.icon_size = ((_icon_max_size*self.osize[0])//m,(_icon_max_size*self.osize[1])//m)
         
         # Adding size info to menu.
         size_info = str(self.osize[0]) + " x " + str(self.osize[1])
@@ -747,8 +753,8 @@ class _MbDisplayer(mambaDisplayer):
         
     def tidyWindows(self):
         # Tidies the display to ensure that all the windows are visible.
-        x = self.screen_size[0]/20
-        y = (19*self.screen_size[1])/20
+        x = self.screen_size[0]//20
+        y = (19*self.screen_size[1])//20
         maxw = 0
 #        wkeys = self.windows.keys()
 #        wkeys.sort()
@@ -760,11 +766,11 @@ class _MbDisplayer(mambaDisplayer):
                 l = geo.split("x")
                 w = int(l[0])+5
                 h = int(l[1])+30 # for window decoration
-                if y-h<(self.screen_size[1]/20):
+                if y-h<int(self.screen_size[1]/20):
                     x = x + maxw
-                    if x>(19*self.screen_size[0])/20:
-                        x = self.screen_size[0]/20
-                    y = (19*self.screen_size[1])/20
+                    if x>(19*self.screen_size[0])//20:
+                        x = self.screen_size[0]//20
+                    y = (19*self.screen_size[1])//20
                     maxw = 0
                     y = y - h
                     geo = geo+"+"+str(x)+"+"+str(y)

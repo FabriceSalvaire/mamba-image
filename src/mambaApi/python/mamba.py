@@ -7,6 +7,8 @@ This module also contains image display functionalities and other user-friendly
 features.
 """
 
+from __future__ import division
+
 import mambaCore
 import mambaUtils as mbUtls
 from mambaDisplay import getDisplayer, setMaxDisplay, setMinDisplay
@@ -138,7 +140,7 @@ def transposeDirection(d, grid=DEFAULT_GRID):
     Calculates the transposed (opposite) direction value of direction 'd' 
     (corresponds to a rotation of gridNeighbors/2 steps).
     """
-    o = rotateDirection(d, gridNeighbors(grid)/2, grid)
+    o = rotateDirection(d, gridNeighbors(grid)//2, grid)
     return o
     
 def tidyDisplays(displayer=None):
@@ -265,9 +267,9 @@ class imageMb:
         
         # First we look into the dictionnary to see if they were specified
         # specifically by the user
-        if kwargs.has_key("rgbfilter"):
+        if "rgbfilter" in kwargs:
             rgbfilter = kwargs["rgbfilter"]
-        if kwargs.has_key("displayer"):
+        if "displayer" in kwargs:
             displayer = kwargs["displayer"]
             
         # We analyze the arguments given to the constructor
@@ -428,7 +430,7 @@ class imageMb:
         fit the image size and depth.
         This method only works on 8 and 32-bit images.
         """
-        assert(len(data)==self.mbIm.width*self.mbIm.height*(self.mbIm.depth/8))
+        assert(len(data)==self.mbIm.width*self.mbIm.height*(self.mbIm.depth//8))
         err = mambaCore.MB_Load(self.mbIm,data,len(data))
         raiseExceptionOnError(err)
         self.updateDisplay()

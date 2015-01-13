@@ -5,6 +5,9 @@ interactive tools and bridges for exchanging images between the Mamba and
 PIL libraries.
 """
 
+from __future__ import division
+import six
+
 import mambaCore
 import mambaUtils as mbUtls
 import mambaComposed as mC
@@ -12,8 +15,12 @@ import mamba
 import mambaDraw
 
 try:
-    import Tkinter as tk
-    import tkFileDialog
+    if six.PY3:
+        import tkinter as tk
+        import tkinter.filedialog as tkFileDialog
+    else:
+        import Tkinter as tk
+        import tkFileDialog
 except ImportError:
     print ("Missing Tkinter library")
     raise
@@ -82,8 +89,8 @@ class _imageThreshold(tk.Toplevel):
             imsize[1] = imsize[1]*2
             self.zoom = self.zoom*2
         while imsize > [_MAXW, _MAXH]:
-            imsize[0] = imsize[0]/2
-            imsize[1] = imsize[1]/2
+            imsize[0] = imsize[0]//2
+            imsize[1] = imsize[1]//2
             self.zoom = self.zoom/2
         
         self.title('thresholder - %d%%' % (int(self.zoom*100)))
@@ -231,14 +238,14 @@ class _imageThreshold(tk.Toplevel):
             # Mouse wheel under windows
             if event.delta>0:
                 # ZOOM IN
-                for i in range(abs(event.delta)/120):
+                for i in range(abs(event.delta)//120):
                     if self.zoom<=0.25:
                         self.setZoom(self.zoom*2)
                     else:
                         self.setZoom(self.zoom+0.25)
             else:
                 # ZOOM OUT
-                for i in range(abs(event.delta)/120):
+                for i in range(abs(event.delta)//120):
                     if self.zoom<=0.25:
                         zoom = self.zoom/2
                         if not (int(self.zoom*self.osize[0])<10 or int(self.zoom*self.osize[0])<10):
@@ -248,8 +255,8 @@ class _imageThreshold(tk.Toplevel):
             
     def mouseMotionEvent(self, event):
         # Indicates the position of the mouse inside the image.
-        x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])/2,0)
-        y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])/2,0)
+        x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])//2,0)
+        y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])//2,0)
         
         x = max(min(x,self.dsize[0]-1), 0)
         y = max(min(y,self.dsize[1]-1), 0)
@@ -309,8 +316,8 @@ class _imageThreshold(tk.Toplevel):
         self.tkpi = ImageTk.PhotoImage(self.pilImage.resize(self.dsize))
         if self.imid:
             self.canvas.delete(self.imid)
-        self.imid = self.canvas.create_image(max((self.csize[0]-self.dsize[0])/2, 0),
-                                             max((self.csize[1]-self.dsize[1])/2, 0),
+        self.imid = self.canvas.create_image(max((self.csize[0]-self.dsize[0])//2, 0),
+                                             max((self.csize[1]-self.dsize[1])//2, 0),
                                              anchor=tk.NW,
                                              image=self.tkpi)
         self.update()
@@ -397,8 +404,8 @@ class _imageSegment(tk.Toplevel):
             imsize[1] = imsize[1]*2
             self.zoom = self.zoom*2
         while imsize > [_MAXW, _MAXH]:
-            imsize[0] = imsize[0]/2
-            imsize[1] = imsize[1]/2
+            imsize[0] = imsize[0]//2
+            imsize[1] = imsize[1]//2
             self.zoom = self.zoom/2
         
         self.title('interactive segment - %d%%' % (int(self.zoom*100)))
@@ -526,8 +533,8 @@ class _imageSegment(tk.Toplevel):
                 # Button 1 released
                 self.canvas.config(cursor="arrow")
                 if not self.mouse_move:
-                    x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])/2,0)
-                    y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])/2,0)
+                    x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])//2,0)
+                    y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])//2,0)
                     if x<self.dsize[0] and x>=0 and y<self.dsize[1] and y>=0:
                         x = int((float(x)/self.dsize[0])*self.osize[0])
                         y = int((float(y)/self.dsize[1])*self.osize[1])
@@ -551,7 +558,7 @@ class _imageSegment(tk.Toplevel):
                         self.setZoom(self.zoom+0.25)
             else:
                 # ZOOM OUT
-                for i in range(abs(event.delta)/120):
+                for i in range(abs(event.delta)//120):
                     if self.zoom<=0.25:
                         zoom = self.zoom/2
                         if not (int(self.zoom*self.osize[0])<10 or int(self.zoom*self.osize[0])<10):
@@ -561,8 +568,8 @@ class _imageSegment(tk.Toplevel):
             
     def mouseMotionEvent(self, event):
         # Indicates the position of the mouse inside the image.
-        x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])/2,0)
-        y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])/2,0)
+        x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])//2,0)
+        y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])//2,0)
         
         x = max(min(x,self.dsize[0]-1), 0)
         y = max(min(y,self.dsize[1]-1), 0)
@@ -644,8 +651,8 @@ class _imageSegment(tk.Toplevel):
         self.tkpi = ImageTk.PhotoImage(self.pilImage.resize(self.dsize))
         if self.imid:
             self.canvas.delete(self.imid)
-        self.imid = self.canvas.create_image(max((self.csize[0]-self.dsize[0])/2, 0),
-                                             max((self.csize[1]-self.dsize[1])/2, 0),
+        self.imid = self.canvas.create_image(max((self.csize[0]-self.dsize[0])//2, 0),
+                                             max((self.csize[1]-self.dsize[1])//2, 0),
                                              anchor=tk.NW,
                                              image=self.tkpi)
         self.update()
@@ -728,8 +735,8 @@ class _imageSuperpose(tk.Toplevel):
             imsize[1] = imsize[1]*2
             self.zoom = self.zoom*2
         while imsize > [_MAXW, _MAXH]:
-            imsize[0] = imsize[0]/2
-            imsize[1] = imsize[1]/2
+            imsize[0] = imsize[0]//2
+            imsize[1] = imsize[1]//2
             self.zoom = self.zoom/2
         self.csize = imsize[:]
         self.dsize = imsize[:]
@@ -848,14 +855,14 @@ class _imageSuperpose(tk.Toplevel):
             # Mouse wheel under windows
             if event.delta>0:
                 # ZOOM IN
-                for i in range(abs(event.delta)/120):
+                for i in range(abs(event.delta)//120):
                     if self.zoom<=0.25:
                         self.setZoom(self.zoom*2)
                     else:
                         self.setZoom(self.zoom+0.25)
             else:
                 # ZOOM OUT
-                for i in range(abs(event.delta)/120):
+                for i in range(abs(event.delta)//120):
                     if self.zoom<=0.25:
                         zoom = self.zoom/2
                         if not (int(self.zoom*self.osize[0])<10 or int(self.zoom*self.osize[0])<10):
@@ -865,8 +872,8 @@ class _imageSuperpose(tk.Toplevel):
             
     def mouseMotionEvent(self, event):
         # Indicates the mouse position inside the image.
-        x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])/2,0)
-        y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])/2,0)
+        x = self.canvas.canvasx(event.x) - max((self.csize[0]-self.dsize[0])//2,0)
+        y = self.canvas.canvasy(event.y) - max((self.csize[1]-self.dsize[1])//2,0)
         
         x = max(min(x,self.dsize[0]-1), 0)
         y = max(min(y,self.dsize[1]-1), 0)
@@ -995,11 +1002,11 @@ class _imageSuperpose(tk.Toplevel):
             for i,v1 in enumerate(d1):
                 v2 = d2[i]
                 if v1[0]<v2[0]:
-                    pix[i%w, i/w] = (v1[0], 0, 0)
+                    pix[i%w, i//w] = (v1[0], 0, 0)
                 elif v1==v2:
-                    pix[i%w, i/w] = (0, 0, v1[0])
+                    pix[i%w, i//w] = (0, 0, v1[0])
                 else:
-                    pix[i%w, i/w] = (0, v1[0], 0)
+                    pix[i%w, i//w] = (0, v1[0], 0)
         
         self.icon = ImageTk.PhotoImage(self.pilImage.resize(_icon_size, _resize_process))
         self.tk.call('wm','iconphoto', self._w, self.icon)
@@ -1010,8 +1017,8 @@ class _imageSuperpose(tk.Toplevel):
         self.tkpi = ImageTk.PhotoImage(self.pilImage.resize(self.dsize))
         if self.imid:
             self.canvas.delete(self.imid)
-        self.imid = self.canvas.create_image(max((self.csize[0]-self.dsize[0])/2, 0),
-                                             max((self.csize[1]-self.dsize[1])/2, 0),
+        self.imid = self.canvas.create_image(max((self.csize[0]-self.dsize[0])//2, 0),
+                                             max((self.csize[1]-self.dsize[1])//2, 0),
                                              anchor=tk.NW,
                                              image=self.tkpi)
         self.update()
@@ -1094,7 +1101,7 @@ def mix(imInR, imInG, imInB):
     mamba.raiseExceptionOnError(err)
     err, sB = mambaCore.MB_Extract(imInB.mbIm)
     mamba.raiseExceptionOnError(err)
-    s = ""
+    s = six.b("")
     for i in range(0,h*w,w):
         s = s + sR[i: i+w]
         s = s + sG[i: i+w]
@@ -1124,9 +1131,9 @@ def split(pilimIn, imOutR, imOutG, imOutB):
         pilim = prov_im
         
     s = pilim.tostring("raw", "RGB;L", 0 ,1)
-    sR = ""
-    sG = ""
-    sB = ""
+    sR = six.b("")
+    sG = six.b("")
+    sB = six.b("")
     for i in range(0,hc):
         sR = sR + s[3*i*wc: (3*i+1)*wc]
         sG = sG + s[(3*i+1)*wc: (3*i+2)*wc]

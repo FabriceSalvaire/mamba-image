@@ -2,6 +2,8 @@
 This module handles computation errors in mamba module.
 """
 
+from __future__ import print_function
+
 import mambaCore
 
 class MambaError(Exception):
@@ -29,4 +31,4 @@ def raiseExceptionOnError(err):
         raise MambaError(err)
         
 def raiseWarning(msg):
-    print "Warning : "+msg
+    print("Warning : "+msg)

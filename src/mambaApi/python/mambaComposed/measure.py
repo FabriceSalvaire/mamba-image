@@ -5,6 +5,8 @@ operations on mamba images. It works with imageMb instances as defined in mamba.
 
 # Contributors: Serge BEUCHER, Nicolas BEUCHER
 
+from __future__ import division
+
 from mambaCore import ERR_BAD_DEPTH
 import mamba
 import mambaComposed as mC
@@ -45,7 +47,7 @@ def computeDiameter(imIn, dir, scale=(1.0, 1.0), grid=mamba.DEFAULT_GRID):
         mamba.raiseExceptionOnError(ERR_BAD_DEPTH)
     if dir == 0:
         return 0.0
-    dir = ((dir - 1)%(mamba.gridNeighbors(grid)/2)) +1
+    dir = ((dir - 1)%(mamba.gridNeighbors(grid)//2)) +1
     imWrk = mamba.imageMb(imIn)
     mamba.copy(imIn, imWrk)
     mamba.diffNeighbor(imIn, imWrk, dir, grid=grid)
@@ -78,7 +80,7 @@ def computePerimeter(imIn, scale=(1.0, 1.0), grid=mamba.DEFAULT_GRID):
     if imIn.getDepth() != 1:
         mamba.raiseExceptionOnError(ERR_BAD_DEPTH)
     p = 0.
-    for i in range(1, mamba.gridNeighbors(grid)/2 + 1):
+    for i in range(1, mamba.gridNeighbors(grid)//2 + 1):
         p += computeDiameter(imIn, i, scale=scale, grid=grid)
     p = 2*math.pi*p/mamba.gridNeighbors(grid)
     return p
