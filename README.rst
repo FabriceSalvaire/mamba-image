@@ -34,6 +34,21 @@ Changes
 -------
 
 * Python3 support
+* pillow support
 * some cosmetics to homogenise the coding (added space)
+
+Building
+--------
+
+The procedure to build Mamba is described in the *readme* file.
+
+To compile and install the Mamba library, run these commands from the *src/mambaApi* directory :
+
+.. code-block:: sh
+
+  python setup.py build_ext build
+  python setup.py install
+
+You can also run make from the top directory.
 
 .. End
