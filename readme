@@ -1,0 +1,159 @@
+Mamba Image library for Python
+
+Release 1.1
+
+====================================================================
+Mamba Image 
+====================================================================
+
+Contents
+--------
+
++ Introduction
++ History
++ License
++ Build instructions (all platforms)
+
+--------------------------------------------------------------------
+Introduction
+--------------------------------------------------------------------
+
+Mamba stands for MAthematical Morphology liBrAry. With it you will be
+able to perform all the mathematical computations that are described
+as morphological operations (erosion, dilatation, openings, etc...).
+To work properly you will have to install PIL (Python Imaging Library).
+
+--------------------------------------------------------------------
+History
+--------------------------------------------------------------------
+
+The Mamba library is originated from a CMM 16-bit program known as Micromorph.
+Micromorph worked on Windows systems and was renowned for its simplicity and 
+educational abilities.
+
+Mamba is a modernized, extended and free version of this software created
+by Nicolas BEUCHER, with the help of CMM members, using a 32-bit port of 
+Micromorph that was never released as a starting point.
+
+Mamba retains all the key points of its predecessor adding new ones :
+
+    - Portable, with support of multiple platforms and architectures
+    - Simple
+    - Fast
+    - Fit for educational purposes
+    - Free (through free licensing, see below)
+
+--------------------------------------------------------------------
+License
+--------------------------------------------------------------------
+
+Copyright (c) <2009>, <Nicolas BEUCHER and ARMINES for the Centre de 
+Morphologie Mathématique(CMM), common research center to ARMINES and MINES 
+Paristech>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, 
+distribute, sublicense, and/or sell copies of the Software, and to permit 
+persons to whom the Software is furnished to do so, subject to the following 
+conditions: The above copyright notice and this permission notice shall be 
+included in all copies or substantial portions of the Software.
+
+Except as contained in this notice, the names of the above copyright 
+holders shall not be used in advertising or otherwise to promote the sale, 
+use or other dealings in this Software without their prior written 
+authorization.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+--------------------------------------------------------------------
+Supported platforms
+--------------------------------------------------------------------
+
+Mamba works on the following platforms and python version :
+
+    - 64-bit Linux
+    - 32-bit Linux
+    - Windows XP (32-bit)
+    - Windows Vista (32-bit)
+    - Windows Seven (32-bit)
+    
+The compatible version of Python are Python 2.6 and Python 2.7.
+
+Currently Mamba is not working under 64-bit Python for Windows as the 
+requested package PIL is not officially released for these platforms. 
+You will need to install the 32-bit version of Python to use Mamba on a 
+64-bit Windows platform.
+
+Other platforms (macOS, UNIX, ...) are untested.
+
+--------------------------------------------------------------------
+Build instructions (all platforms)
+--------------------------------------------------------------------
+
+Compilation is ensured by Python distutils tools.
+
+You will need the following tools :
+
+ * Python version 2.6 or later with the distutils package.
+ * Swig version 1.3.33 or later.
+ * GCC version 4.3.0 or later (or its windows version MingW32)
+ * Standard C libraries
+ 
+ * Under Windows, you might choose Microsoft Visual C++ Express 2008 to compile
+ you will then need the stdint.h header.
+
+Make sure you have correctly installed the required tools and that
+they appear in your PATH environment variable.
+
+The following process works for all platforms :
+    
+    1 - Get the latest version of the source (package "Mamba.X.X.zip")
+    2 - Extract it in your local directory
+    3 - Browse to the created directory "Mamba.X.X"
+
+=>To compile and install the Mamba library :
+    1 - Browse to src/mambaApi
+    2 - type :
+    
+        python setup.py build_ext build             (Linux)
+        OR
+        python setup.py build_ext build             (Windows with visual C++)
+        python setup.py build_ext -cmingw32 build   (Windows with mingw32)
+        
+    3 - You can then install it.
+    
+        python setup.py install
+    
+Alternatively, you can create package/executable that will allow you to 
+distribute the compiled library.
+
+        On Windows :
+        ############
+        python setup.py build_ext bdist_wininst            (Windows with visual C++)
+        python setup.py build_ext -cmingw32 bdist_wininst  (Windows with mingw32)
+        then to install, double-click on the created exe inside the dist 
+        directory.
+        
+        On Linux :
+        ##########
+        python setup.py build_ext bdist
+        you can then find a package under the dist directory, extracting it will
+        install the library in the correct path.
+        
+All the files are installed in the site-packages directory of your current 
+python installation under directory mambaIm.
+
+By default, the compilation is done without SSE2 except on Linux 64bit where 
+basic gcc behaviour activates the SSE2. You can replace the setup script by
+specific setup script that will produce more optimized version of Mamba for
+your system (more information can be found inside the script setup.py).
+
+For more options see the distutils documentation.

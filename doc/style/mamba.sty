@@ -1,0 +1,101 @@
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{mamba}
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{ucs}
+\RequirePackage{xcolor}
+\RequirePackage[utf8x]{inputenc}
+\RequirePackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\RequirePackage[pdftex,colorlinks=true,urlcolor=blue]{hyperref}
+\RequirePackage{listings}
+\RequirePackage{graphicx}
+\RequirePackage{fancyhdr}
+\RequirePackage{tikz}
+\RequirePackage{array}
+
+% Color definitions
+\definecolor{darkred}{rgb}{.75,.0,.2}
+\definecolor{darkblue}{rgb}{.0,.0,.7}
+\definecolor{darkgreen}{rgb}{.0,.7,.0}
+
+% Header and footer definition for all the documents
+\headheight 27pt
+\fancyhead{}
+\fancyfoot{}
+\lhead{
+    \includegraphics[width=0.2\textwidth]{mamba_logo.pdf}
+}
+\chead{\@title}
+\rhead{\today}
+\rfoot{\thepage}
+
+% Python language colours to apply for code extracts
+\lstset{% general command to set parameter(s)
+   basicstyle=\small,          % print whole listing small
+   keywordstyle=\color{darkblue}\bfseries,
+                               % bold blue keywords
+   commentstyle=\color{darkred}, % purple comments
+   stringstyle=\color{darkgreen}\ttfamily,% typewriter type for strings
+   showstringspaces=false      % no special string spaces
+}
+
+% cover command to create the cover of the document
+\newcommand{\mambaCover}{
+    \begin{titlepage}
+    \begin{center}
+    % Upper part of the page
+    \includegraphics[width=\textwidth]{mamba_logo.pdf}\\[0.4cm]
+    
+    % Title
+    {\huge \@title}\\[2cm]
+     
+    % Author
+    \begin{minipage}{0.4\textwidth}
+    \begin{flushleft} \large
+      \begin{tabular}[t]{c}
+        \@author
+      \end{tabular}
+    \end{flushleft}
+    \end{minipage}
+     
+    \vfill
+     
+    % Bottom of the page
+    
+    % License
+    \begin{minipage}{0.9\textwidth}
+    \begin{center} \small
+      \begin{tabular}[t]{cm{0.8\textwidth}}
+        \includegraphics[width=0.1\textwidth]{by.pdf} &
+        Except where otherwise \textbf{noted}, the Mamba Documentation Project
+        is covered by the \textbf{Creative Commons Attribution 3.0 License}
+        (see \url{http://creativecommons.org/licenses/by/3.0/}) \\
+      \end{tabular}
+    \end{center}
+    \end{minipage}\\[1cm]
+    
+    % Date
+    {\large \@date}
+     
+    \end{center}
+    \end{titlepage}
+}
+
+% The tables for content and figures
+\newcommand{\mambaContent}{
+    \pagestyle{fancy}
+    \tableofcontents
+    \pagebreak
+    \listoffigures
+    \pagebreak
+}
+
+% Function to handle display of python functions
+\newcommand{\mambaPyFunc}[1]{
+    \pagebreak
+    \pagebreak
+    \subsubsection{#1}
+}
+
+\endinput
+
