@@ -87,7 +87,12 @@
     PyObject *o, *o2, *o3;
     
     if (*$2>0) {
+/* %#if PY3K */
+%#if PY_VERSION_HEX >= 0x03000000
+        o = PyBytes_FromStringAndSize((char *) *$1,*$2);//MB_h*MB_w*4);
+%#else
         o = PyString_FromStringAndSize((char *) *$1,*$2);//MB_h*MB_w*4);
+%#endif
         /* The data extracted is free*/
         free((Uint32 *) *$1);
     } else {

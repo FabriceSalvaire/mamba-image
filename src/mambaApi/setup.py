@@ -45,7 +45,7 @@ else:
 # compiler options
 INC_DIRS = ['./include','./include-private','../commons']
 # swig options
-SWIG_OPTS = SWIGDEF64 + map(lambda v: '-I'+v, INC_DIRS) + ['-outdir','python']
+SWIG_OPTS = SWIGDEF64 + ['-I' + x for x in INC_DIRS] + ['-outdir','python']
 
 # Base module and associated packages
 #""""""""""""""""""""""""""""""""""""
