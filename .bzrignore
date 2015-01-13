@@ -1,5 +1,6 @@
 .bzr/
 .git/
+__pycache__
 doc/3Dpy_ref/3Dpyquickref.aux
 doc/3Dpy_ref/3Dpyquickref.log
 doc/3Dpy_ref/3Dpyquickref.pdf
