@@ -16,7 +16,7 @@ import mamba
 ################################################################################
 
 
-class structuringElement:
+class structuringElement(object):
     """
     This class allows to define simple structuring elements with points belonging
     to the elementary neighborhood of the origin point. Points in use are defined
@@ -62,11 +62,8 @@ class structuringElement:
     def __repr__(self):
         return "structuringElement("+repr(self.directions)+", mamba."+repr(self.grid)+")"
         
-    def __cmp__(self, otherSE):
-        if (otherSE.getGrid()==self.grid) and (otherSE.getDirections()==self.directions):
-            return 0
-        else:
-            return 1
+    def __eq__(self, otherSE):
+        return otherSE.getGrid() == self.grid and otherSE.getDirections() == self.directions
             
     def getGrid(self):
         """

@@ -557,7 +557,7 @@ class _imageDisplay(tk.Toplevel):
 # Class created to handle the references to all the display windows. The mamba
 # image actually don't use a direct call to the display but uses the Displayer
 # class _MbDisplayer: instead.
-class mambaDisplayer:
+class mambaDisplayer(object):
     """
     This generic class is provided to allow advanced users to define their own
     way to display mamba images. To do so, you must create your own displayer

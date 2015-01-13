@@ -98,7 +98,7 @@ def largeHexagonalDilate(imIn, imOut, size, edge=mamba.EMPTY):
     
     imWrk1 = mamba.imageMb(imIn)
     imWrk2 = mamba.imageMb(imIn)
-    sizemax = min(imIn.getSize())/2
+    sizemax = min(imIn.getSize())//2
     # if size larger than sizemax, the operation must be iterated to prevent edge effects.
     n = size
     mamba.copy(imIn, imOut)
@@ -170,7 +170,7 @@ def _sparseConjugateHexagonErode(imIn, imOut, size, edge=mamba.FILLED):
         mamba.shift(imWrk1, imWrk2, 5, i, val, grid=mamba.HEXAGONAL)
         mamba.infFarNeighbor(imWrk2, imOut, 1, i, grid=mamba.HEXAGONAL, edge=edge)
         mamba.infFarNeighbor(imWrk2, imOut, 3, i, grid=mamba.HEXAGONAL, edge=edge)
-        j = 3*i/2
+        j = 3*i//2
         mamba.infFarNeighbor(imWrk1, imOut, 2, j, grid=mamba.HEXAGONAL, edge=edge)
         mamba.infFarNeighbor(imWrk1, imOut, 5, j, grid=mamba.HEXAGONAL, edge=edge)
         
@@ -197,7 +197,7 @@ def _sparseConjugateHexagonDilate(imIn, imOut, size, edge=mamba.EMPTY):
         mamba.shift(imWrk1, imWrk2, 5, i, val, grid=mamba.HEXAGONAL)
         mamba.supFarNeighbor(imWrk2, imOut, 1, i, grid=mamba.HEXAGONAL, edge=edge)
         mamba.supFarNeighbor(imWrk2, imOut, 3, i, grid=mamba.HEXAGONAL, edge=edge)
-        j = 3*i/2
+        j = 3*i//2
         mamba.supFarNeighbor(imWrk1, imOut, 2, j, grid=mamba.HEXAGONAL, edge=edge)
         mamba.supFarNeighbor(imWrk1, imOut, 5, j, grid=mamba.HEXAGONAL, edge=edge)
   
@@ -211,7 +211,7 @@ def largeDodecagonalErode(imIn, imOut, size, edge=mamba.FILLED):
 
     n1 = int(0.4641*size)
     n1 += abs(n1 % 2 - size % 2)
-    n2 =(size - n1)/2
+    n2 = (size - n1)//2
     _sparseConjugateHexagonErode(imIn, imOut, n2, edge=edge)   
     largeHexagonalErode(imOut, imOut, n1, edge=edge)   
     
@@ -225,7 +225,7 @@ def largeDodecagonalDilate(imIn, imOut, size, edge=mamba.EMPTY):
 
     n1 = int(0.4641*size)
     n1 += abs(n1 % 2 - size % 2)
-    n2 =(size - n1)/2
+    n2 = (size - n1)//2
     _sparseConjugateHexagonDilate(imIn, imOut, n2, edge=edge)   
     largeHexagonalDilate(imOut, imOut, n1, edge=edge)   
 

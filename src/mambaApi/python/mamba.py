@@ -21,7 +21,7 @@ VERSION = "1.1.3"
 ###############################################################################
 #  Definitions
 
-class _grid:
+class _grid(object):
     def __init__(self, id, default=False):
         self.id = id
         self.default = default
@@ -49,7 +49,7 @@ SQUARE = _grid(mambaCore.MB_SQUARE_GRID)
 DEFAULT_GRID = _grid(mambaCore.MB_HEXAGONAL_GRID, True)
 """ Value holding the default grid (set to HEXAGONAL at Mamba startup). """
 
-class _edge:
+class _edge(object):
     def __init__(self, id):
         self.id = id
         
@@ -226,7 +226,7 @@ for _i in range (8):
 ###############################################################################
 #  Classes
 
-class imageMb:
+class imageMb(object):
     """
     Defines the imageMb class and its methods.
     All mamba images are represented by this class.

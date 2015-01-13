@@ -18,7 +18,7 @@ import os
 #  Classes
 ###############################################################################
 
-class sequenceMb:
+class sequenceMb(object):
     """
     A sequence of images is represented by an instance of this class.
     """
@@ -124,12 +124,12 @@ class sequenceMb:
         self.width, self.height = self.seq[0].getSize()
         self.depth = self.seq[0].getDepth()
 
-    def __iter__(self):
-        """
-        Makes a mamba image sequence iterable.
-        """
+    # def __iter__(self):
+    #     """
+    #     Makes a mamba image sequence iterable.
+    #     """
         
-        return self
+    #     return self
 
     def next(self):
         """
