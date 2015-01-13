@@ -13,7 +13,7 @@ The project home page is located `here <http://www.mamba-image.org>`_ and look a
 Links to Open Source Mathematical Morphology libraries
 ------------------------------------------------------
 
-* `scikit-image <http://scikit-image.org>` is an image processing library written in Python and
+* `scikit-image <http://scikit-image.org>`_ is an image processing library written in Python and
   Cython. It is more complete than OpenCV (for Mathematical Morphology).
 * `OpenCV <http://opencv.org>`_ is under very active development but quite incomplete for
   Mathematical Morphology, for example reconstruction is not implemented.
