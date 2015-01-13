@@ -76,7 +76,7 @@ def areaLabelling(imIn, imOut):
 
 # This operator is applied to an image of bubbles.
 # Reading and converting the initial image.
-imA = imageMb('binary_foam.png')
+imA = imageMb('images/binary_foam.png')
 imA.convert(1)
 
 # Result image.
@@ -96,5 +96,5 @@ divConst(imB, 9, imC)
 copyBytePlane(imC, 0, imD)
 imD.setPalette(rainbow)
 # Saving the result.
-imD.save('area_labelling.png')
+imD.save('output/area_labelling.png')
  

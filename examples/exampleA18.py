@@ -93,7 +93,7 @@ for i in range(128):
     sepia = sepia + (255, 255, 2 * i)
 
 # Reading the initial image.
-im1 = imageMb('topography.png')
+im1 = imageMb('images/topography.png')
 im2 = imageMb(im1)
 # Defining the new palette.
 im2.setPalette(sepia)
@@ -101,5 +101,5 @@ im2.setPalette(sepia)
 # north east.
 shadowing(im1, im2, 4, 25)
 # Saving the result.
-im2.save('rendering.png')
+im2.save('output/rendering.png')
 

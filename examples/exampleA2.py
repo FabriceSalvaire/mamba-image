@@ -119,7 +119,7 @@ def segmentGrains2(imIn, imOut):
     return nb
 
 # Loading the initial image and creating some working images
-im = imageMb("coffee_grains.jpg")
+im = imageMb("images/coffee_grains.jpg")
 imthresh = imageMb(im, 1)
 
 # Using the function describes in exampleA1.py we compute the automatic
@@ -133,7 +133,7 @@ negate(imthresh, imthresh)
 imSeg1 = imageMb(im, 1)
 segmentGrains1(imthresh, imSeg1)
 # We store this result
-imSeg1.save("segmented_grains_1.png")
+imSeg1.save("output/segmented_grains_1.png")
 
 # This first result is not perfect as some grains are badly segmented. This
 # over-segmentation is due to parity problems affecting some maxima of the
@@ -147,7 +147,7 @@ nb = segmentGrains2(imthresh, imSeg2)
 # We store this result
 # The palette can be changed before saving the result
 imSeg2.setPalette(patchwork)
-imSeg2.save("segmented_grains_2.png")
+imSeg2.save("output/segmented_grains_2.png")
 print "number of grains :", nb
 # The result should be 50, however due to the black band on the right
 # the function counts 51 coffee grains.

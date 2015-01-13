@@ -14,7 +14,7 @@
 from mamba import *
 
 # Opening an existing image (will be greyscale, 8-bit)
-im1 = imageMb('snake.png')
+im1 = imageMb('images/snake.png')
 # Creating a 8-bit image with the same size
 im2 = imageMb(im1, 8)
 # Then a binary image (still same size)
@@ -23,9 +23,9 @@ im3 = imageMb(im1, 1)
 im4 = imageMb(im1, 32)
 
 # Opening an existing image but as binary image
-im5 = imageMb('snake.png', 1)
+im5 = imageMb('images/snake.png', 1)
 # or as a 32-bit image
-im6 = imageMb('snake.png', 32)
+im6 = imageMb('images/snake.png', 32)
 # For the last two examples, this might not be pertinent because of the 
 # properties of the example image.
 

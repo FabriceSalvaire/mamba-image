@@ -57,7 +57,7 @@ def extremities(imIn, imOut, innerParticles=False, grid=DEFAULT_GRID):
     
 # The procedure is applied on two different images    
 # Opening and creating the first image 
-im1 = imageMb('eutectic.png')
+im1 = imageMb('images/eutectic.png')
 imTemp = imageMb(im1, 1)
 imResult = imageMb(im1, 32)
 im1.convert(1)
@@ -70,11 +70,11 @@ extremities(imTemp, imResult, innerParticles=True)
 # them visible).
 threshold(imResult, imTemp, 1, computeMaxRange(imResult)[1])
 mC.dilate(imTemp, imTemp)
-imTemp.save('eutectic_extremities.png')
+imTemp.save('output/eutectic_extremities.png')
 # The same operation is performed on the second image. The only difference
 # concerns 'innerParticles'. Here, the hand is supposed to extend outside
 # the window.
-im2 = imageMb('hand.png')
+im2 = imageMb('images/hand.png')
 imTemp = imageMb(im2, 1)
 imResult = imageMb(im2, 32)
 im2.convert(1)
@@ -82,4 +82,4 @@ mC.open(im2, imTemp)
 extremities(imTemp, imResult)
 threshold(imResult, imTemp, 1, computeMaxRange(imResult)[1])
 mC.dilate(imTemp, imTemp)
-imTemp.save('hand_extremities.png')
+imTemp.save('output/hand_extremities.png')

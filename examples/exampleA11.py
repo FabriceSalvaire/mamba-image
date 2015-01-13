@@ -18,7 +18,7 @@ import mambaComposed as mC
 import mambaExtra as mE
 
 # Reading the initial image.
-imIn = imageMb('electrop.png')
+imIn = imageMb('images/electrop.png')
 
 # Defining working images.
 imWrk1 = imageMb(imIn)
@@ -44,7 +44,7 @@ threshold(imWrk1, backgroundMarker, 1, 255)
 mC.dilate(backgroundMarker, imWrk2)
 diff(blobsMarkers, imWrk2, blobsMarkers)
 logic(blobsMarkers, backgroundMarker, finalMarkers, "sup")
-finalMarkers.save('finalMarkers.png')
+finalMarkers.save('output/finalMarkers.png')
 # The contours of the blobs are obtained by a marker-controlled watershed of
 # the gradient image.
 mC.gradient(imIn, imWrk1)
@@ -55,4 +55,4 @@ threshold(imWrk1, blobsContours, 1, 255)
 mE.multiSuperpose(imIn, blobsContours)
 pal = mE.tagOneColorPalette(255, (255,0,0))
 imIn.setPalette(pal)
-imIn.save('blobsContours.png')
+imIn.save('output/blobsContours.png')

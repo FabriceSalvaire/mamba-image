@@ -17,7 +17,7 @@ from mamba import *
 from mambaComposed import *
 
 # Opening the initial image.
-im = imageMb('alumina.png')
+im = imageMb('images/alumina.png')
 
 # Inverting the image (so that inclusions really correspond to holes).
 negate(im, im)
@@ -30,4 +30,4 @@ closeHoles(im, im)
 negate(im, im)
 
 # And saving the result.
-im.save("filtered_alumina.png")
+im.save("output/filtered_alumina.png")

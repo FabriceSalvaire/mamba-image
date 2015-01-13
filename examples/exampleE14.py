@@ -19,7 +19,7 @@
 from mamba import *
 
 # Opening the initial image.
-imA = imageMb('galaxy.png')
+imA = imageMb('images/galaxy.png')
 
 # The galaxy visible in the image can be easily contained in a 256x256 image.
 # The center of the galaxy is located at image coordinates (253, 256).
@@ -34,4 +34,4 @@ imB = imageMb(256, 256)
 cropCopy(imA, posin, imB, (0, 0), (256, 256))
 
 # Then, we save the new image.
-imB.save("cropped_galaxy.png")
+imB.save("output/cropped_galaxy.png")

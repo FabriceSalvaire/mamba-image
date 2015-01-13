@@ -28,8 +28,8 @@ def firstParticle(imIn, imOut, grid=mamba.DEFAULT_GRID):
     mamba.diff(imIn, imWrk, imIn)
     mamba.copy(imWrk, imOut) 
     
-im = mamba.imageMb("particles.png", 1)
+im = mamba.imageMb("images/particles.png", 1)
 imFP = mamba.imageMb(im)
 firstParticle(im, imFP)
-imFP.save("first_particle.png")
+imFP.save("output/first_particle.png")
 

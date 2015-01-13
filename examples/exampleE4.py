@@ -14,7 +14,7 @@
 from mamba import *
 
 # Loading an image
-im = imageMb('snake.png')
+im = imageMb('images/snake.png')
 
 # This image is 320x230 in 8-bit greyscale
 print im.getSize()

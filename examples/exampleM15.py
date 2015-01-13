@@ -19,7 +19,7 @@ from mambaComposed import *
 from mambaExtra import *
     
 # Reading the initial image 
-imIn = imageMb('gruyere.png')
+imIn = imageMb('images/gruyere.png')
 imIn.convert(1)
 imWrk1 = imageMb(imIn)
 imWrk2 = imageMb(imIn)

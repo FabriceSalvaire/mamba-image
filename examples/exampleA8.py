@@ -41,9 +41,9 @@ def textFiltering(imIn, imOut, textSize=16, textDir="HORZ"):
     threshold(imWrk32, imWrkb, 1, 0xffffffff)
     mul(imIn, imWrkb, imOut)
     
-im = imageMb("is-paris-burning.jpg")
+im = imageMb("images/is-paris-burning.jpg")
 imText = imageMb(im)
 
 textFiltering(im, imText, textSize=8)
 
-imText.save("filter-text.png")
+imText.save("output/filter-text.png")

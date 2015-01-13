@@ -64,7 +64,7 @@ def feretDiameterOpening(imIn, imOut, direc):
     sub(imWrk3, imWrk4, imOut)
     
 # Reading the initial image.
-im1 = imageMb('binary_eutectic.png', 1)
+im1 = imageMb('images/binary_eutectic.png', 1)
 im2 = imageMb(im1, 32)
 im3 = imageMb(im1, 32)
 # Labelling the connected components with the horizontal Feret diameter.
@@ -75,8 +75,8 @@ feretDiameterOpening(im1, im3, "vertical")
 im2.setPalette(rainbow)
 im3.setPalette(rainbow)
 # Saving the results.
-im2.save('H_Feret_label.png')
-im3.save('V_Feret_label.png')
+im2.save('output/H_Feret_label.png')
+im3.save('output/V_Feret_label.png')
 # Example of extraction of the connected components included in a square box
 # of size 100.
 temp1 = imageMb(im1)
@@ -85,5 +85,5 @@ threshold(im2, temp1, 1, 100)
 threshold(im3, temp2, 1, 100)
 logic(temp1, temp2, temp1, "inf")
 # Saving the result.
-temp1.save('bbox_filter.png')
+temp1.save('output/bbox_filter.png')
 

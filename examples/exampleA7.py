@@ -127,7 +127,7 @@ def volumeControlledFlood(imDEM, imFlood, targetVolume, grid=DEFAULT_GRID):
     copy(imWrk1, imFlood)
     return (level+2, vol)
 
-imDEM = createImageFromTIFF("NED10Meter.tif")
+imDEM = createImageFromTIFF("images/NED10Meter.tif")
 imFlood = imageMb(imDEM)
 
 # Our flood starting point
@@ -148,4 +148,4 @@ downscale(imDEM,imDEM_8)
 copyBytePlane(imFlood, 0, imFlood_8)
 logic(imDEM_8, imFlood_8, imDEM_8, "sup")
 imDEM_8.setPalette(tagOneColorPalette(255,(0,100,255)))
-imDEM_8.save("flood.png")
+imDEM_8.save("output/flood.png")

@@ -95,7 +95,7 @@ def roadSegmentation(imIn, imOut, gradsize=1, erosize=10, draw=0, coefth=0.2):
 
 # Launching the realtime acquisition using the video "excerpt_rally.mp4" as 
 # the source.
-launchRealtime("excerpt_rally.mp4", AVC)
+launchRealtime("images/excerpt_rally.mp4", AVC)
 
 # The video has a specific dimension that we need to know to create our 
 # marker image.
@@ -119,6 +119,6 @@ setProcessRealtime(roadSegmentation, INSTANT, gradsize=2, erosize=10, draw=1, co
 
 # Taking a snapshot picture of the result.
 time.sleep(0.2)
-takePictureRealtime("road_seg_snapshot.png")
+takePictureRealtime("output/road_seg_snapshot.png")
 time.sleep(1)
 

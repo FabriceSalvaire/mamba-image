@@ -32,7 +32,7 @@ def watershedByGradMinima(imIn, imOut, grid=DEFAULT_GRID):
     copyBytePlane(marker, 3, imOut)
 
 # Opening and creating images 
-im1 = imageMb('snake.png')
+im1 = imageMb('images/snake.png')
 im2 = imageMb(im1)
 im3 = imageMb(im1)
 
@@ -46,4 +46,4 @@ logic(im3, im2, im3, "sup")
 # a special palette is created
 palws = mambaExtra.tagOneColorPalette(255, (255,0,0))
 im3.setPalette(palws)
-im3.save("snake_watmin.png")
+im3.save("output/snake_watmin.png")

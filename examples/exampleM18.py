@@ -53,7 +53,7 @@ def arrowEncoding(imIn, imOut, oper, grid=DEFAULT_GRID):
         copyBitPlane(imMask, i, imOut)
        
 # Loading the initial image.
-im1 = imageMb('burner.png')
+im1 = imageMb('images/burner.png')
 
 # Arrowing the image, result in im2. The operaton is the supremum (an arrow is
 # drawn if the neighbor value is greater than the center value), the grid in
@@ -61,6 +61,6 @@ im1 = imageMb('burner.png')
 im2 = imageMb(im1)
 arrowEncoding(im1, im2, "sup", grid=SQUARE)
 # Storing the encoded image.
-im2.save("arrowedBurner.png")  
+im2.save("output/arrowedBurner.png")  
            
    

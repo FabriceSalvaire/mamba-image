@@ -80,7 +80,7 @@ def checkEvenness(imIn, maxSize):
 # Warning! this example works only on the hexagonal grid.
 setDefaultGrid(HEXAGONAL)
 # Opening and creating the first image 
-im1 = imageMb('boron1.png')
+im1 = imageMb('images/boron1.png')
 imtemp = imageMb(im1, 1)
 im1.convert(1)
 # Closing holes in the fibers.
@@ -90,7 +90,7 @@ closeFibers(im1, imtemp)
 maxSize = 20
 ncList1 = checkEvenness(imtemp, maxSize)
 # The same operation is performed on the second image
-im2 = imageMb('boron2.png')
+im2 = imageMb('images/boron2.png')
 imtemp = imageMb(im2, 1)
 im2.convert(1)
 # Closing holes in the fibers
@@ -114,4 +114,4 @@ plot.legend(loc='upper right')
 # positive connectivity numbers and negative ones. The transition for the
 # boron2 image is steeper than for the boron1 image as the arrangement of fibers
 # is more regular in this latter image.
-plot.savefig('fibers_connectivity.png')
+plot.savefig('output/fibers_connectivity.png')

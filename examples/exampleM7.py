@@ -53,17 +53,17 @@ def dirMEM(seqIn, imOut, d, n=1, grid=DEFAULT_GRID):
     # And last imOut is set to the inf of this two differences
     logic(imOut, imWrk1, imOut, "inf")
     
-seq = sequenceMb("tennis")
+seq = sequenceMb("images/tennis")
 im = imageMb(seq[0])
 im.setPalette(rainbow)
 
 # Testing it with various direction and size
 dirMEM(seq, im, d=1, n=1, grid=SQUARE)
-im.save("mcm_d1_n1.png")
+im.save("output/mcm_d1_n1.png")
 dirMEM(seq, im, d=1, n=10, grid=SQUARE)
-im.save("mcm_d1_n10.png")
+im.save("output/mcm_d1_n10.png")
 dirMEM(seq, im, d=3, n=1, grid=SQUARE)
-im.save("mcm_d3_n1.png")
+im.save("output/mcm_d3_n1.png")
     
 
 

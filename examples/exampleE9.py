@@ -16,7 +16,7 @@ from mamba import *
 import mambaExtra
 
 # Opening an image
-im = imageMb('coffee_grains.jpg')
+im = imageMb('images/coffee_grains.jpg')
 # To create a superposable image we will generate a binary threshold image
 thresh = imageMb(im, 1)
 threshold(im, thresh, 0, 128)

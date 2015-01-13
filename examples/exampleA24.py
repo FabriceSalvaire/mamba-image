@@ -81,7 +81,7 @@ def detectFaces(imIn):
     return faces_bb
 
 # Applying the operator on the Solvay conference image.
-imIn = imageMb("Solvay_conference_1927.jpg")
+imIn = imageMb("images/Solvay_conference_1927.jpg")
 imOut = imageMb(imIn)
 imbin = imageMb(imIn, 1)
 faces = detectFaces(imIn)
@@ -94,4 +94,4 @@ copy(imIn, imOut)
 multiSuperpose(imOut, imbin)
 pal = tagOneColorPalette(255, (255,0,0))
 imOut.setPalette(pal)
-imOut.save("faces_of_physic.jpg")
+imOut.save("output/faces_of_physic.jpg")

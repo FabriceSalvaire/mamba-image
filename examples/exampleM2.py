@@ -35,11 +35,11 @@ def valuedMinima(imIn, imOut, h=1, grid=DEFAULT_GRID):
     mul(imWrk_bin, imIn, imOut)
 
 # Opening and creating images 
-im1 = imageMb('snake.png')
+im1 = imageMb('images/snake.png')
 im2 = imageMb(im1)
 
 # Computing the valued minima
 valuedMinima(im1, im2)
 
 im2.setPalette(rainbow)
-im2.save("snake_valmin.png")
+im2.save("output/snake_valmin.png")

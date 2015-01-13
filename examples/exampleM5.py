@@ -138,8 +138,8 @@ def downscale(imIn, imOut):
     divConst(imWrk, ma-mi, imWrk)
     copyBytePlane(imWrk, 0, imOut)
     
-imDEM = createImageFromTIFF("NED10Meter.tif")
+imDEM = createImageFromTIFF("images/NED10Meter.tif")
 imDEM_8 = imageMb(imDEM, 8)
 imDEM_8.setPalette(paletteDEM)
 downscale(imDEM,imDEM_8)
-imDEM_8.save("dem.png")
+imDEM_8.save("output/dem.png")

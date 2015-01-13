@@ -109,7 +109,7 @@ def checkClutch(imIn, springBranches, sealZone):
     return check
     
 # Reading the first image.
-im1 = imageMb('motor1.png')
+im1 = imageMb('images/motor1.png')
 
 # Defining result images
 spring = imageMb(im1, 1)
@@ -135,10 +135,10 @@ mE.multiSuperpose(im1, seal, spring)
 pal = mE.tagOneColorPalette(255, pal1)
 pal = mE.changeColorPalette(pal, 254, (255,0,0))
 im1.setPalette(pal)
-im1.save('motor1_check.png')
+im1.save('output/motor1_check.png')
 
 # Reading the next image.
-im1 = imageMb('motor2.png')
+im1 = imageMb('images/motor2.png')
 # Checking it.
 check = checkClutch(im1, seal, spring)
 print "Second image checking:"
@@ -157,5 +157,5 @@ mE.multiSuperpose(im1, spring, seal)
 pal = mE.tagOneColorPalette(255, pal1)
 pal = mE.changeColorPalette(pal, 254, (255,0,0))
 im1.setPalette(pal)
-im1.save('motor2_check.png')
+im1.save('output/motor2_check.png')
 

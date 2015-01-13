@@ -20,7 +20,7 @@ import mambaExtra
 import Image
 
 # Opening an image and storing it in Mamba format
-im = imageMb('colorful.jpg')
+im = imageMb('images/colorful.jpg')
 
 # Converting the image in PIL format
 pilim = mambaExtra.Mamba2PIL(im)
@@ -32,4 +32,4 @@ pilim = pilim.transpose(Image.FLIP_LEFT_RIGHT)
 mambaExtra.PIL2Mamba(pilim, im)
 
 # And saving it, notice that color disappeared
-im.save("colorful_transposed.png")
+im.save("output/colorful_transposed.png")

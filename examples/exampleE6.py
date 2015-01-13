@@ -20,7 +20,7 @@ im = imageMb()
 # 4 value tuple interpreted as (x_start, y_start, x_stop, y_stop).
 # So, in our case, the line goes from point (45,163) to point (221,8)
 mambaDraw.drawLine(im, (45,163,221,8), 180)
-im.save("draw_line.png")
+im.save("output/draw_line.png")
 
 
 im.reset()
@@ -31,7 +31,7 @@ mambaDraw.drawSquare(im, (120,15,160,95), 160)
 # square overlaps the first one. The last drawn is always on top
 # of the others
 mambaDraw.drawSquare(im, (50,80,200,180), 220)
-im.save("draw_square.png")
+im.save("output/draw_square.png")
 
 im.reset()
 # Drawing an empty circle centered in the middle of the image with a 
@@ -39,5 +39,5 @@ im.reset()
 mambaDraw.drawCircle(im, (128,128,50), 255)
 # Then drawing a filled circle.
 mambaDraw.drawFillCircle(im, (128,128,20), 255)
-im.save("draw_circle.png")
+im.save("output/draw_circle.png")
 

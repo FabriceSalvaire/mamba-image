@@ -31,7 +31,7 @@ def buildSupWhiteTopHat(imIn, imOut, size):
     sub(imIn, imWrk, imOut)
 
 # Reading the initial image. 
-imIn = imageMb('retina.png')
+imIn = imageMb('images/retina.png')
 
 # Working image and result image.
 imWrk = imageMb(imIn)
@@ -48,5 +48,5 @@ threshold(imWrk, aneurisms, t, 255)
 mE.multiSuperpose(imIn, aneurisms)
 pal = mE.tagOneColorPalette(255, (255,0,0))
 imIn.setPalette(pal)
-imIn.save('aneurisms.png')
+imIn.save('output/aneurisms.png')
 

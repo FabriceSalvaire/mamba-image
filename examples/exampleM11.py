@@ -34,16 +34,16 @@ def fullBuildAlternateFilter(imIn, imOut, n, openFirst, se=mC.DEFAULT_SE):
             mC.buildClose(imOut, imOut, i, se=se)
             mC.buildOpen(imOut, imOut, i, se=se)
     
-im = mamba.imageMb("lena_noisy.png")
+im = mamba.imageMb("images/lena_noisy.png")
 imFilter = mamba.imageMb(im)
 
 # First we compute the result of the standard full alternate filter
 # on the noisy lena image
 mC.fullAlternateFilter(im, imFilter, 3, True)
-imFilter.save("lena_FAF.png")
+imFilter.save("output/lena_FAF.png")
 # Then we compute the result of the reconstruction based full alternate filter
 # on the noisy lena image
 fullBuildAlternateFilter(im, imFilter, 3, True)
-imFilter.save("lena_FBAF.png")
+imFilter.save("output/lena_FBAF.png")
 
 

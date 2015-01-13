@@ -109,7 +109,7 @@ def drawDelaunay(imIn, imOut):
     return list_ridges
 
 
-im = imageMb("medical.png")
+im = imageMb("images/medical.png")
 
 nuclei = imageMb(im, 1)
 skiz = imageMb(im, 1)
@@ -139,7 +139,7 @@ nb_nuclei = segmentGrains2(imbin1, im1)
 threshold(im1, imbin1, 1, 255)
 copy(imbin1, nuclei)
 nuclei.showDisplay()
-#nuclei.save("nuclei_segmentation.jpg")
+#nuclei.save("output/nuclei_segmentation.jpg")
 
 # Building the voronoi tesselation, skiz and geodesic center
 ################################################################################
@@ -149,18 +149,18 @@ fastSKIZ(imbin1, imbin2)
 removeEdgeParticles(imbin2, imbin2)
 copy(imbin2, skiz)
 skiz.showDisplay()
-#skiz.save("skiz.jpg")
+#skiz.save("output/skiz.jpg")
 thinD(imbin2,imbin3)
 sub(imbin2, imbin3, imbin2)
 copy(imbin2, voronoi)
 voronoi.showDisplay()
-#voronoi.save("voronoi.jpg")
+#voronoi.save("output/voronoi.jpg")
 
 # Delaunay triangulation
 ################################################################################
 edges = drawDelaunay(skiz, delaunay)
 delaunay.showDisplay()
-delaunay.save("delaunay.jpg")
+delaunay.save("output/delaunay.jpg")
 
 # Reporting all the measurements
 ################################################################################

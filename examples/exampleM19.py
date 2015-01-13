@@ -60,12 +60,12 @@ def laplacian(imIn, imOut, n=1, se=mC.DEFAULT_SE):
     copyBytePlane(imWrk3, 0, imOut)
 
 # Loading the initial image and defining the resulting image.
-im1 = imageMb('flocs.png')
+im1 = imageMb('images/flocs.png')
 im2 = imageMb(im1)
 # Performing a laplacian of size 3.
 laplacian(im1, im2, 3)
 # Storing the resulting image.
-im2.save('laplacian.png')
+im2.save('output/laplacian.png')
 # Defining other working images.
 im3 = imageMb(im1)
 imMarkers = imageMb(im1, 32)
@@ -96,5 +96,5 @@ copyBytePlane(imMarkers, 0, im3)
 mC.halfGradient(im3, im3)
 threshold(im3, imbin1, 0, 0)
 # Saving the contours.
-imbin1.save('zero-crossings.png')
+imbin1.save('output/zero-crossings.png')
 

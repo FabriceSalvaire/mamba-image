@@ -23,7 +23,7 @@ import mambaComposed as mC
 import mambaExtra as mE
 
 # Opening the image (PIL format) and splitting it into three color channels
-pilim = Image.open('gallery.png')
+pilim = Image.open('images/gallery.png')
 imRed = imageMb(pilim.size[0], pilim.size[1], 8)
 imGreen = imageMb(imRed)
 imBlue = imageMb(imRed)
@@ -67,8 +67,8 @@ logic(imRed, imWts, imRed, "sup")
 logic(imGreen, imWts, imGreen, "sup")
 logic(imBlue, imWts, imBlue, "sup")
 pilim = mE.mix(imRed, imGreen, imBlue)
-pilim.save('segmented_gallery.png')
+pilim.save('output/segmented_gallery.png')
 negate(imWts, imWts)
-imWts.save('binary_segmentation.png')
+imWts.save('output/binary_segmentation.png')
 
 

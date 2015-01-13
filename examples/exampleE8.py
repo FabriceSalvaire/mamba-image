@@ -14,7 +14,7 @@
 from mamba import *
 import mambaExtra
 # Opening an image
-im = imageMb('snake.png')
+im = imageMb('images/snake.png')
 
 # Calling the dynamic threshold GUI
 # This will block script progression until user hit the close button

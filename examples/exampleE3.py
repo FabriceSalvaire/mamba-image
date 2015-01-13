@@ -14,7 +14,7 @@
 from mamba import *
 
 # Let's start with an image and an activated display
-im = imageMb('snake.png')
+im = imageMb('images/snake.png')
 im.showDisplay()
 
 # Setting up a rainbow palette for image im
@@ -70,7 +70,7 @@ your_palette = (
 im.setPalette(your_palette)
 
 # If you save at this point, the saved image will use the palette
-im.save('snake_palette.png')
+im.save('output/snake_palette.png')
 
 # Now you can play with the display shortcuts
 # Try pressing P, it disables the palette (only in display not in save)

@@ -158,7 +158,7 @@ def directionalCoding(imIn, imOut, grid=mamba.DEFAULT_GRID):
 
 # Trying these operators on a fiber image.
 # Loading the initial image.
-im1 = mamba.imageMb('fiber.png')
+im1 = mamba.imageMb('images/fiber.png')
 # Defining some working images.
 im2 = mamba.imageMb(im1)
 imbin1 = mamba.imageMb(im1, 1)
@@ -176,7 +176,7 @@ for i in range(249):
 # The palette is applied to the result.  
 im2.setPalette(dirpal)
 # The result is saved.
-im2.save('coded_directions.png')
+im2.save('output/coded_directions.png')
 
 
 

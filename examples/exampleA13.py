@@ -40,7 +40,7 @@ def extractMarkers(imIn, imOut):
         logic(imWrk2, imOut, imOut, "sup")
 
 # Reading the image.
-im1 = imageMb('steel_sheet.png')
+im1 = imageMb('images/steel_sheet.png')
 # Defining working images.
 imWrk1 = imageMb(im1, 1)
 imWrk2 = imageMb(im1)
@@ -60,7 +60,7 @@ watershedSegment(imWrk2, imWrk3)
 copyBytePlane(imWrk3, 3, imWrk2)
 threshold(imWrk2, imWrk1, 1, 255)
 # Saving the grid image.
-imWrk1.save('grid_image.png')
+imWrk1.save('output/grid_image.png')
 # Crossing points extraction.
 multiplePoints(imWrk1, imWrk4)
 dilate(imWrk4, imWrk4, 2)
@@ -82,7 +82,7 @@ while computeVolume(imWrk4) != 0:
 thinD(crossings, crossings)
 dilate(crossings, crossings, 3)
 # The result is saved.
-crossings.save('grid_crossings.png')
+crossings.save('output/grid_crossings.png')
 
 # Superposing the various results to the original image and saving the result.
 negate(imWrk1, imWrk1)
@@ -90,5 +90,5 @@ mE.multiSuperpose(im1, imWrk1, crossings)
 pal = mE.tagOneColorPalette(255, (0,255,0))
 pal = mE.changeColorPalette(pal, 254, (255,0,0))
 im1.setPalette(pal)
-im1.save('grid_result.png')
+im1.save('output/grid_result.png')
 

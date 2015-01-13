@@ -48,8 +48,8 @@ def geodesicGreyDistance(imIn, imMask, imOut):
         vol = computeVolume(imOut)
 
 # Loading initial images.
-im1 = imageMb('traffic_sum.png')
-im2 = imageMb('traffic_diff.png')
+im1 = imageMb('images/traffic_sum.png')
+im2 = imageMb('images/traffic_diff.png')
 # Defining resulting images.
 # This image will contain the lanes markers.
 im3 = imageMb(im1, 1) 

@@ -20,7 +20,7 @@ from mamba import *
 from mambaComposed import *
     
 # Reading the image.
-im1 = imageMb('rocks.png')
+im1 = imageMb('images/rocks.png')
 
 # Defining working images.
 imWrk0 = imageMb(im1)
@@ -44,7 +44,7 @@ ultimateIsotropicOpening(imWrk0, imWrk1, imWrk2)
 copyBytePlane(imWrk2, 0, imWrk3)
 # This image is saved with a color palette.
 imWrk3.setPalette(patchwork)
-imWrk3.save('rocks_granu.png')
+imWrk3.save('output/rocks_granu.png')
 # The flat zones of the granulometric image are extracted (these zones have
 # a gradient equal to zero).
 gradient(imWrk3, imWrk4)
@@ -68,7 +68,7 @@ generateSupMask(imWrk6, imWrk7, imWrk8, False)
 buildClose(imWrk8, imWrk9)
 buildOpen(imWrk8, imWrk9)
 # The result is saved.
-imWrk9.save('rocks_markers.png')
+imWrk9.save('output/rocks_markers.png')
 
 # In this second part, we shall use the previous markers to segment the blocks
 # in the heap of rocks.
@@ -105,5 +105,5 @@ threshold(imWrk4, imWrk8, 0,0)
 build(imWrk8, imWrk5)
 diff(imWrk8, imWrk5, imWrk5)
 # The segmented image is saved.
-imWrk5.save('rocks_segment.png')
+imWrk5.save('output/rocks_segment.png')
 

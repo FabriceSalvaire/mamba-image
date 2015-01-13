@@ -144,7 +144,7 @@ def directionalClose(imIn, imOut, d, size, grid=mamba.DEFAULT_GRID, edge=mamba.F
 
 # Trying these operators on a fibers image.
 # Loading the initial image.
-im1 = mamba.imageMb('ferrite.png')
+im1 = mamba.imageMb('images/ferrite.png')
 # Defining some working images.
 im2 = mamba.imageMb(im1)
 imbin1 = mamba.imageMb(im1, 1)

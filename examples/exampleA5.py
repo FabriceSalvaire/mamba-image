@@ -96,7 +96,7 @@ def roadColorSegmentation(imInR, imInG, imInB,
 
 # Launching the realtime acquisition using the video "excerpt_rally.mp4" as 
 # the source.
-launchRealtime("excerpt_rally.mp4", AVC)
+launchRealtime("images/excerpt_rally.mp4", AVC)
 
 # The video has a specific dimension that we need to know to create our 
 # marker image.

@@ -71,7 +71,7 @@ def adaptiveHorizontalOpen(imIn, scaleIm, imOut):
 # The vehicles extraction process is now defined.
 # Firstly, the scale image used by the aadaptive opening is built from the mask
 # of the road. 
-imb1 = imageMb('traffic_road_mask.png')
+imb1 = imageMb('images/traffic_road_mask.png')
 imb1.convert(1)
 imb2 = imageMb(imb1)
 imb3 = imageMb(imb1)
@@ -97,8 +97,8 @@ im2.fill(255)
 v = buildNeighbor(im2, im1, 2)
 v = buildNeighbor(im2, im1, 5)
 # The traffic image and the mean image are loaded.
-im2 = imageMb('traffic.png')
-im3 = imageMb('traffic_sum.png')
+im2 = imageMb('images/traffic.png')
+im3 = imageMb('images/traffic_sum.png')
 # Their difference (limited to zero) is performed.
 sub(im3, im2, im3)
 # The height of the maxima which are considered as salient ones is calculated.

@@ -100,7 +100,7 @@ def checkAntibiograms(imIn, discCenters, halosRadii):
     floorSubConst(halosRadii, DISC_SIZE, halosRadii)
     
 # Reading the initial image.
-im1 = imageMb('antibio1.png')
+im1 = imageMb('images/antibio1.png')
 # Defining working images.
 imWrk1 = imageMb(im1, 32)
 imWrk2 = imageMb(im1, 1)
@@ -118,10 +118,10 @@ while computeVolume(imWrk3) != 0:
     diff(imWrk3, imWrk2, imWrk3)
     results.append((x,y,value))
 # The result is saved.
-drawingResults(im1, results, 'anti1_result.png')
+drawingResults(im1, results, 'output/anti1_result.png')
 
 # Processing the second image.
-im1 = imageMb('antibio2.png')
+im1 = imageMb('images/antibio2.png')
 checkAntibiograms(im1, imWrk3, imWrk1)
 results = []
 while computeVolume(imWrk3) != 0:
@@ -131,5 +131,5 @@ while computeVolume(imWrk3) != 0:
     diff(imWrk3, imWrk2, imWrk3)
     results.append((x,y,value))
 # Saving the result.
-drawingResults(im1, results, 'anti2_result.png')
+drawingResults(im1, results, 'output/anti2_result.png')
 

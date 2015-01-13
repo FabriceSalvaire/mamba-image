@@ -149,7 +149,7 @@ dirpal += (128, 0, 255, 255, 0, 255, 255, 0, 128)
 dirpal += 243 * (0, 0, 0)
     
 # Reading the initial image and defining results images.
-imA = mamba.imageMb('seismic_section.png')
+imA = mamba.imageMb('images/seismic_section.png')
 imB = mamba.imageMb(imA)
 imC = mamba.imageMb(imA)
 
@@ -162,7 +162,7 @@ imB.setPalette(mamba.rainbow)
 vectorGradient(imA, imB, imC)
 
 # Saving the results.
-imB.save('gradient_modulus.png')
-imC.save('gradient_azimut.png')
+imB.save('output/gradient_modulus.png')
+imC.save('output/gradient_azimut.png')
 
  

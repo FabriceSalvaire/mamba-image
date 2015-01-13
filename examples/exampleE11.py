@@ -18,7 +18,7 @@ from mamba import *
 import mambaExtra
 
 # Opening an image
-im = imageMb('snake.png')
+im = imageMb('images/snake.png')
 # The 32-bit image in which the segmentation result will be placed
 imSeg = imageMb(im, 32)
 

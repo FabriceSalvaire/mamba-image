@@ -41,14 +41,14 @@ def regularisedMinima(imIn, imOut, maxSize=8):
  
 # Testing the algorithm.
 # Reading the initial image.
-im1 = imageMb('car.png')
+im1 = imageMb('images/car.png')
 imMarkers = imageMb(im1, 1)
 
 # Extracting the regularised minima. Applying the operator in the range (1, 4)
 # is sufficient.
 regularisedMinima(im1, imMarkers, 4)
 # Storing the result.
-imMarkers.save('reg_minima.png')
+imMarkers.save('output/reg_minima.png')
 # Computing the classical gradient.
 im2 = imageMb(im1)
 gradient(im1, im2)
@@ -58,7 +58,7 @@ valuedWatershed(im2, im3)
 imbin = imageMb(im1, 1)
 threshold(im3, imbin, 0, 0)
 # Saving the result.
-imbin.save('car_contours1.png')
+imbin.save('output/car_contours1.png')
 # Using the previous markers to perform a marker-controlled segmentation.
 im32 = imageMb(im1, 32)
 nb = label(imMarkers, im32)
@@ -66,5 +66,5 @@ watershedSegment(im2, im32)
 copyBytePlane(im32, 3, im3)
 threshold(im3, imbin, 0, 0)
 # Saving this segmentation.
-imbin.save('car_contours2.png')
+imbin.save('output/car_contours2.png')
 

@@ -14,7 +14,7 @@
 from mamba import *
 
 # Loading an image
-im = imageMb('snake.png')
+im = imageMb('images/snake.png')
 
 # Activating the display. This will make a window appear
 im.showDisplay()

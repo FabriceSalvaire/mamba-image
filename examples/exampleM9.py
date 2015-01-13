@@ -27,8 +27,8 @@ def contrastEnhancer(imIn, imOut, n=1, se=mC.DEFAULT_SE):
     mC.blackTopHat(imIn, imWrk, n, se=se)
     mamba.sub(imOut, imWrk, imOut) 
     
-im = mamba.imageMb("snake.png")
+im = mamba.imageMb("images/snake.png")
 imContrast = mamba.imageMb(im)
 contrastEnhancer(im, imContrast, 10)
-imContrast.save("snake_contrast.png")
+imContrast.save("output/snake_contrast.png")
 

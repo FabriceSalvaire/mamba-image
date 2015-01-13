@@ -23,7 +23,7 @@ from mambaComposed import *
 from mamba3D import *
 
 # Importing the initial image and converting it to binary.
-imA = image3DMb('foam')
+imA = image3DMb('images/foam')
 imA.convert(1)
 # The initial image is filtered (holes are closed and a reconstruction opening
 # is performed to remove small artifacts which could be present in th 3D volume.

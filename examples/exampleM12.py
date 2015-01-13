@@ -22,7 +22,7 @@ import mamba
 import mambaDraw
 import mambaComposed as mC
 
-im = mamba.imageMb("tools.png")
+im = mamba.imageMb("images/tools.png")
 
 im1 = mamba.imageMb(im)
 im2 = mamba.imageMb(im)
@@ -39,7 +39,7 @@ mC.valuedWatershed(im1, im2)
 n = mC.enhancedWaterfalls(im2, im3)
 mamba.threshold(im3, im4, 0, n-1)
 print "Enhanced waterfalls, levels = %d" % (n)
-im4.save("tools_segEW.png")
+im4.save("output/tools_segEW.png")
 
 # Standard algorithm
 ####################
@@ -48,13 +48,13 @@ im4.save("tools_segEW.png")
 n = mC.standardSegment(im2, im3)
 mamba.threshold(im3, im4, 0, n-1)
 print "Standard algorithm, levels = %d" % (n)
-im4.save("tools_segStd_g20.png")
+im4.save("output/tools_segStd_g20.png")
 # Let's try with a smaller gain, like 1.5
 # It produces what seems to be a better result
 n = mC.standardSegment(im2, im3, gain=1.5)
 mamba.threshold(im3, im4, 0, n-1)
 print "Standard algorithm, levels = %d" % (n)
-im4.save("tools_segStd_g15.png")
+im4.save("output/tools_segStd_g15.png")
 # So why not lower the gain again ? 
 # Well if the result seems equal to the enhanced it's because
 # standardSegment with a 1.0 gain is equal to
@@ -62,7 +62,7 @@ im4.save("tools_segStd_g15.png")
 n = mC.standardSegment(im2, im3, gain=0.5)
 mamba.threshold(im3, im4, 0, n-1)
 print "Standard algorithm, levels = %d" % (n)
-im4.save("tools_segStd_g10.png")
+im4.save("output/tools_segStd_g10.png")
 # Regarding the gain, you should note that a greater gain will
 # produce a more segmented image. Gains below 1.0 produces the
 # same result as 1.0.
@@ -74,7 +74,7 @@ im4.save("tools_segStd_g10.png")
 n = mC.segmentByP(im2, im3)
 mamba.threshold(im3, im4, 0, n-1)
 print "P algorithm, levels = %d" % (n)
-im4.save("tools_segP.png")
+im4.save("output/tools_segP.png")
 
 # Extended algorithm (experimental)
 ###################################
@@ -90,5 +90,5 @@ mamba.mul(im5, im2, im5)
 n = mC.extendedSegment(im2, im5, im3)
 mamba.threshold(im3, im4, 0, n-1)
 print "Extended algorithm, levels = %d" % (n)
-im4.save("tools_segExt.png")
+im4.save("output/tools_segExt.png")
 

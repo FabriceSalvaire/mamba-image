@@ -30,12 +30,12 @@ def neighborCounter(imIn, imOut, grid=mamba.DEFAULT_GRID):
         mC.binaryHMT(imIn, imWrk, dse=dse)
         mamba.add(imOut, imWrk, imOut)
     
-im = mamba.imageMb("particles.png", 1)
+im = mamba.imageMb("images/particles.png", 1)
 imCount = mamba.imageMb(im, 8)
 neighborCounter(im, imCount, mamba.SQUARE)
 # Creating a specific palette to see more clearly the possible values
 # wich range from 0 to 8 for a square grid.
 palette = (0,0,0,255,0,0,0,255,0,255,128,0,0,255,128,255,255,0,0,255,255,128,255,0,0,128,255)+247*(0,0,0)
 imCount.setPalette(palette)
-imCount.save("particles_nbg.png")
+imCount.save("output/particles_nbg.png")
 

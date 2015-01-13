@@ -36,9 +36,9 @@ def squeeze(imIn, imOut, value1, value2):
     logic(imOut, imWrk2, imOut, "inf")
 
 # Squeezing an image between 80 and 150.
-im1 = imageMb('burner.png')
+im1 = imageMb('images/burner.png')
 im2 = imageMb(im1)
 squeeze(im1, im2, 80, 150)
 # Saving the result.
-im2.save('squeezed_burner.png')
+im2.save('output/squeezed_burner.png')
 

@@ -16,7 +16,7 @@ import mamba
 import mambaComposed as mC
 import mambaExtra
 
-im = mamba.imageMb("wheel.png", 1)
+im = mamba.imageMb("images/wheel.png", 1)
 im1 = mamba.imageMb(im, 1)
 im2 = mamba.imageMb(im, 1)
 
@@ -42,4 +42,4 @@ mamba.subConst(im8, 1, im8)
 mamba.logic(im8, im1, im8, "sup")
 pal = mambaExtra.tagOneColorPalette(255, (0,0,255))
 im8.setPalette(pal)
-im8.save("wheel_teeth.png")
+im8.save("output/wheel_teeth.png")

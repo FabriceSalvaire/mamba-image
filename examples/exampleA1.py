@@ -64,7 +64,7 @@ def autoThreshold(imIn, imOut):
     
     return threshval
 
-im = imageMb("coffee_grains.jpg")
+im = imageMb("images/coffee_grains.jpg")
 imbin = imageMb(im, 1)
 
 # Computing the automatic threshold image
@@ -75,5 +75,5 @@ autoThreshold(im, imbin)
 # for performance reasons. This has a no impact on the quality of the result.
 # Also notice that the result is not a very good segmentation as different
 # coffee grains are connected in a unique set.
-imbin.save("threshold_coffee_grains.jpg")
+imbin.save("output/threshold_coffee_grains.jpg")
 

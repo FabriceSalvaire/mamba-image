@@ -139,7 +139,7 @@ def extremePoints(imIn, imOut):
     logic(imWrk5, imWrk6, imOut, "sup")
 
 # Reading and converting the initial image.
-im1 = imageMb('eutectic.png')
+im1 = imageMb('images/eutectic.png')
 im1.convert(1)
 
 # working images.
@@ -187,7 +187,7 @@ logic(imWrk9, imWrk3, imWrk9, "sup")
 # of the multiple points.
 whiteClip(imWrk9, imWrk9, step=1)
 # The result image is saved.
-imWrk9.save('eutectic_disloc.png')
+imWrk9.save('output/eutectic_disloc.png')
 
 # We can also build the cells containing stacked lamellae. This is done
 # by adding boundaries connecting the edge and the end points of the previous
@@ -212,7 +212,7 @@ imWrk11.setPalette(rainbow)
 # The result image is saved (with different colors for the different cells).
 # Note that the lamella at the upper right is ambiguous. Therefore, it has
 # been given a different color.
-imWrk11.save('eutectic_cells.png')
+imWrk11.save('output/eutectic_cells.png')
 
 
 

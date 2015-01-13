@@ -93,9 +93,9 @@ def gaussianBlur(imIn, imOut):
     # Filling imOut with the result
     fillImageWithArray(conv_array, imOut)
 
-im = imageMb("snake.png")
+im = imageMb("images/snake.png")
 im1 = imageMb(im)
 gaussianBlur(im, im1)
-im1.save("blurred_snake.png")
+im1.save("output/blurred_snake.png")
 
 

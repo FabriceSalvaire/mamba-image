@@ -19,9 +19,9 @@ import mambaExtra
 import mambaComposed as mC
 
 # Opening the image for each color channel (red, green and blue)
-imRed = imageMb('colorful.jpg', rgbfilter=(1.0, 0.0, 0.0))
-imGreen = imageMb('colorful.jpg', rgbfilter=(0.0, 1.0, 0.0))
-imBlue = imageMb('colorful.jpg', rgbfilter=(0.0, 0.0, 1.0))
+imRed = imageMb('images/colorful.jpg', rgbfilter=(1.0, 0.0, 0.0))
+imGreen = imageMb('images/colorful.jpg', rgbfilter=(0.0, 1.0, 0.0))
+imBlue = imageMb('images/colorful.jpg', rgbfilter=(0.0, 0.0, 1.0))
 
 # We will perform a half gradient on each color channel
 mC.halfGradient(imRed, imRed)
@@ -33,4 +33,4 @@ mC.halfGradient(imBlue, imBlue)
 pilim = mambaExtra.mix(imRed, imGreen, imBlue)
 
 # We save it
-pilim.save("colorful_grad.png")
+pilim.save("output/colorful_grad.png")
