@@ -139,7 +139,7 @@ imFlood.setPixel(255, (1337,81))
 # the information regarding your DEM (such as grid resolution and pixel
 # value metrics). Here we picked a SQUARE grid because it is most
 # likely going to represent the grid used in the DEM.
-print volumeControlledFlood(imDEM, imFlood, 20000000, grid=SQUARE)
+print(volumeControlledFlood(imDEM, imFlood, 20000000, grid=SQUARE))
 
 # Displaying the result
 imDEM_8 = imageMb(imDEM, 8)

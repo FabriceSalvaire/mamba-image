@@ -33,7 +33,7 @@ mC.open(im2, im2)
 # Counting and marking each tooth
 mC.thinD(im2, im1)
 nb_teeth = mamba.computeVolume(im1)
-print "Number of teeth:", nb_teeth
+print("Number of teeth:", nb_teeth)
 mC.dilate(im1, im1, 3, mC.SQUARE3X3)
 im1.convert(8)
 im8 = mamba.imageMb(im, 8)

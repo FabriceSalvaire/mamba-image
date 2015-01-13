@@ -17,6 +17,8 @@
 # information on these algorithms.
 
 ## SCRIPT ######################################################################
+from __future__ import division
+from __future__ import print_function
 # Importing the mamba module, the mambaComposed package
 import mamba
 import mambaDraw
@@ -38,7 +40,7 @@ mC.valuedWatershed(im1, im2)
 #####################
 n = mC.enhancedWaterfalls(im2, im3)
 mamba.threshold(im3, im4, 0, n-1)
-print "Enhanced waterfalls, levels = %d" % (n)
+print("Enhanced waterfalls, levels = %d" % (n))
 im4.save("output/tools_segEW.png")
 
 # Standard algorithm
@@ -47,13 +49,13 @@ im4.save("output/tools_segEW.png")
 # than the enhanced waterfalls.
 n = mC.standardSegment(im2, im3)
 mamba.threshold(im3, im4, 0, n-1)
-print "Standard algorithm, levels = %d" % (n)
+print("Standard algorithm, levels = %d" % (n))
 im4.save("output/tools_segStd_g20.png")
 # Let's try with a smaller gain, like 1.5
 # It produces what seems to be a better result
 n = mC.standardSegment(im2, im3, gain=1.5)
 mamba.threshold(im3, im4, 0, n-1)
-print "Standard algorithm, levels = %d" % (n)
+print("Standard algorithm, levels = %d" % (n))
 im4.save("output/tools_segStd_g15.png")
 # So why not lower the gain again ? 
 # Well if the result seems equal to the enhanced it's because
@@ -61,7 +63,7 @@ im4.save("output/tools_segStd_g15.png")
 # enhancedWaterfalls.
 n = mC.standardSegment(im2, im3, gain=0.5)
 mamba.threshold(im3, im4, 0, n-1)
-print "Standard algorithm, levels = %d" % (n)
+print("Standard algorithm, levels = %d" % (n))
 im4.save("output/tools_segStd_g10.png")
 # Regarding the gain, you should note that a greater gain will
 # produce a more segmented image. Gains below 1.0 produces the
@@ -73,7 +75,7 @@ im4.save("output/tools_segStd_g10.png")
 # It is however one of the slowest (more hierarchical levels).
 n = mC.segmentByP(im2, im3)
 mamba.threshold(im3, im4, 0, n-1)
-print "P algorithm, levels = %d" % (n)
+print("P algorithm, levels = %d" % (n))
 im4.save("output/tools_segP.png")
 
 # Extended algorithm (experimental)
@@ -85,10 +87,10 @@ im4.save("output/tools_segP.png")
 # are removed).
 (w, h) = im.getSize()
 im5.fill(1)
-mambaDraw.drawFillCircle(im5, (w/2, h/2, w/4), 2)
+mambaDraw.drawFillCircle(im5, (w//2, h//2, w//4), 2)
 mamba.mul(im5, im2, im5)
 n = mC.extendedSegment(im2, im5, im3)
 mamba.threshold(im3, im4, 0, n-1)
-print "Extended algorithm, levels = %d" % (n)
+print("Extended algorithm, levels = %d" % (n))
 im4.save("output/tools_segExt.png")
 

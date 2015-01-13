@@ -7,6 +7,7 @@
 # In this example, we use the pixels manipulation methods.
 
 ## SCRIPT ######################################################################
+from __future__ import print_function
 # Importing the mamba module
 from mamba import *
 
@@ -16,13 +17,13 @@ im = imageMb()
 # Setting the pixel at (128,128) to value 50
 im.setPixel(50, (128,128))
 # Getting the pixel value at the same position
-print im.getPixel((128,128))
+print(im.getPixel((128,128)))
 
 # When trying to access a pixel outside image boundary an exception is raised
 try:
     im.getPixel((256,256)) # position start at 0 to width-1 or height-1
 except MambaError:
-    print "error catch"
+    print("error catch")
 
 # The two methods to set a pixel vary on one aspect: the display update
 im.showDisplay()

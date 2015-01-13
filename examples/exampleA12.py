@@ -15,6 +15,7 @@
 # radius of each halo can be determined automatically.
 
 ## SCRIPT ######################################################################
+from __future__ import division
 # Importing the mamba module and the mambaComposed package
 from mamba import *
 from mambaComposed import *
@@ -40,8 +41,8 @@ def drawingResults(imIn, results, path):
     font = ImageFont.truetype("FreeMonoBold.ttf", 20)
     for (x,y,value) in results:
         width, height = font.getsize(str(value))
-        red = (255*(max_value-value))/max_value
-        green = (255*value)/max_value
+        red = (255*(max_value-value))//max_value
+        green = (255*value)//max_value
         color = "rgb(%d,%d,0)" % (red,green)
         r = value+DISC_SIZE
         draw.ellipse((x-r,y-r,x+r,y+r), outline=color)
@@ -88,7 +89,7 @@ def checkAntibiograms(imIn, discCenters, halosRadii):
     build(imWrk1, imWrk3)
     # This unaltered microbe culture image is thresholded. The
     # threshold value is half its grey value. We obtain the halos.
-    threshold(imWrk3, imWrk5, 0, t/2)
+    threshold(imWrk3, imWrk5, 0, t//2)
     # the distance function of this set is computed.
     computeDistance(imWrk5, imWrk6)
     # The center points are stored in a 32-bit image.

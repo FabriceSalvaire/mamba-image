@@ -63,9 +63,9 @@ def directionalErode(imIn, imOut, d, size, grid=mamba.DEFAULT_GRID, edge=mamba.F
     """
     
     if (d & 1) == 0:
-        conjugateDirectionalErode(imIn, imOut, d/2, size, grid=grid, edge=edge)
+        conjugateDirectionalErode(imIn, imOut, d//2, size, grid=grid, edge=edge)
     else:
-        mC.linearErode(imIn, imOut, (d+1)/2, size*2, grid=grid, edge=edge) 
+        mC.linearErode(imIn, imOut, (d+1)//2, size*2, grid=grid, edge=edge) 
 
 # similar operators are defined for the dilation.
 def conjugateDirectionalDilate(imIn, imOut, d, size, grid=mamba.DEFAULT_GRID, edge=mamba.EMPTY):
@@ -110,9 +110,9 @@ def directionalDilate(imIn, imOut, d, size, grid=mamba.DEFAULT_GRID, edge=mamba.
     """
     
     if (d & 1) == 0:
-        conjugateDirectionalDilate(imIn, imOut, d/2, size, grid=grid, edge=edge)
+        conjugateDirectionalDilate(imIn, imOut, d//2, size, grid=grid, edge=edge)
     else:
-        mC.linearDilate(imIn, imOut, (d+1)/2, size*2, grid=grid, edge=edge) 
+        mC.linearDilate(imIn, imOut, (d+1)//2, size*2, grid=grid, edge=edge) 
 
 def directionalOpen(imIn, imOut, d, size, grid=mamba.DEFAULT_GRID, edge=mamba.FILLED):
     """

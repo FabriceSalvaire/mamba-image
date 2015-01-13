@@ -16,7 +16,7 @@
 # which are not visible at the first sight.
 
 ## SCRIPT ######################################################################
-
+from __future__ import division
 # Importing the mamba module and the mambaComposed package
 from mamba import *
 from mambaComposed import *
@@ -204,7 +204,7 @@ erode(imWrk2, imWrk2, n=2, edge=EMPTY)
 fastSKIZ(imWrk2, imWrk2)
 nCells = label(imWrk2, imWrk10)
 copyBytePlane(imWrk10, 0, imWrk11)
-v = 256/nCells
+v = 256//nCells
 mulConst(imWrk11, v, imWrk11)
 convert(im1, imWrk12)
 logic(imWrk11, imWrk12, imWrk11, "inf")

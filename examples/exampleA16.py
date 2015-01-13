@@ -15,6 +15,7 @@
 # allows to get not so bad results. 
 
 ## SCRIPT ######################################################################
+from __future__ import print_function
 # Importing the mamba and the mambaComposed packages.
 from mamba import *
 from mambaComposed import *
@@ -90,7 +91,7 @@ closeHoles(imWrk5, imWrk5)
 thinD(imWrk5, imWrk5)
 # The rocks markers are labelled.
 nbStones = label(imWrk9, imWrk2)
-print "Number of stones :", nbStones
+print("Number of stones :", nbStones)
 # We add 1 to the label values to let room for the background marker.
 add(imWrk2, imWrk9, imWrk2)
 # The background marker is added (label 1). Note that all the connected

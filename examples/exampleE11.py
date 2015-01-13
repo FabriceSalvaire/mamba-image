@@ -13,6 +13,7 @@
 # programs such as GIMP.
 
 ## SCRIPT ######################################################################
+from __future__ import print_function
 # Importing the mamba module and of course the mambaExtra module
 from mamba import *
 import mambaExtra
@@ -32,4 +33,4 @@ imSeg = imageMb(im, 32)
 #
 # Of course the display can be zoom in or out and has most of the 
 # functionalities available in the standard mamba display.
-print mambaExtra.interactiveSegment(im, imSeg)
+print(mambaExtra.interactiveSegment(im, imSeg))

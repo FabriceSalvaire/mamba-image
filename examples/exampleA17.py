@@ -15,6 +15,7 @@
 # Initial image, courtesy of 0. Lordereau, Dept of Physics, Rennes University).
 
 ## SCRIPT ######################################################################
+from __future__ import division
 # Importing mamba and mambaComposed.
 from mamba import *
 from mambaComposed import *
@@ -57,7 +58,7 @@ def areaLabelling(imIn, imOut):
             # output LUTs.
             while j >= 0:
                 n = 2 ** (8 * j)
-                outLuts[j][i] = value / n
+                outLuts[j][i] = value // n
                 value = value % n
                 j -= 1
         # each LUT is used to label each byte plane of a temporary image with the

@@ -12,6 +12,7 @@
 # the quality of the final result.
 
 ## SCRIPT ######################################################################
+from __future__ import print_function
 # Importing the mamba module and the mambaComposed package
 # module
 from mamba import *
@@ -148,7 +149,7 @@ nb = segmentGrains2(imthresh, imSeg2)
 # The palette can be changed before saving the result
 imSeg2.setPalette(patchwork)
 imSeg2.save("output/segmented_grains_2.png")
-print "number of grains :", nb
+print("number of grains :", nb)
 # The result should be 50, however due to the black band on the right
 # the function counts 51 coffee grains.
 

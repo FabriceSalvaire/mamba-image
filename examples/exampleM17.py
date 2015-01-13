@@ -17,6 +17,7 @@
 # segment coffee grains in exampleA2.py (coffee grains separation and counting).
 
 ## SCRIPT ######################################################################
+from __future__ import print_function
 # Importing the mamba and mamba3D modules.
 from mamba import *
 from mambaComposed import *
@@ -40,7 +41,7 @@ computeDistance3D(imD, imE, edge=FILLED)
 # We verify that the maximum distance is less than 256 so that the result can
 # be transferred into a greyscale image.
 tMax = computeRange3D(imE)[1]
-print "maximum size of pellets: ", tMax
+print("maximum size of pellets: ", tMax)
 imF = image3DMb(imA, 8)
 copyBytePlane3D(imE, 0, imF)
 # The distance function is filtered in order to keep its most significant
@@ -52,7 +53,7 @@ maxima3D(imG, imB)
 negate3D(imF, imF)
 # labelling the markers and printing the number of pellets.
 nbPellets = label3D(imB, imE)
-print "Number of polyurethane pellets : ", nbPellets
+print("Number of polyurethane pellets : ", nbPellets)
 # A 3D watershed of the inverted distance function is performed.
 watershedSegment3D(imF, imE)
 copyBytePlane3D(imE, 3, imG)

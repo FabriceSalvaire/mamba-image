@@ -18,6 +18,7 @@
 # from the mean image of the scene (moving objects have been removed).    
 
 ## SCRIPT ######################################################################
+from __future__ import division
 # Importing the mamba, mambaExtra and mambaComposed modules.
 from mamba import *
 from mambaExtra import *
@@ -69,7 +70,7 @@ imWrk6 = imageMb(im1)
 # Filtering the mean of differences.
 buildOpen(im2, imWrk1, 3)
 # Thresholding it (the threshold value is equal to half the maximum grey value).
-thrval = computeRange(imWrk1)[1] / 2
+thrval = computeRange(imWrk1)[1] // 2
 threshold(imWrk1, imWrk2, thrval, 255) 
 # The image is filtered and gives the lanes markers.
 close(imWrk2, im3)

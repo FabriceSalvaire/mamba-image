@@ -12,6 +12,7 @@
 # openings and geodesic reconstructions.
 
 ## SCRIPT ######################################################################
+from __future__ import division
 # Importing the mamba modules
 from mamba import *
 from mambaComposed import *
@@ -41,7 +42,7 @@ aneurisms = imageMb(imIn, 1)
 buildSupWhiteTopHat(imIn, imWrk, 10)
 # Thresholding of the image (the value of the threshold is half the maximum
 # grey value in the top-hat image.
-t = computeRange(imWrk)[1]/2
+t = computeRange(imWrk)[1]//2
 threshold(imWrk, aneurisms, t, 255)
 
 # Superposing the result to the original image and saving the result.

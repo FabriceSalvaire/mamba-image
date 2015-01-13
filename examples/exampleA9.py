@@ -12,6 +12,8 @@
 # http://www.diagnosticpathology.org/content/5/1/7. Courtesy of Michel Jondet.
 
 ## SCRIPT ######################################################################
+from __future__ import division
+from __future__ import print_function
 # Importing mamba and associates
 from mamba import *
 from mambaExtra import *
@@ -37,14 +39,14 @@ def autoThreshold(imIn, imOut):
         if histo[i]!=0:
             threshold(imIn, level, i, i)
             mul(level, grad, wrk)
-            vol = computeVolume(wrk)/histo[i]
+            vol = computeVolume(wrk)//histo[i]
             distri.append(vol)
         else:
             distri.append(0)
     sd = sum(distri)
     sr = distri[0]
     threshval = 0
-    while(sr<(sd/2)):
+    while(sr<sd//2):
         threshval += 1
         sr += distri[threshval]
     threshold(imIn, imOut, threshval, 255)
@@ -164,9 +166,9 @@ delaunay.save("output/delaunay.jpg")
 
 # Reporting all the measurements
 ################################################################################
-print "number of nuclei", nb_nuclei
-print "nuclei mean area", computeVolume(nuclei)/nb_nuclei
-print "cytoplasmic mean area", computeVolume(voronoi)/nb_nuclei
-print "nucleo-cytoplasmic ratio", computeVolume(voronoi)/computeVolume(nuclei)
-print "mean edge length", sum(edges)/len(edges)
+print("number of nuclei", nb_nuclei)
+print("nuclei mean area", computeVolume(nuclei)/nb_nuclei)
+print("cytoplasmic mean area", computeVolume(voronoi)/nb_nuclei)
+print("nucleo-cytoplasmic ratio", computeVolume(voronoi)/computeVolume(nuclei))
+print("mean edge length", sum(edges)/len(edges))
 

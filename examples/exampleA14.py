@@ -14,6 +14,7 @@
 # geometrical and topological approach.
 
 ## SCRIPT ######################################################################
+from __future__ import print_function
 # Importing the mamba module, the mambaComposed and mambaExtra packages.
 from mamba import *
 from mambaComposed import *
@@ -118,17 +119,17 @@ seal = imageMb(im1, 1)
 check = checkClutch(im1, spring, seal)
 # Printing the result and setting the color of the spring branches locations:
 # green, all the branches are here, red, some branches are missing.
-print "First image checking:"
+print("First image checking:")
 if check[0] == 1:
-    print " Spring is OK."
+    print(" Spring is OK.")
     pal1 = (0, 255, 0)
 else:
-    print " Spring is defective."
+    print(" Spring is defective.")
     pal1 = (255, 0, 0)
 if check[1] == 1:
-    print " Seal is OK."
+    print(" Seal is OK.")
 else:
-    print " Seal is missing."
+    print(" Seal is missing.")
 # Superposing the seal and spring locations to the original image and saving
 # the result.
 mE.multiSuperpose(im1, seal, spring)
@@ -141,17 +142,17 @@ im1.save('output/motor1_check.png')
 im1 = imageMb('images/motor2.png')
 # Checking it.
 check = checkClutch(im1, seal, spring)
-print "Second image checking:"
+print("Second image checking:")
 if check[0] == 1:
-    print " Spring is OK."
+    print(" Spring is OK.")
     pal1 = (0, 255, 0)
 else:
-    print " Spring is defective."
+    print(" Spring is defective.")
     pal1 = (255, 0, 0)
 if check[1] == 1:
-    print " Seal is OK."
+    print(" Seal is OK.")
 else:
-    print " Seal is missing."
+    print(" Seal is missing.")
 # Storing the resulting images.
 mE.multiSuperpose(im1, spring, seal)
 pal = mE.tagOneColorPalette(255, pal1)

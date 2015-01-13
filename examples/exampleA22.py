@@ -19,6 +19,7 @@
 # obtained in example A21.
 
 ## SCRIPT ######################################################################
+from __future__ import division
 # Importing the mamba, mambaExtra and mambaComposed modules.
 from mamba import *
 from mambaExtra import *
@@ -103,7 +104,7 @@ im3 = imageMb('images/traffic_sum.png')
 sub(im3, im2, im3)
 # The height of the maxima which are considered as salient ones is calculated.
 # This height corresponds to half the range of values of the difference image.
-height = computeRange(im3)[1]/2
+height = computeRange(im3)[1]//2
 # The salient maxima are extracted.
 deepMaxima(im3, imb2, height)
 # Holes in the maxima are closed.
