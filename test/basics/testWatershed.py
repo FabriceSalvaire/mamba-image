@@ -15,6 +15,7 @@ C function:
     MB_Watershed
 """
 
+from __future__ import division
 from mamba import *
 import unittest
 import random
@@ -48,7 +49,7 @@ class TestWatershed(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im32s2_1)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -88,7 +89,7 @@ class TestWatershed(unittest.TestCase):
             self.im32_2.reset()
             for vi in range(1,11):
                 hi = random.randint(0,h-1)
-                wi = random.randint((w*(vi-1))/10, (w*vi)/10-1)
+                wi = random.randint((w*(vi-1))//10, (w*vi)//10-1)
                 self.im32_1.setPixel(vi*10, (wi,hi))
                 self.im32_2.setPixel(vi*10, (wi,hi))
             
@@ -100,13 +101,13 @@ class TestWatershed(unittest.TestCase):
             watershedSegment(self.im8_1, self.im32_2, grid=SQUARE)
             copyBytePlane(self.im32_1, 3, self.im8_3)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputationSquare(self):
         """Verifies that the watershed computation returns a correct line in square grid"""
         (w,h) = self.im8_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im8_1.reset()
             for hi in range(h):
@@ -114,13 +115,13 @@ class TestWatershed(unittest.TestCase):
                     
             # adding 2 well
             self.im32_1.reset()
-            self.im32_1.setPixel(50, (w/4-1,h/2))
-            self.im32_1.setPixel(100, ((3*w)/4,h/2))
+            self.im32_1.setPixel(50, (w//4-1,h//2))
+            self.im32_1.setPixel(100, ((3*w)//4,h//2))
             
             watershedSegment(self.im8_1, self.im32_1, grid=SQUARE)
             copyBytePlane(self.im32_1, 3, self.im8_2)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-            self.assert_(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w/4,(3*w)/4,x,y))
+            self.assertTrue(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w//4,(3*w)//4,x,y))
 
     def testIdempotencyHexagonal(self):
         """Makes sure the computed watershed is idempotent in hexagonal grid"""
@@ -138,7 +139,7 @@ class TestWatershed(unittest.TestCase):
             self.im32_2.reset()
             for vi in range(1,11):
                 hi = random.randint(0,h-1)
-                wi = random.randint((w*(vi-1))/10, (w*vi)/10-1)
+                wi = random.randint((w*(vi-1))//10, (w*vi)//10-1)
                 self.im32_1.setPixel(vi*10, (wi,hi))
                 self.im32_2.setPixel(vi*10, (wi,hi))
             
@@ -150,13 +151,13 @@ class TestWatershed(unittest.TestCase):
             watershedSegment(self.im8_1, self.im32_2, grid=HEXAGONAL)
             copyBytePlane(self.im32_1, 3, self.im8_3)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputationHexagonal(self):
         """Verifies that the watershed computation returns a correct line in hexagonal grid"""
         (w,h) = self.im8_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im8_1.reset()
             for hi in range(h):
@@ -164,13 +165,13 @@ class TestWatershed(unittest.TestCase):
                     
             # adding 2 well
             self.im32_1.reset()
-            self.im32_1.setPixel(50, (w/4-1,h/2))
-            self.im32_1.setPixel(100, ((3*w)/4,h/2))
+            self.im32_1.setPixel(50, (w//4-1,h//2))
+            self.im32_1.setPixel(100, ((3*w)//4,h//2))
             
             watershedSegment(self.im8_1, self.im32_1, grid=HEXAGONAL)
             copyBytePlane(self.im32_1, 3, self.im8_2)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-            self.assert_(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w/4,(3*w)/4,x,y))
+            self.assertTrue(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w//4,(3*w)//4,x,y))
 
     def testComputationControl(self):
         """Verifies that the waterlevel control parameter works correctly"""
@@ -190,13 +191,13 @@ class TestWatershed(unittest.TestCase):
             copyBytePlane(self.im32_1, 0, self.im8_2)
             exp_vol = max(max_level*h,1)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==exp_vol)
+            self.assertTrue(vol==exp_vol)
 
     def testComputationInit(self):
         """Tests that the watershed correctly handles an image with values in MSByte"""
         (w,h) = self.im8_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im8_1.reset()
             for hi in range(h):
@@ -204,13 +205,13 @@ class TestWatershed(unittest.TestCase):
                     
             # adding 2 well
             self.im32_1.fill(0x01000000)
-            self.im32_1.setPixel(0x01000000+50, (w/4-1,h/2))
-            self.im32_1.setPixel(0x01000000+100, ((3*w)/4,h/2))
+            self.im32_1.setPixel(0x01000000+50, (w//4-1,h//2))
+            self.im32_1.setPixel(0x01000000+100, ((3*w)//4,h//2))
             
             watershedSegment(self.im8_1, self.im32_1, grid=SQUARE)
             copyBytePlane(self.im32_1, 3, self.im8_2)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-            self.assert_(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w/4,(3*w)/4,x,y))
+            self.assertTrue(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w//4,(3*w)//4,x,y))
             
     def _draw(self,im,draws,x,y):
         for j,line in enumerate(draws):
@@ -237,7 +238,7 @@ class TestWatershed(unittest.TestCase):
                                 [2,6,5,6,2,2],
                                 [2,2,6,4,3,2],
                                 [2,2,3,4,2,2],
-                                [2,2,2,2,4,2]], w/2, h/2)
+                                [2,2,2,2,4,2]], w//2, h//2)
         self.im32_1.reset()
         self._draw(self.im32_1,[[1,1,1,1,1,1],
                                 [0,0,0,0,0,0],
@@ -245,11 +246,11 @@ class TestWatershed(unittest.TestCase):
                                 [2,0,0,0,3,3],
                                 [2,2,0,0,0,3],
                                 [2,2,0,0,3,3],
-                                [2,2,2,2,0,3]], w/2, h/2)
+                                [2,2,2,2,0,3]], w//2, h//2)
         
         watershedSegment(self.im8_1, self.im32_1, grid=HEXAGONAL)
         copyBytePlane(self.im32_1, 3, self.im8_2)
-        obt_draws = self._get(self.im8_2, w/2, h/2, 6, 7)
+        obt_draws = self._get(self.im8_2, w//2, h//2, 6, 7)
         exp_draws = [[0,0,0,0,0,0],
                      [255,0,255,255,255,255],
                      [0,255,255,0,0,0],
@@ -257,9 +258,9 @@ class TestWatershed(unittest.TestCase):
                      [0,0,0,255,0,0],
                      [0,0,0,255,0,0],
                      [0,0,0,0,255,0]]
-        self.assert_(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
+        self.assertTrue(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
         copyBytePlane(self.im32_1, 0, self.im8_2)
-        obt_draws = self._get(self.im8_2, w/2, h/2, 6, 7)
+        obt_draws = self._get(self.im8_2, w//2, h//2, 6, 7)
         exp_draws = [[1,1,1,1,1,1],
                      [1,1,1,1,1,1],
                      [2,1,3,3,3,3],
@@ -267,22 +268,22 @@ class TestWatershed(unittest.TestCase):
                      [2,2,2,3,3,3],
                      [2,2,2,3,3,3],
                      [2,2,2,2,3,3]]
-        self.assert_(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
+        self.assertTrue(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
             
     def testComputationThickWTS(self):
         """Tests that thick watershed are correctly computed by the operator"""
         (w,h) = self.im8_1.getSize()
         
         self.im8_1.fill(6)
-        self._draw(self.im8_1, [[2,6,2,6,2],[2,2,6,6,2],[6,6,6,6,6],[2,2,6,6,2],[2,6,2,6,2]], w/2, h/2+1)
+        self._draw(self.im8_1, [[2,6,2,6,2],[2,2,6,6,2],[6,6,6,6,6],[2,2,6,6,2],[2,6,2,6,2]], w//2, h//2+1)
         self.im32_1.reset()
-        self._draw(self.im32_1, [[1,0,2,0,3],[1,1,0,0,3],[0,0,0,0,0],[4,4,0,0,5],[4,0,6,0,5]], w/2, h/2+1)
+        self._draw(self.im32_1, [[1,0,2,0,3],[1,1,0,0,3],[0,0,0,0,0],[4,4,0,0,5],[4,0,6,0,5]], w//2, h//2+1)
         
         watershedSegment(self.im8_1, self.im32_1, grid=HEXAGONAL)
         copyBytePlane(self.im32_1, 3, self.im8_2)
-        obt_draws = self._get(self.im8_2, w/2, h/2+1, 5, 5)
+        obt_draws = self._get(self.im8_2, w//2, h//2+1, 5, 5)
         exp_draws = [[0,255,0,255,0],[0,0,255,255,0],[255,255,255,255,255],[0,0,255,255,0],[0,255,0,255,0]]
-        self.assert_(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
+        self.assertTrue(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
         
 
 def getSuite():

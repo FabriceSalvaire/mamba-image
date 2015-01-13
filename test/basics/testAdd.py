@@ -65,7 +65,7 @@ class TestAdd(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests incorrect depth raise an exception"""
@@ -100,22 +100,22 @@ class TestAdd(unittest.TestCase):
         self.im1_2.reset()
         add(self.im1_2, self.im1_1, self.im1_3)
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0, "1+0!=1 in (%d,%d)" % (x,y))
+        self.assertTrue(x<0, "1+0!=1 in (%d,%d)" % (x,y))
         self.im1_2.fill(1)
         self.im1_1.reset()
         add(self.im1_2, self.im1_1, self.im1_3)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0, "0+1!=1 in (%d,%d)" % (x,y))
+        self.assertTrue(x<0, "0+1!=1 in (%d,%d)" % (x,y))
         self.im1_2.fill(1)
         self.im1_1.fill(1)
         add(self.im1_2, self.im1_1, self.im1_3)
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0, "1+1!=1 in (%d,%d)" % (x,y))
+        self.assertTrue(x<0, "1+1!=1 in (%d,%d)" % (x,y))
         self.im1_2.reset()
         self.im1_1.reset()
         add(self.im1_2, self.im1_1, self.im1_3)
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0, "0+0!=0 in (%d,%d)" % (x,y))
+        self.assertTrue(x<0, "0+0!=0 in (%d,%d)" % (x,y))
 
     def testComputation_1_8_8(self):
         """Tests the result of accumulation of binary images into 8bit images"""
@@ -125,7 +125,7 @@ class TestAdd(unittest.TestCase):
         self.im8_2.fill(v)
         
         add(self.im8_2, self.im1_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==v, 
+        self.assertTrue(self.im8_2.getPixel((0,0))==v, 
                      "v[%d in 8] + 0[in 1] !=v / =%d in (0,0)" % (v,self.im8_2.getPixel((0,0))))
         
         self.im8_2.reset()
@@ -135,15 +135,15 @@ class TestAdd(unittest.TestCase):
                 add(self.im8_2, self.im1_1, self.im8_2)
             else:
                 add(self.im1_1, self.im8_2, self.im8_2)
-            self.assert_(self.im8_2.getPixel((0,0))==i+1,
+            self.assertTrue(self.im8_2.getPixel((0,0))==i+1,
                          "v[%d in 8] + 1[in 1] !=v+1[%d in 8] / =%d in (0,0)" % (i,i+1,self.im8_2.getPixel((0,0))))
         
         add(self.im8_2, self.im1_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==255)
+        self.assertTrue(self.im8_2.getPixel((0,0))==255)
         add(self.im8_2, self.im1_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==255)
+        self.assertTrue(self.im8_2.getPixel((0,0))==255)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_1_8_32(self):
         """Adds binary image into 8bit image and result in a 32bit image"""
@@ -157,13 +157,13 @@ class TestAdd(unittest.TestCase):
                 add(self.im8_2, self.im1_1, self.im32_3)
             else:
                 add(self.im1_1, self.im8_2, self.im32_3)
-            self.assert_(self.im32_3.getPixel((0,0))==i+1)
+            self.assertTrue(self.im32_3.getPixel((0,0))==i+1)
         
         self.im8_2.fill(255)
         add(self.im8_2, self.im1_1, self.im32_3)
-        self.assert_(self.im32_3.getPixel((0,0))==256)
+        self.assertTrue(self.im32_3.getPixel((0,0))==256)
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8_8_8(self):
         """Adds greyscale images into 8bit image and checks saturation"""
@@ -172,14 +172,14 @@ class TestAdd(unittest.TestCase):
         self.im8_3.fill(255)
         for i in range(255):
             add(self.im8_2, self.im8_1, self.im8_2)
-            self.assert_(self.im8_2.getPixel((0,0))==i+1)
+            self.assertTrue(self.im8_2.getPixel((0,0))==i+1)
         
         add(self.im8_2, self.im8_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==255)
+        self.assertTrue(self.im8_2.getPixel((0,0))==255)
         add(self.im8_2, self.im8_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==255)
+        self.assertTrue(self.im8_2.getPixel((0,0))==255)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8_8_32(self):
         """Adds greyscale images into 32bit image"""
@@ -190,10 +190,10 @@ class TestAdd(unittest.TestCase):
         for i in range(255):
             self.im8_2.fill(i+1)
             add(self.im8_2, self.im8_1, self.im32_3)
-            self.assert_(self.im32_3.getPixel((0,0))==v+i+1)
+            self.assertTrue(self.im32_3.getPixel((0,0))==v+i+1)
             
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_1_32_32(self):
         """Tests the result of accumulation of binary images into 32bit images"""
@@ -206,7 +206,7 @@ class TestAdd(unittest.TestCase):
                 add(self.im32_2, self.im1_1, self.im32_2)
             else:
                 add(self.im1_1, self.im32_2, self.im32_2)
-            self.assert_(self.im32_2.getPixel((0,0))==(v+i+1))
+            self.assertTrue(self.im32_2.getPixel((0,0))==(v+i+1))
 
     def testComputation_8_32_32(self):
         """Tests the result of accumulation of 8bit images into 32bit images"""
@@ -222,9 +222,9 @@ class TestAdd(unittest.TestCase):
             else:
                 add(self.im8_1, self.im32_2, self.im32_2)
             v = v1+(i+1)*v2
-            self.assert_(self.im32_2.getPixel((0,0))==v)
+            self.assertTrue(self.im32_2.getPixel((0,0))==v)
             vol = computeVolume(self.im32_2)
-            self.assert_(vol==(w*h*v), "[%d,%d] : %d : %d!=%d" %(w,h,v,vol,w*h*v))
+            self.assertTrue(vol==(w*h*v), "[%d,%d] : %d : %d!=%d" %(w,h,v,vol,w*h*v))
 
     def testComputation_32_32_32(self):
         """Adds 32bit images into a 32bit image"""
@@ -235,7 +235,7 @@ class TestAdd(unittest.TestCase):
             self.im32_1.fill(v1)
             self.im32_2.fill(v2)
             add(self.im32_2, self.im32_1, self.im32_3)
-            self.assert_(self.im32_3.getPixel((0,0))==v1+v2)
+            self.assertTrue(self.im32_3.getPixel((0,0))==v1+v2)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestAdd)

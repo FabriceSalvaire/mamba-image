@@ -50,7 +50,7 @@ class TestDistanceb(unittest.TestCase):
         del(self.im1s2_1)
         del(self.im32s2_1)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -76,16 +76,16 @@ class TestDistanceb(unittest.TestCase):
         self.im32_2.reset()
         computeDistance(self.im1_1, self.im32_1, grid=SQUARE, edge=FILLED)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d" %(x,y))
+        self.assertTrue(x<0, "%d,%d" %(x,y))
         computeDistance(self.im1_1, self.im32_1, grid=SQUARE, edge=EMPTY)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         computeDistance(self.im1_1, self.im32_1, grid=HEXAGONAL, edge=FILLED)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         computeDistance(self.im1_1, self.im32_1, grid=HEXAGONAL, edge=EMPTY)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def _drawExpImFilledSet(self, im, x,y,h,w,v):
     
@@ -107,20 +107,20 @@ class TestDistanceb(unittest.TestCase):
         self.im1_1.fill(1)
         computeDistance(self.im1_1, self.im32_1, grid=SQUARE, edge=EMPTY)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d" %(x,y))
+        self.assertTrue(x<0, "%d,%d" %(x,y))
         computeDistance(self.im1_1, self.im32_1, grid=HEXAGONAL, edge=EMPTY)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im32_2.reset()
         self._drawExpImFilledSet(self.im32_2,0,0,h,w,0x00010001)
         self.im1_1.fill(1)
         computeDistance(self.im1_1, self.im32_1, grid=SQUARE, edge=FILLED)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d" %(x,y))
+        self.assertTrue(x<0, "%d,%d" %(x,y))
         computeDistance(self.im1_1, self.im32_1, grid=HEXAGONAL, edge=FILLED)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def _drawSquare(self, im, x,y,values):
         size = int(pow(len(values),0.5))
@@ -145,14 +145,14 @@ class TestDistanceb(unittest.TestCase):
         self._drawSquare(self.im32_2, w-2,h-2,[1,1,1,2])
         computeDistance(self.im1_1, self.im32_1, grid=SQUARE, edge=FILLED)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d" %(x,y))
+        self.assertTrue(x<0, "%d,%d" %(x,y))
         self._drawSquare(self.im32_2, 0,0,[1,1,1,1])
         self._drawSquare(self.im32_2, 0,h-2,[1,1,1,1])
         self._drawSquare(self.im32_2, w-2,0,[1,1,1,1])
         self._drawSquare(self.im32_2, w-2,h-2,[1,1,1,1])
         computeDistance(self.im1_1, self.im32_1, grid=SQUARE, edge=EMPTY)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self._drawSquare(self.im32_2, 0,0,[2,1,1,1])
         self._drawSquare(self.im32_2, 0,h-2,[1,1,2,1])
@@ -160,14 +160,14 @@ class TestDistanceb(unittest.TestCase):
         self._drawSquare(self.im32_2, w-2,h-2,[1,1,1,2])
         computeDistance(self.im1_1, self.im32_1, grid=HEXAGONAL, edge=FILLED)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         self._drawSquare(self.im32_2, 0,0,[1,1,1,1])
         self._drawSquare(self.im32_2, 0,h-2,[1,1,1,1])
         self._drawSquare(self.im32_2, w-2,0,[1,1,1,1])
         self._drawSquare(self.im32_2, w-2,h-2,[1,1,1,1])
         computeDistance(self.im1_1, self.im32_1, grid=HEXAGONAL, edge=EMPTY)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testComputeHexagonal(self):
         """Verifies the distance computation in hexagonal grid"""
@@ -183,7 +183,7 @@ class TestDistanceb(unittest.TestCase):
         self._drawSquare(self.im32_2, 20,16,[0,1,1,1,2,1,0,1,1])
         computeDistance(self.im1_1, self.im32_1, grid=HEXAGONAL)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d" %(x,y))
+        self.assertTrue(x<0, "%d,%d" %(x,y))
         
     def testComputeSquare(self):
         """Verifies the distance computation in square grid"""
@@ -199,7 +199,7 @@ class TestDistanceb(unittest.TestCase):
         self._drawSquare(self.im32_2, 20,16,[1,1,1,1,2,1,1,1,1])
         computeDistance(self.im1_1, self.im32_1, grid=SQUARE)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d" %(x,y))
+        self.assertTrue(x<0, "%d,%d" %(x,y))
         
         self.im1_1.reset()
         self._drawSquare(self.im1_1, 10,11,[1,1,0,1,1,1,1,1,0])
@@ -211,7 +211,7 @@ class TestDistanceb(unittest.TestCase):
         self._drawSquare(self.im32_2, 20,16,[0,1,1,1,1,1,0,1,1])
         computeDistance(self.im1_1, self.im32_1, grid=SQUARE)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d" %(x,y))
+        self.assertTrue(x<0, "%d,%d" %(x,y))
 
 
 def getSuite():

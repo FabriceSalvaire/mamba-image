@@ -77,7 +77,7 @@ class TestOpenclose3D(unittest.TestCase):
             
             open3D(self.im8_1, self.im8_2, i)
             (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_2)
-            self.assert_(x<0, "%d" %(i))
+            self.assertTrue(x<0, "%d" %(i))
         
     def testClose3D(self):
         """Verifies the correct behavior of the 3D close operator"""
@@ -96,7 +96,7 @@ class TestOpenclose3D(unittest.TestCase):
             
             close3D(self.im8_1, self.im8_2, i)
             (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_2)
-            self.assert_(x<0, "%d" %(i))
+            self.assertTrue(x<0, "%d" %(i))
             
         
         self.im8_1.reset()
@@ -108,7 +108,7 @@ class TestOpenclose3D(unittest.TestCase):
             
         close3D(self.im8_1, self.im8_2, 3, se=CUBE3X3X3, edge=EMPTY)
         (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_2)
-        self.assert_(x<0, "%d" %(i))
+        self.assertTrue(x<0, "%d" %(i))
         
     def testBuildOpen3D(self):
         """Verifies the open by reconstruction 3D operator"""
@@ -145,7 +145,7 @@ class TestOpenclose3D(unittest.TestCase):
                 (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_2)
             else:
                 (x,y,z) = compare3D(self.im8_2, self.im8_4, self.im8_2)
-            self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+            self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
         
     def testBuildClose3D(self):
         """Verifies the close by reconstruction 3D operator"""
@@ -182,7 +182,7 @@ class TestOpenclose3D(unittest.TestCase):
                 (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_2)
             else:
                 (x,y,z) = compare3D(self.im8_2, self.im8_4, self.im8_2)
-            self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+            self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
         
     def testLinearOpen3D(self):
         """Verifies the correct behavior of the directional open 3D operator"""
@@ -202,7 +202,7 @@ class TestOpenclose3D(unittest.TestCase):
                 
                 linearOpen3D(self.im8_1, self.im8_2, d, i)
                 (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_2)
-                self.assert_(x<0, "%d-%d" %(d,i))
+                self.assertTrue(x<0, "%d-%d" %(d,i))
         
     def testLinearClose3D(self):
         """Verifies the correct behavior of the directional close 3D operator"""
@@ -222,7 +222,7 @@ class TestOpenclose3D(unittest.TestCase):
                 
                 linearClose3D(self.im8_1, self.im8_2, d, i)
                 (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_2)
-                self.assert_(x<0, "%d-%d" %(d,i))
+                self.assertTrue(x<0, "%d-%d" %(d,i))
             
         self.im8_1.reset()
         drawCube(self.im8_1, (1,1,1,w-2,h-2,l-2), 255)
@@ -234,7 +234,7 @@ class TestOpenclose3D(unittest.TestCase):
                 drawCube(self.im8_3, (w/2-1,h/2-1,l/2-1,w/2+1,h/2+1,l/2+1), 0)
             linearClose3D(self.im8_1, self.im8_2, d, 3, grid=CUBIC, edge=EMPTY)
             (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_2)
-            self.assert_(x<0, "%d-%d" %(d,i))
+            self.assertTrue(x<0, "%d-%d" %(d,i))
             if d==0:
                 drawCube(self.im8_3, (w/2-1,h/2-1,l/2-1,w/2+1,h/2+1,l/2+1), 255)
                 
@@ -254,16 +254,16 @@ class TestOpenclose3D(unittest.TestCase):
             
         supOpen3D(self.im8_1, self.im8_2, 5, FACE_CENTER_CUBIC)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol>0)
+        self.assertTrue(vol>0)
         supOpen3D(self.im8_1, self.im8_2, 5)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol>0)
+        self.assertTrue(vol>0)
         supOpen3D(self.im8_1, self.im8_2, 6, FACE_CENTER_CUBIC)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         supOpen3D(self.im8_1, self.im8_2, 6)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         
         self.im8_1.reset()
         dirs = [(1,10),(3,10),(5,10),(7,10),(9,10),(18,10),
@@ -279,10 +279,10 @@ class TestOpenclose3D(unittest.TestCase):
             
         supOpen3D(self.im8_1, self.im8_2, 20, CUBIC)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol>0)
+        self.assertTrue(vol>0)
         supOpen3D(self.im8_1, self.im8_2, 21, CUBIC)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         
     def testInfClose3D(self):
         """Tests the inferior close 3D operator"""
@@ -300,16 +300,16 @@ class TestOpenclose3D(unittest.TestCase):
             
         infClose3D(self.im8_1, self.im8_2, 5, FACE_CENTER_CUBIC)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol<(w*h*l*255))
+        self.assertTrue(vol<(w*h*l*255))
         infClose3D(self.im8_1, self.im8_2, 5)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol<(w*h*l*255))
+        self.assertTrue(vol<(w*h*l*255))
         infClose3D(self.im8_1, self.im8_2, 6, FACE_CENTER_CUBIC)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol==(w*h*l*255))
+        self.assertTrue(vol==(w*h*l*255))
         infClose3D(self.im8_1, self.im8_2, 6)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol==(w*h*l*255))
+        self.assertTrue(vol==(w*h*l*255))
         
         self.im8_1.fill(255)
         dirs = [(1,10),(3,10),(5,10),(7,10),(9,10),(18,10),
@@ -325,10 +325,10 @@ class TestOpenclose3D(unittest.TestCase):
             
         infClose3D(self.im8_1, self.im8_2, 20, CUBIC)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol<(w*h*l*255))
+        self.assertTrue(vol<(w*h*l*255))
         infClose3D(self.im8_1, self.im8_2, 21, CUBIC)
         vol = computeVolume3D(self.im8_2)
-        self.assert_(vol==(w*h*l*255))
+        self.assertTrue(vol==(w*h*l*255))
             
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestOpenclose3D)

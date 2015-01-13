@@ -3,7 +3,9 @@ Module defining the class used to display and generate output in text format
 (either in the standard output or in a file) for the Mamba Test Platform.
 """
 
-from MambaTestOutput import *
+from __future__ import print_function
+
+from .MambaTestOutput import *
 import sys
 
 #Copyright (c) <2009>, <Nicolas BEUCHER>
@@ -58,7 +60,7 @@ class MambaTestOutputText(MambaTestOutput):
                 self.stream = file(path, 'w')
             except:
                 self.selfOpenStream = False
-                print "Cannot open %s : fall back to stdout" % (path)
+                print("Cannot open %s : fall back to stdout" % (path))
                 self.stream = sys.stdout
         else:
             self.selfOpenStream = False
@@ -137,7 +139,7 @@ class MambaTestOutputText(MambaTestOutput):
             self.stream.write(sml_sep+"\n")
             if not moduleResult.wasSuccessful():
                 self.stream.write("FAILED (")
-                failed, errored = map(len, (moduleResult.failures, moduleResult.errors))
+                failed, errored = list(map(len, (moduleResult.failures, moduleResult.errors)))
                 if failed:
                     self.stream.write("failures=%d" % failed)
                 if errored:

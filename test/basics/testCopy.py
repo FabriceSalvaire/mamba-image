@@ -69,7 +69,7 @@ class TestCopy(unittest.TestCase):
         del(self.im32s2_1)
         del(self.im32s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptationCopy(self):
         """Tests that incorrect depth raises an exception on copy function"""
@@ -145,13 +145,13 @@ class TestCopy(unittest.TestCase):
         self.im1_3.fill(1)
         copy(self.im1_1, self.im1_2)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_1)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         self.im1_2.fill(1)
         self.im1_1.reset()
         self.im1_3.reset()
         copy(self.im1_1, self.im1_2)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_1)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testCopy_8(self):
         """Verifies that image copy works with 8-bit image"""
@@ -162,7 +162,7 @@ class TestCopy(unittest.TestCase):
             self.im8_3.fill(vi)
             copy(self.im8_1, self.im8_2)
             (x,y) = compare(self.im8_2, self.im8_3, self.im8_1)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testCopy_32(self):
         """Verifies that image copy works with 32-bit image"""
@@ -173,7 +173,7 @@ class TestCopy(unittest.TestCase):
             self.im32_3.fill(vi)
             copy(self.im32_1, self.im32_2)
             (x,y) = compare(self.im32_2, self.im32_3, self.im32_1)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         
     def testCopyLine_1(self):
         """Verifies that image copy line by line works with binary image"""
@@ -183,7 +183,7 @@ class TestCopy(unittest.TestCase):
         for i in range(h):
             copyLine(self.im1_1, i, self.im1_2, i)
             vol = computeVolume(self.im1_2)
-            self.assert_(vol==((i+1)*w))
+            self.assertTrue(vol==((i+1)*w))
         
     def testCopyLine_8(self):
         """Verifies that image copy line by line works with 8-bit image"""
@@ -195,7 +195,7 @@ class TestCopy(unittest.TestCase):
             for i in range(h):
                 copyLine(self.im8_1, i, self.im8_2, i)
                 vol = computeVolume(self.im8_2)
-                self.assert_(vol==((i+1)*w*vi))
+                self.assertTrue(vol==((i+1)*w*vi))
         
     def testCopyLine_32(self):
         """Verifies that image copy line by line works with 32-bit image"""
@@ -207,7 +207,7 @@ class TestCopy(unittest.TestCase):
             for i in range(h):
                 copyLine(self.im32_1, i, self.im32_2, i)
                 vol = computeVolume(self.im32_2)
-                self.assert_(vol==((i+1)*w*vi), "%d : %d/%d" %(i,vol,(i+1)*w*vi))
+                self.assertTrue(vol==((i+1)*w*vi), "%d : %d/%d" %(i,vol,(i+1)*w*vi))
             
     def testCropCopy_8(self):
         """Verifies that image crop copy works with 8-bit image"""
@@ -222,7 +222,7 @@ class TestCopy(unittest.TestCase):
             self.im8_1.reset()
             cropCopy(self.im8s2_1, (0,0), self.im8_1, (xi,yi), (w,h))
             (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-            self.assert_(x<0, "%d,%d - %d,%d" % (x,y,xi,yi))
+            self.assertTrue(x<0, "%d,%d - %d,%d" % (x,y,xi,yi))
             
     def testCropCopy_32(self):
         """Verifies that image crop copy works with 32-bit image"""
@@ -237,7 +237,7 @@ class TestCopy(unittest.TestCase):
             self.im32_1.reset()
             cropCopy(self.im32s2_1, (0,0), self.im32_1, (xi,yi), (w,h))
             (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-            self.assert_(x<0, "%d,%d - %d,%d" % (x,y,xi,yi))
+            self.assertTrue(x<0, "%d,%d - %d,%d" % (x,y,xi,yi))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestCopy)

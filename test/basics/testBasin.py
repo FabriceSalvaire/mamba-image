@@ -14,7 +14,7 @@ Python function:
 C function:
     MB_Basins
 """
-
+from __future__ import division
 from mamba import *
 import unittest
 import random
@@ -48,7 +48,7 @@ class TestBasin(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im32s2_1)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -76,7 +76,7 @@ class TestBasin(unittest.TestCase):
         """Verifies that the basin computation is correct for a simple wall image in square grid"""
         (w,h) = self.im8_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im8_1.reset()
             for hi in range(h):
@@ -88,19 +88,19 @@ class TestBasin(unittest.TestCase):
                     
             # adding 2 well
             self.im32_1.reset()
-            self.im32_1.setPixel(50, (w/4-1,h/2))
-            self.im32_1.setPixel(100, ((3*w)/4,h/2))
+            self.im32_1.setPixel(50, (w//4-1,h//2))
+            self.im32_1.setPixel(100, ((3*w)//4,h//2))
             
             basinSegment(self.im8_1, self.im32_1, grid=SQUARE)
             copyBytePlane(self.im32_1, 0, self.im8_2)
             vol = computeVolume(self.im8_2)
-            self.assert_(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w/4,(3*w)/4,vol,exp_vol1,exp_vol2))
+            self.assertTrue(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w//4,(3*w)//4,vol,exp_vol1,exp_vol2))
 
     def testComputationHexagonal(self):
         """Verifies that the basin computation is correct for a simple wall image in hexagonal grid"""
         (w,h) = self.im8_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im8_1.reset()
             for hi in range(h):
@@ -112,13 +112,13 @@ class TestBasin(unittest.TestCase):
                     
             # adding 2 well
             self.im32_1.reset()
-            self.im32_1.setPixel(50, (w/4-1,h/2))
-            self.im32_1.setPixel(100, ((3*w)/4,h/2))
+            self.im32_1.setPixel(50, (w//4-1,h//2))
+            self.im32_1.setPixel(100, ((3*w)//4,h//2))
             
             basinSegment(self.im8_1, self.im32_1, grid=HEXAGONAL)
             copyBytePlane(self.im32_1, 0, self.im8_2)
             vol = computeVolume(self.im8_2)
-            self.assert_(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w/4,(3*w)/4,vol,exp_vol1,exp_vol2))
+            self.assertTrue(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w//4,(3*w)//4,vol,exp_vol1,exp_vol2))
 
     def testComputationControl(self):
         """Verifies that the waterlevel control parameter works correctly"""
@@ -139,13 +139,13 @@ class TestBasin(unittest.TestCase):
             exp_vol = max_level==0 and 1 or ((max_level+1)*h)
             exp_vol = min(exp_vol,w*h)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==exp_vol, "level %d : %d/%d" %(max_level,vol,exp_vol))
+            self.assertTrue(vol==exp_vol, "level %d : %d/%d" %(max_level,vol,exp_vol))
 
     def testComputationInit(self):
         """Tests that the basins correctly handles an image with values in MSByte"""
         (w,h) = self.im8_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im8_1.reset()
             for hi in range(h):
@@ -157,13 +157,13 @@ class TestBasin(unittest.TestCase):
                     
             # adding 2 well
             self.im32_1.fill(0x01000000)
-            self.im32_1.setPixel(0x01000000+50, (w/4-1,h/2))
-            self.im32_1.setPixel(0x01000000+100, ((3*w)/4,h/2))
+            self.im32_1.setPixel(0x01000000+50, (w//4-1,h//2))
+            self.im32_1.setPixel(0x01000000+100, ((3*w)//4,h//2))
             
             basinSegment(self.im8_1, self.im32_1, grid=SQUARE)
             copyBytePlane(self.im32_1, 0, self.im8_2)
             vol = computeVolume(self.im8_2)
-            self.assert_(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w/4,(3*w)/4,vol,exp_vol1,exp_vol2))
+            self.assertTrue(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w//4,(3*w)//4,vol,exp_vol1,exp_vol2))
             
 
 def getSuite():

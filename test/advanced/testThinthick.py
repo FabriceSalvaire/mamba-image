@@ -33,6 +33,7 @@ Python functions and classes:
     fullGeodesicThin
 """
 
+from __future__ import division
 from mamba import *
 from mambaComposed import *
 from mambaDraw import *
@@ -65,7 +66,7 @@ class TestThinthick(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
             
     def testDoubleStructuringElement(self):
         """Verifies the double structuring element class and its methods"""
@@ -83,28 +84,28 @@ class TestThinthick(unittest.TestCase):
         self.assertRaises(ValueError, doubleStructuringElement, se1, se3)
         self.assertRaises(ValueError, doubleStructuringElement, se1, se2, SQUARE, [1,2])
         
-        self.assert_(repr(dse1) != "")
+        self.assertTrue(repr(dse1) != "")
         
-        self.assert_(dse1.getGrid()==SQUARE)
-        self.assert_(dse3.getGrid()==HEXAGONAL)
+        self.assertTrue(dse1.getGrid()==SQUARE)
+        self.assertTrue(dse3.getGrid()==HEXAGONAL)
         
-        self.assert_(dse2.getStructuringElement(0)==se1)
-        self.assert_(dse2.getStructuringElement(1)==se2)
-        self.assert_(dse4.getStructuringElement(0)==se3)
-        self.assert_(dse4.getStructuringElement(1)==se4)
+        self.assertTrue(dse2.getStructuringElement(0)==se1)
+        self.assertTrue(dse2.getStructuringElement(1)==se2)
+        self.assertTrue(dse4.getStructuringElement(0)==se3)
+        self.assertTrue(dse4.getStructuringElement(1)==se4)
         
-        self.assert_(dse1.getCSE()==(2+4+8+256,16+32+128))
+        self.assertTrue(dse1.getCSE()==(2+4+8+256,16+32+128))
 
         dse = dse1.rotate(1)
-        self.assert_(dse.getStructuringElement(0)==structuringElement([2,3,4,1], SQUARE))
-        self.assert_(dse.getStructuringElement(1)==structuringElement([5,6,8], SQUARE))
+        self.assertTrue(dse.getStructuringElement(0)==structuringElement([2,3,4,1], SQUARE))
+        self.assertTrue(dse.getStructuringElement(1)==structuringElement([5,6,8], SQUARE))
         dse = dse1.rotate(3)
-        self.assert_(dse.getStructuringElement(0)==structuringElement([4,5,6,3], SQUARE))
-        self.assert_(dse.getStructuringElement(1)==structuringElement([7,8,2], SQUARE))
+        self.assertTrue(dse.getStructuringElement(0)==structuringElement([4,5,6,3], SQUARE))
+        self.assertTrue(dse.getStructuringElement(1)==structuringElement([7,8,2], SQUARE))
 
         dse = dse1.flip()
-        self.assert_(dse.getStructuringElement(0)==se2)
-        self.assert_(dse.getStructuringElement(1)==se1)
+        self.assertTrue(dse.getStructuringElement(0)==se2)
+        self.assertTrue(dse.getStructuringElement(1)==se1)
             
     def testBinaryHMT(self):
         """Verifies the correct computation of the binary Hit-or-Miss"""
@@ -112,31 +113,31 @@ class TestThinthick(unittest.TestCase):
         
         dse = doubleStructuringElement([1,5,7], [0,2,3,4,6,8], mamba.SQUARE)
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/2,h/2))
-        self.im1_1.setPixel(1, (w/2-1,h/2+1))
-        self.im1_1.setPixel(1, (w/2-1,h/2-1))
-        self.im1_1.setPixel(1, (w/2+1,h/2+1))
-        self.im1_1.setPixel(1, (w/2+1,h/2  ))
-        self.im1_1.setPixel(1, (w/2+1,h/2-1))
+        self.im1_1.setPixel(1, (w//2,h//2))
+        self.im1_1.setPixel(1, (w//2-1,h//2+1))
+        self.im1_1.setPixel(1, (w//2-1,h//2-1))
+        self.im1_1.setPixel(1, (w//2+1,h//2+1))
+        self.im1_1.setPixel(1, (w//2+1,h//2  ))
+        self.im1_1.setPixel(1, (w//2+1,h//2-1))
         
-        self.im1_1.setPixel(1, (w-1,h/2))
-        self.im1_1.setPixel(1, (w-2,h/2+1))
-        self.im1_1.setPixel(1, (w-2,h/2-1))
+        self.im1_1.setPixel(1, (w-1,h//2))
+        self.im1_1.setPixel(1, (w-2,h//2+1))
+        self.im1_1.setPixel(1, (w-2,h//2-1))
         
         self.im1_3.reset()
         self.im1_2.reset()
-        self.im1_3.setPixel(1, (w/2,h/2))
+        self.im1_3.setPixel(1, (w//2,h//2))
         binaryHMT(self.im1_1, self.im1_2, dse, EMPTY)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0, "%d" % (x))
+        self.assertTrue(x<0, "%d" % (x))
         
         self.im1_3.reset()
         self.im1_2.reset()
-        self.im1_3.setPixel(1, (w/2,h/2))
-        self.im1_3.setPixel(1, (w-1,h/2))
+        self.im1_3.setPixel(1, (w//2,h//2))
+        self.im1_3.setPixel(1, (w-1,h//2))
         binaryHMT(self.im1_1, self.im1_2, dse, FILLED)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testThin(self):
         """Verifies the thinning generic operator"""
@@ -144,21 +145,21 @@ class TestThinthick(unittest.TestCase):
         
         dse = doubleStructuringElement([], [0,3], mamba.SQUARE)
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         drawLine(self.im1_1, (w-1, 0, w-1, h-1), 1)
         
         self.im1_3.reset()
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2+1), 1)
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2+1), 1)
         drawLine(self.im1_3, (w-1, 0, w-1, h-1), 1)
         thin(self.im1_1, self.im1_2, dse, EMPTY)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.reset()
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2+1), 1)
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2+1), 1)
         thin(self.im1_1, self.im1_2, dse, FILLED)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testThick(self):
         """Verifies the thickening generic operator"""
@@ -166,13 +167,13 @@ class TestThinthick(unittest.TestCase):
         
         dse = doubleStructuringElement([], [3], mamba.SQUARE)
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-2, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_3, (w//2-2, h//2-1, w//2+1, h//2+1), 1)
         thick(self.im1_1, self.im1_2, dse)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testRotatingThin(self):
         """Verifies the rotating thinning generic operator"""
@@ -180,25 +181,25 @@ class TestThinthick(unittest.TestCase):
         
         dse = doubleStructuringElement([], [2,3,4], mamba.SQUARE)
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         drawLine(self.im1_1, (w-1, 0, w-1, h-1), 1)
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
-        self.im1_3.setPixel(0, (w/2  ,h/2))
-        self.im1_3.setPixel(0, (w/2-1,h/2))
+        drawSquare(self.im1_3, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
+        self.im1_3.setPixel(0, (w//2  ,h//2))
+        self.im1_3.setPixel(0, (w//2-1,h//2))
         drawLine(self.im1_3, (w-1, 0, w-1, h-1), 1)
         rotatingThin(self.im1_1, self.im1_2, dse, EMPTY)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
-        self.im1_3.setPixel(0, (w/2  ,h/2))
-        self.im1_3.setPixel(0, (w/2-1,h/2))
+        drawSquare(self.im1_3, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
+        self.im1_3.setPixel(0, (w//2  ,h//2))
+        self.im1_3.setPixel(0, (w//2-1,h//2))
         rotatingThin(self.im1_1, self.im1_2, dse, FILLED)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testRotatingThick(self):
         """Verifies the rotating thickening generic operator"""
@@ -206,15 +207,15 @@ class TestThinthick(unittest.TestCase):
         
         dse = doubleStructuringElement([], [3], mamba.SQUARE)
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/2  ,h/2))
+        self.im1_1.setPixel(1, (w//2  ,h//2))
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-3, h/2-1, w/2+3, h/2+1), 1)
-        drawSquare(self.im1_3, (w/2-2, h/2-2, w/2+2, h/2+2), 1)
-        drawSquare(self.im1_3, (w/2-1, h/2-3, w/2+1, h/2+3), 1)
+        drawSquare(self.im1_3, (w//2-3, h//2-1, w//2+3, h//2+1), 1)
+        drawSquare(self.im1_3, (w//2-2, h//2-2, w//2+2, h//2+2), 1)
+        drawSquare(self.im1_3, (w//2-1, h//2-3, w//2+1, h//2+3), 1)
         rotatingThick(self.im1_1, self.im1_2, dse)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testInfThin(self):
         """Verifies the infimum of thinnings operator"""
@@ -222,26 +223,26 @@ class TestThinthick(unittest.TestCase):
         
         dse = doubleStructuringElement([2,4], [0,3], mamba.SQUARE)
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
-        self.im1_1.setPixel(1, (w/2+2, h/2))
-        self.im1_1.setPixel(1, (w/2-2, h/2))
-        self.im1_1.setPixel(1, (w/2, h/2+2))
-        self.im1_1.setPixel(1, (w/2, h/2-2))
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
+        self.im1_1.setPixel(1, (w//2+2, h//2))
+        self.im1_1.setPixel(1, (w//2-2, h//2))
+        self.im1_1.setPixel(1, (w//2, h//2+2))
+        self.im1_1.setPixel(1, (w//2, h//2-2))
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
-        self.im1_3.setPixel(1, (w/2+2, h/2))
-        self.im1_3.setPixel(1, (w/2-2, h/2))
-        self.im1_3.setPixel(0, (w/2+1, h/2))
-        self.im1_3.setPixel(0, (w/2-1, h/2))
-        self.im1_3.setPixel(1, (w/2, h/2+2))
-        self.im1_3.setPixel(1, (w/2, h/2-2))
-        self.im1_3.setPixel(0, (w/2, h/2+1))
-        self.im1_3.setPixel(0, (w/2, h/2-1))
+        drawSquare(self.im1_3, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
+        self.im1_3.setPixel(1, (w//2+2, h//2))
+        self.im1_3.setPixel(1, (w//2-2, h//2))
+        self.im1_3.setPixel(0, (w//2+1, h//2))
+        self.im1_3.setPixel(0, (w//2-1, h//2))
+        self.im1_3.setPixel(1, (w//2, h//2+2))
+        self.im1_3.setPixel(1, (w//2, h//2-2))
+        self.im1_3.setPixel(0, (w//2, h//2+1))
+        self.im1_3.setPixel(0, (w//2, h//2-1))
         
         infThin(self.im1_1, self.im1_2, dse, EMPTY)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testSupThick(self):
         """Verifies the supremum of thickenings operator"""
@@ -249,13 +250,13 @@ class TestThinthick(unittest.TestCase):
         
         dse = doubleStructuringElement([], [3], mamba.SQUARE)
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/2  ,h/2))
+        self.im1_1.setPixel(1, (w//2  ,h//2))
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_3, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         supThick(self.im1_1, self.im1_2, dse)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testFullThin(self):
         """Verifies the full thinning operator"""
@@ -270,20 +271,20 @@ class TestThinthick(unittest.TestCase):
         drawLine(self.im1_3, (0, h-1, w-1, h-1), 1)
         fullThin(self.im1_1, self.im1_2, dse, EMPTY)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         dse = doubleStructuringElement([2,4], [0,3], mamba.SQUARE)
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
-        self.im1_1.setPixel(1, (w/2+2, h/2))
-        self.im1_1.setPixel(1, (w/2-2, h/2))
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
+        self.im1_1.setPixel(1, (w//2+2, h//2))
+        self.im1_1.setPixel(1, (w//2-2, h//2))
         
         self.im1_3.reset()
-        self.im1_3.setPixel(1, (w/2+1, h/2+1))
-        self.im1_3.setPixel(1, (w/2-1, h/2-1))
+        self.im1_3.setPixel(1, (w//2+1, h//2+1))
+        self.im1_3.setPixel(1, (w//2-1, h//2-1))
         fullThin(self.im1_1, self.im1_2, dse, FILLED)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testFullThick(self):
         """Verifies the full thickening operator"""
@@ -291,274 +292,274 @@ class TestThinthick(unittest.TestCase):
         
         dse = doubleStructuringElement([], [3], mamba.SQUARE)
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/2  ,h/2))
+        self.im1_1.setPixel(1, (w//2  ,h//2))
         
         self.im1_3.fill(1)
         fullThick(self.im1_1, self.im1_2, dse)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testThinL(self):
         """Verifes the thinning with a L double structuring element"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         
         self.im1_3.reset()
-        drawLine(self.im1_3, (w/2-1, h/2-1, w/2-1, h/2+1), 1)
-        drawLine(self.im1_3, (w/2-1, h/2, w/2+1, h/2), 1)
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2), 1)
+        drawLine(self.im1_3, (w//2-1, h//2-1, w//2-1, h//2+1), 1)
+        drawLine(self.im1_3, (w//2-1, h//2, w//2+1, h//2), 1)
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2), 1)
         thinL(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.reset()
-        drawLine(self.im1_3, (w/2-1, h/2, w/2+1, h/2), 1)
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2), 1)
+        drawLine(self.im1_3, (w//2-1, h//2, w//2+1, h//2), 1)
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2), 1)
         thinL(self.im1_1, self.im1_2, HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testThinM(self):
         """Verifes the thinning with a M double structuring element"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         
         self.im1_3.reset()
-        drawLine(self.im1_3, (w/2-1, h/2-1, w/2-1, h/2+1), 1)
-        drawLine(self.im1_3, (w/2-1, h/2, w/2+1, h/2), 1)
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2+1), 1)
+        drawLine(self.im1_3, (w//2-1, h//2-1, w//2-1, h//2+1), 1)
+        drawLine(self.im1_3, (w//2-1, h//2, w//2+1, h//2), 1)
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2+1), 1)
         thinM(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.reset()
-        drawLine(self.im1_3, (w/2, h/2, w/2+1, h/2), 1)
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2+1), 1)
-        self.im1_3.setPixel(1, (w/2-1,h/2-1))
-        self.im1_3.setPixel(1, (w/2-1,h/2+1))
+        drawLine(self.im1_3, (w//2, h//2, w//2+1, h//2), 1)
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2+1), 1)
+        self.im1_3.setPixel(1, (w//2-1,h//2-1))
+        self.im1_3.setPixel(1, (w//2-1,h//2+1))
         thinM(self.im1_1, self.im1_2, HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testThinD(self):
         """Verifes the thinning with a D double structuring element"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         
         self.im1_3.reset()
-        drawLine(self.im1_3, (w/2, h/2, w/2, h/2+1), 1)
+        drawLine(self.im1_3, (w//2, h//2, w//2, h//2+1), 1)
         thinD(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.reset()
-        self.im1_3.setPixel(1, (w/2+1,h/2))
+        self.im1_3.setPixel(1, (w//2+1,h//2))
         thinD(self.im1_1, self.im1_2, HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testThickL(self):
         """Verifes the thickening with a L double structuring element"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         negate(self.im1_1, self.im1_1)
         
         self.im1_3.fill(1)
-        self.im1_3.setPixel(0, (w/2-1,h/2+1))
-        drawLine(self.im1_3, (w/2-1, h/2, w/2+1, h/2), 0)
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2+1), 0)
+        self.im1_3.setPixel(0, (w//2-1,h//2+1))
+        drawLine(self.im1_3, (w//2-1, h//2, w//2+1, h//2), 0)
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2+1), 0)
         thickL(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.fill(1)
-        self.im1_3.setPixel(0, (w/2,h/2))
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2+1), 0)
+        self.im1_3.setPixel(0, (w//2,h//2))
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2+1), 0)
         thickL(self.im1_1, self.im1_2, HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testThickM(self):
         """Verifes the thickening with a M double structuring element"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         negate(self.im1_1, self.im1_1)
         
         self.im1_3.fill(1)
-        self.im1_3.setPixel(0, (w/2,h/2))
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2+1), 0)
-        drawLine(self.im1_3, (w/2-1, h/2-1, w/2-1, h/2+1), 0)
+        self.im1_3.setPixel(0, (w//2,h//2))
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2+1), 0)
+        drawLine(self.im1_3, (w//2-1, h//2-1, w//2-1, h//2+1), 0)
         thickM(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.fill(1)
-        self.im1_3.setPixel(0, (w/2-1,h/2-1))
-        self.im1_3.setPixel(0, (w/2-1,h/2+1))
-        drawLine(self.im1_3, (w/2+1, h/2-1, w/2+1, h/2+1), 0)
-        drawLine(self.im1_3, (w/2, h/2, w/2+1, h/2), 0)
+        self.im1_3.setPixel(0, (w//2-1,h//2-1))
+        self.im1_3.setPixel(0, (w//2-1,h//2+1))
+        drawLine(self.im1_3, (w//2+1, h//2-1, w//2+1, h//2+1), 0)
+        drawLine(self.im1_3, (w//2, h//2, w//2+1, h//2), 0)
         thickM(self.im1_1, self.im1_2, HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testThickD(self):
         """Verifes the thickening with a D double structuring element"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         negate(self.im1_1, self.im1_1)
         
         self.im1_3.fill(1)
-        self.im1_3.setPixel(0, (w/2,h/2))
-        self.im1_3.setPixel(0, (w/2,h/2+1))
+        self.im1_3.setPixel(0, (w//2,h//2))
+        self.im1_3.setPixel(0, (w//2,h//2+1))
         thickD(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.fill(1)
-        self.im1_3.setPixel(0, (w/2+1,h/2))
+        self.im1_3.setPixel(0, (w//2+1,h//2))
         thickD(self.im1_1, self.im1_2)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testEndPoints(self):
         """Verifies the ending points extractor operator"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawLine(self.im1_1, (w/2-2, h/2, w/2+2, h/2), 1)
+        drawLine(self.im1_1, (w//2-2, h//2, w//2+2, h//2), 1)
         
         self.im1_3.reset()
-        self.im1_3.setPixel(1, (w/2-2,h/2))
-        self.im1_3.setPixel(1, (w/2+2,h/2))
+        self.im1_3.setPixel(1, (w//2-2,h//2))
+        self.im1_3.setPixel(1, (w//2+2,h//2))
         endPoints(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testMultiplePoints(self):
         """Verifies the multiple points extractor operator"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawLine(self.im1_1, (w/2-2, h/2, w/2+2, h/2), 1)
-        drawLine(self.im1_1, (w/2, h/2-2, w/2, h/2+2), 1)
+        drawLine(self.im1_1, (w//2-2, h//2, w//2+2, h//2), 1)
+        drawLine(self.im1_1, (w//2, h//2-2, w//2, h//2+2), 1)
         
         self.im1_3.reset()
-        self.im1_3.setPixel(1, (w/2,h/2))
+        self.im1_3.setPixel(1, (w//2,h//2))
         multiplePoints(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.reset()
-        self.im1_3.setPixel(1, (w/2,h/2))
-        self.im1_3.setPixel(1, (w/2+1,h/2))
-        self.im1_3.setPixel(1, (w/2,h/2-1))
-        self.im1_3.setPixel(1, (w/2,h/2+1))
+        self.im1_3.setPixel(1, (w//2,h//2))
+        self.im1_3.setPixel(1, (w//2+1,h//2))
+        self.im1_3.setPixel(1, (w//2,h//2-1))
+        self.im1_3.setPixel(1, (w//2,h//2+1))
         multiplePoints(self.im1_1, self.im1_2, HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testWhiteClip(self):
         """Verifies the correct computation of a white clipping"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.fill(1)
-        drawSquare(self.im1_1, (w/4-1,h/4-1,w/4+1,h/4+1), 0)
-        drawSquare(self.im1_1, (w/4-1,3*h/4-1,w/4+1,3*h/4+1), 0)
-        drawSquare(self.im1_1, (3*w/4-1,h/4-1,3*w/4+1,h/4+1), 0)
-        drawSquare(self.im1_1, (3*w/4-1,3*h/4-1,3*w/4+1,3*h/4+1), 0)
+        drawSquare(self.im1_1, (w//4-1,h//4-1,w//4+1,h//4+1), 0)
+        drawSquare(self.im1_1, (w//4-1,3*h//4-1,w//4+1,3*h//4+1), 0)
+        drawSquare(self.im1_1, (3*w//4-1,h//4-1,3*w//4+1,h//4+1), 0)
+        drawSquare(self.im1_1, (3*w//4-1,3*h//4-1,3*w//4+1,3*h//4+1), 0)
         
         self.im1_3.fill(1)
-        drawSquare(self.im1_3, (w/4-2,h/4-1,w/4+2,h/4+1), 0)
-        drawSquare(self.im1_3, (w/4-1,h/4-2,w/4+1,h/4+2), 0)
-        drawSquare(self.im1_3, (w/4-2,3*h/4-1,w/4+2,3*h/4+1), 0)
-        drawSquare(self.im1_3, (w/4-1,3*h/4-2,w/4+1,3*h/4+2), 0)
-        drawSquare(self.im1_3, (3*w/4-2,h/4-1,3*w/4+2,h/4+1), 0)
-        drawSquare(self.im1_3, (3*w/4-1,h/4-2,3*w/4+1,h/4+2), 0)
-        drawSquare(self.im1_3, (3*w/4-2,3*h/4-1,3*w/4+2,3*h/4+1), 0)
-        drawSquare(self.im1_3, (3*w/4-1,3*h/4-2,3*w/4+1,3*h/4+2), 0)
+        drawSquare(self.im1_3, (w//4-2,h//4-1,w//4+2,h//4+1), 0)
+        drawSquare(self.im1_3, (w//4-1,h//4-2,w//4+1,h//4+2), 0)
+        drawSquare(self.im1_3, (w//4-2,3*h//4-1,w//4+2,3*h//4+1), 0)
+        drawSquare(self.im1_3, (w//4-1,3*h//4-2,w//4+1,3*h//4+2), 0)
+        drawSquare(self.im1_3, (3*w//4-2,h//4-1,3*w//4+2,h//4+1), 0)
+        drawSquare(self.im1_3, (3*w//4-1,h//4-2,3*w//4+1,h//4+2), 0)
+        drawSquare(self.im1_3, (3*w//4-2,3*h//4-1,3*w//4+2,3*h//4+1), 0)
+        drawSquare(self.im1_3, (3*w//4-1,3*h//4-2,3*w//4+1,3*h//4+2), 0)
         whiteClip(self.im1_1, self.im1_2, 1, grid=SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.reset()
-        drawLine(self.im1_3, (w/2,0,w/2,h-1), 1)
-        drawLine(self.im1_3, (0,h/2,w-1,h/2), 1)
+        drawLine(self.im1_3, (w//2,0,w//2,h-1), 1)
+        drawLine(self.im1_3, (0,h//2,w-1,h//2), 1)
         whiteClip(self.im1_1, self.im1_2, grid=SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testBlackClip(self):
         """Verifies the correct computation of a black clipping"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.fill(0)
-        drawSquare(self.im1_1, (w/4-1,h/4-1,w/4+1,h/4+1), 1)
-        drawSquare(self.im1_1, (w/4-1,3*h/4-1,w/4+1,3*h/4+1), 1)
-        drawSquare(self.im1_1, (3*w/4-1,h/4-1,3*w/4+1,h/4+1), 1)
-        drawSquare(self.im1_1, (3*w/4-1,3*h/4-1,3*w/4+1,3*h/4+1), 1)
+        drawSquare(self.im1_1, (w//4-1,h//4-1,w//4+1,h//4+1), 1)
+        drawSquare(self.im1_1, (w//4-1,3*h//4-1,w//4+1,3*h//4+1), 1)
+        drawSquare(self.im1_1, (3*w//4-1,h//4-1,3*w//4+1,h//4+1), 1)
+        drawSquare(self.im1_1, (3*w//4-1,3*h//4-1,3*w//4+1,3*h//4+1), 1)
         
         self.im1_3.fill(0)
-        drawSquare(self.im1_3, (w/4-2,h/4-1,w/4+2,h/4+1), 1)
-        drawSquare(self.im1_3, (w/4-1,h/4-2,w/4+1,h/4+2), 1)
-        drawSquare(self.im1_3, (w/4-2,3*h/4-1,w/4+2,3*h/4+1), 1)
-        drawSquare(self.im1_3, (w/4-1,3*h/4-2,w/4+1,3*h/4+2), 1)
-        drawSquare(self.im1_3, (3*w/4-2,h/4-1,3*w/4+2,h/4+1), 1)
-        drawSquare(self.im1_3, (3*w/4-1,h/4-2,3*w/4+1,h/4+2), 1)
-        drawSquare(self.im1_3, (3*w/4-2,3*h/4-1,3*w/4+2,3*h/4+1), 1)
-        drawSquare(self.im1_3, (3*w/4-1,3*h/4-2,3*w/4+1,3*h/4+2), 1)
+        drawSquare(self.im1_3, (w//4-2,h//4-1,w//4+2,h//4+1), 1)
+        drawSquare(self.im1_3, (w//4-1,h//4-2,w//4+1,h//4+2), 1)
+        drawSquare(self.im1_3, (w//4-2,3*h//4-1,w//4+2,3*h//4+1), 1)
+        drawSquare(self.im1_3, (w//4-1,3*h//4-2,w//4+1,3*h//4+2), 1)
+        drawSquare(self.im1_3, (3*w//4-2,h//4-1,3*w//4+2,h//4+1), 1)
+        drawSquare(self.im1_3, (3*w//4-1,h//4-2,3*w//4+1,h//4+2), 1)
+        drawSquare(self.im1_3, (3*w//4-2,3*h//4-1,3*w//4+2,3*h//4+1), 1)
+        drawSquare(self.im1_3, (3*w//4-1,3*h//4-2,3*w//4+1,3*h//4+2), 1)
         blackClip(self.im1_1, self.im1_2, 1, grid=SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_3.fill(1)
-        drawLine(self.im1_3, (w/2,0,w/2,h-1), 0)
-        drawLine(self.im1_3, (0,h/2,w-1,h/2), 0)
+        drawLine(self.im1_3, (w//2,0,w//2,h-1), 0)
+        drawLine(self.im1_3, (0,h//2,w-1,h//2), 0)
         blackClip(self.im1_1, self.im1_2, grid=SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testHomotopicReduction(self):
         """Tests the homotopic reduction operator"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-3,h/2-2,w/2-1,h/2+2), 1)
-        drawSquare(self.im1_1, (w/2-3,h/2-2,w/2+3,h/2), 1)
-        drawSquare(self.im1_1, (w/2+1,h/2-2,w/2+3,h/2+2), 1)
+        drawSquare(self.im1_1, (w//2-3,h//2-2,w//2-1,h//2+2), 1)
+        drawSquare(self.im1_1, (w//2-3,h//2-2,w//2+3,h//2), 1)
+        drawSquare(self.im1_1, (w//2+1,h//2-2,w//2+3,h//2+2), 1)
         
         self.im1_3.reset()
-        self.im1_3.setPixel(1, (w/2,h/2-1))
+        self.im1_3.setPixel(1, (w//2,h//2-1))
         homotopicReduction(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testComputeSKIZ(self):
         """Verifies the computation of the slow SKIZ operator"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self.im1_3.fill(1)
-        drawLine(self.im1_3, (w/2,0,w/2,h-1), 0)
-        drawLine(self.im1_3, (0,h/2,w-1,h/2), 0)
+        drawLine(self.im1_3, (w//2,0,w//2,h-1), 0)
+        drawLine(self.im1_3, (0,h//2,w-1,h//2), 0)
         computeSKIZ(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testGeodesicThin(self):
         """Verifies the geodesic thinning operator"""
@@ -567,19 +568,19 @@ class TestThinthick(unittest.TestCase):
         dse = doubleStructuringElement([3],[0,7],SQUARE)
         
         self.im1_4.reset()
-        drawSquare(self.im1_4, (w/2-6,h/2-6,w/2+6,h/2+6), 1)
+        drawSquare(self.im1_4, (w//2-6,h//2-6,w//2+6,h//2+6), 1)
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-6,h/2-1,w/2-4,h/2+1), 1)
-        drawSquare(self.im1_1, (w/2+4,h/2-1,w/2+6,h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-6,h//2-1,w//2-4,h//2+1), 1)
+        drawSquare(self.im1_1, (w//2+4,h//2-1,w//2+6,h//2+1), 1)
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-6,h/2-1,w/2-5,h/2+1), 1)
-        drawSquare(self.im1_3, (w/2+4,h/2-1,w/2+6,h/2+1), 1)
+        drawSquare(self.im1_3, (w//2-6,h//2-1,w//2-5,h//2+1), 1)
+        drawSquare(self.im1_3, (w//2+4,h//2-1,w//2+6,h//2+1), 1)
         
         geodesicThin(self.im1_1, self.im1_4, self.im1_2, dse)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testGeodesicThick(self):
         """Verifies the geodesic thickening operator"""
@@ -588,19 +589,19 @@ class TestThinthick(unittest.TestCase):
         dse = doubleStructuringElement([0,3],[7],SQUARE)
         
         self.im1_4.reset()
-        drawSquare(self.im1_4, (w/2-6,h/2-6,w/2+6,h/2+6), 1)
+        drawSquare(self.im1_4, (w//2-6,h//2-6,w//2+6,h//2+6), 1)
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-6,h/2-1,w/2-4,h/2+1), 1)
-        drawSquare(self.im1_1, (w/2+4,h/2-1,w/2+6,h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-6,h//2-1,w//2-4,h//2+1), 1)
+        drawSquare(self.im1_1, (w//2+4,h//2-1,w//2+6,h//2+1), 1)
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-6,h/2-1,w/2-3,h/2+1), 1)
-        drawSquare(self.im1_3, (w/2+4,h/2-1,w/2+6,h/2+1), 1)
+        drawSquare(self.im1_3, (w//2-6,h//2-1,w//2-3,h//2+1), 1)
+        drawSquare(self.im1_3, (w//2+4,h//2-1,w//2+6,h//2+1), 1)
         
         geodesicThick(self.im1_1, self.im1_4, self.im1_2, dse)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testRotatingGeodesicThin(self):
         """Verifies the rotating geodesic thinning operator"""
@@ -609,19 +610,19 @@ class TestThinthick(unittest.TestCase):
         dse = doubleStructuringElement([3],[0,7],SQUARE)
         
         self.im1_4.reset()
-        drawSquare(self.im1_4, (w/2-6,h/2-6,w/2+6,h/2+6), 1)
+        drawSquare(self.im1_4, (w//2-6,h//2-6,w//2+6,h//2+6), 1)
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-6,h/2-1,w/2-4,h/2+1), 1)
-        drawSquare(self.im1_1, (w/2+4,h/2-1,w/2+6,h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-6,h//2-1,w//2-4,h//2+1), 1)
+        drawSquare(self.im1_1, (w//2+4,h//2-1,w//2+6,h//2+1), 1)
         
         self.im1_3.reset()
-        self.im1_3.setPixel(1, (w/2-5,h/2-1))
-        self.im1_3.setPixel(1, (w/2+5,h/2-1))
+        self.im1_3.setPixel(1, (w//2-5,h//2-1))
+        self.im1_3.setPixel(1, (w//2+5,h//2-1))
         
         rotatingGeodesicThin(self.im1_1, self.im1_4, self.im1_2, dse)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testRotatingGeodesicThick(self):
         """Verifies the rotating geodesic thickening operator"""
@@ -630,26 +631,26 @@ class TestThinthick(unittest.TestCase):
         dse = doubleStructuringElement([0,3],[7],SQUARE)
         
         self.im1_4.reset()
-        drawSquare(self.im1_4, (w/2-6,h/2-6,w/2+6,h/2+6), 1)
+        drawSquare(self.im1_4, (w//2-6,h//2-6,w//2+6,h//2+6), 1)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/2-6,h/2))
-        self.im1_1.setPixel(1, (w/2+6,h/2))
+        self.im1_1.setPixel(1, (w//2-6,h//2))
+        self.im1_1.setPixel(1, (w//2+6,h//2))
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-6,h/2-1,w/2-3,h/2+1), 1)
-        self.im1_3.setPixel(1, (w/2-5,h/2-3))
-        drawLine(self.im1_3, (w/2-6,h/2-2,w/2-4,h/2-2), 1)
-        drawLine(self.im1_3, (w/2-6,h/2+2,w/2-4,h/2+2), 1)
-        drawLine(self.im1_3, (w/2-6,h/2+3,w/2-5,h/2+3), 1)
-        drawSquare(self.im1_3, (w/2+3,h/2-1,w/2+6,h/2+1), 1)
-        drawLine(self.im1_3, (w/2+5,h/2-3,w/2+6,h/2-3), 1)
-        drawLine(self.im1_3, (w/2+4,h/2-2,w/2+6,h/2-2), 1)
-        drawLine(self.im1_3, (w/2+4,h/2+2,w/2+5,h/2+2), 1)
+        drawSquare(self.im1_3, (w//2-6,h//2-1,w//2-3,h//2+1), 1)
+        self.im1_3.setPixel(1, (w//2-5,h//2-3))
+        drawLine(self.im1_3, (w//2-6,h//2-2,w//2-4,h//2-2), 1)
+        drawLine(self.im1_3, (w//2-6,h//2+2,w//2-4,h//2+2), 1)
+        drawLine(self.im1_3, (w//2-6,h//2+3,w//2-5,h//2+3), 1)
+        drawSquare(self.im1_3, (w//2+3,h//2-1,w//2+6,h//2+1), 1)
+        drawLine(self.im1_3, (w//2+5,h//2-3,w//2+6,h//2-3), 1)
+        drawLine(self.im1_3, (w//2+4,h//2-2,w//2+6,h//2-2), 1)
+        drawLine(self.im1_3, (w//2+4,h//2+2,w//2+5,h//2+2), 1)
         
         rotatingGeodesicThick(self.im1_1, self.im1_4, self.im1_2, dse)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testFullGeodesicThin(self):
         """Verifies the full geodesic thinning operator"""
@@ -658,19 +659,19 @@ class TestThinthick(unittest.TestCase):
         dse = doubleStructuringElement([3],[0,7],SQUARE)
         
         self.im1_4.reset()
-        drawSquare(self.im1_4, (w/2-6,h/2-6,w/2+6,h/2+6), 1)
+        drawSquare(self.im1_4, (w//2-6,h//2-6,w//2+6,h//2+6), 1)
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-6,h/2-1,w/2-4,h/2+1), 1)
-        drawSquare(self.im1_1, (w/2+4,h/2-1,w/2+6,h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-6,h//2-1,w//2-4,h//2+1), 1)
+        drawSquare(self.im1_1, (w//2+4,h//2-1,w//2+6,h//2+1), 1)
         
         self.im1_3.reset()
-        self.im1_3.setPixel(1, (w/2-5,h/2-1))
-        self.im1_3.setPixel(1, (w/2+5,h/2-1))
+        self.im1_3.setPixel(1, (w//2-5,h//2-1))
+        self.im1_3.setPixel(1, (w//2+5,h//2-1))
         
         fullGeodesicThin(self.im1_1, self.im1_4, self.im1_2, dse)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testFullGeodesicThick(self):
         """Verifies the full geodesic thickening operator"""
@@ -679,17 +680,17 @@ class TestThinthick(unittest.TestCase):
         dse = doubleStructuringElement([0,3],[7],SQUARE)
         
         self.im1_4.reset()
-        drawSquare(self.im1_4, (w/2-6,h/2-6,w/2+6,h/2+6), 1)
+        drawSquare(self.im1_4, (w//2-6,h//2-6,w//2+6,h//2+6), 1)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/2-6,h/2))
+        self.im1_1.setPixel(1, (w//2-6,h//2))
         
         self.im1_3.reset()
-        drawSquare(self.im1_3, (w/2-6,h/2-6,w/2+6,h/2+6), 1)
+        drawSquare(self.im1_3, (w//2-6,h//2-6,w//2+6,h//2+6), 1)
         
         fullGeodesicThick(self.im1_1, self.im1_4, self.im1_2, dse)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
 
 def getSuite():

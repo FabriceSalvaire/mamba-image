@@ -12,6 +12,7 @@ Python functions and classes:
     regularisedGradient
 """
 
+from __future__ import division
 from mamba import *
 from mambaComposed import *
 from mambaDraw import *
@@ -42,37 +43,37 @@ class TestContrasts(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testGradient(self):
         """Verifies the gradient operation"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.reset()
-        drawSquare(self.im8_1, (w/2-1, h/2-1, w/2+1, h/2+1), 255)
+        drawSquare(self.im8_1, (w//2-1, h//2-1, w//2+1, h//2+1), 255)
         self.im8_2.reset()
-        drawBox(self.im8_2, (w/2-1, h/2-1, w/2+1, h/2+1), 255)
-        drawBox(self.im8_2, (w/2-2, h/2-2, w/2+2, h/2+2), 255)
+        drawBox(self.im8_2, (w//2-1, h//2-1, w//2+1, h//2+1), 255)
+        drawBox(self.im8_2, (w//2-2, h//2-2, w//2+2, h//2+2), 255)
         gradient(self.im8_1, self.im8_1, se=SQUARE3X3)
         (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
 
     def testHalfGradient(self):
         """Verifies the half-gradient operation"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.reset()
-        drawSquare(self.im8_1, (w/2-1, h/2-1, w/2+1, h/2+1), 255)
+        drawSquare(self.im8_1, (w//2-1, h//2-1, w//2+1, h//2+1), 255)
         self.im8_2.reset()
-        drawBox(self.im8_2, (w/2-1, h/2-1, w/2+1, h/2+1), 255)
+        drawBox(self.im8_2, (w//2-1, h//2-1, w//2+1, h//2+1), 255)
         halfGradient(self.im8_1, self.im8_1, type="intern", se=SQUARE3X3)
         (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         self.im8_1.reset()
-        drawSquare(self.im8_1, (w/2-1, h/2-1, w/2+1, h/2+1), 255)
+        drawSquare(self.im8_1, (w//2-1, h//2-1, w//2+1, h//2+1), 255)
         self.im8_2.reset()
-        drawBox(self.im8_2, (w/2-2, h/2-2, w/2+2, h/2+2), 255)
+        drawBox(self.im8_2, (w//2-2, h//2-2, w//2+2, h//2+2), 255)
         halfGradient(self.im8_1, self.im8_1, type="extern", se=SQUARE3X3)
         (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def _growingSpot(self, imOut, n=None, se=DEFAULT_SE, inv=False):
         (w,h) = imOut.getSize()
@@ -84,7 +85,7 @@ class TestContrasts(unittest.TestCase):
         size = 0
         while((x+size)<w and size<n):
             prov.reset()
-            prov.setPixel(255, (x, h/2))
+            prov.setPixel(255, (x, h//2))
             dilate(prov, prov, size, se)
             logic(imOut, prov, imOut, "sup")
             x += 10+2*size
@@ -100,13 +101,13 @@ class TestContrasts(unittest.TestCase):
             whiteTopHat(self.im8_1, self.im8_2, i, se=HEXAGON)
             self._growingSpot(self.im8_3, i, se=HEXAGON)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+            self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         size = self._growingSpot(self.im8_1, se=SQUARE3X3)
         for i in range(size+1):
             whiteTopHat(self.im8_1, self.im8_2, i, se=SQUARE3X3)
             self._growingSpot(self.im8_3, i, se=SQUARE3X3)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+            self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testBlackTopHat(self):
         """Tests the black top hat operation"""
@@ -115,13 +116,13 @@ class TestContrasts(unittest.TestCase):
             blackTopHat(self.im8_1, self.im8_2, i, se=HEXAGON)
             self._growingSpot(self.im8_3, i, se=HEXAGON)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+            self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         size = self._growingSpot(self.im8_1, se=SQUARE3X3, inv=True)
         for i in range(size+1):
             blackTopHat(self.im8_1, self.im8_2, i, se=SQUARE3X3)
             self._growingSpot(self.im8_3, i, se=SQUARE3X3)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+            self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def _growingLineSpot(self, imOut, n=None, inv=False):
         (w,h) = imOut.getSize()
@@ -134,7 +135,7 @@ class TestContrasts(unittest.TestCase):
         dir = 1
         while((x+size)<w and size<n):
             prov.reset()
-            prov.setPixel(255, (x, h/2))
+            prov.setPixel(255, (x, h//2))
             linearDilate(prov, prov, dir, size, HEXAGONAL)
             logic(imOut, prov, imOut, "sup")
             x += 10+2*size
@@ -151,7 +152,7 @@ class TestContrasts(unittest.TestCase):
             supWhiteTopHat(self.im8_1, self.im8_2, i, grid=HEXAGONAL)
             self._growingLineSpot(self.im8_3, i)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+            self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testSupBlackTopHat(self):
         """Tests the sup black top hat operation"""
@@ -160,7 +161,7 @@ class TestContrasts(unittest.TestCase):
             supBlackTopHat(self.im8_1, self.im8_2, i, grid=HEXAGONAL)
             self._growingLineSpot(self.im8_3, i)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+            self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def _drawSlope(self, imOut, imRes, size):
         w,h = imOut.getSize()
@@ -170,7 +171,7 @@ class TestContrasts(unittest.TestCase):
         drawSquare(imOut, (i+1, 0, w-1, h-1), i-50)
         imRes.reset()
         for i in range(2-size%2):
-            drawLine(imRes, (49+size/2+size%2+i,0,49+size/2+size%2+i,h-1), 1)
+            drawLine(imRes, (49+size//2+size%2+i,0,49+size//2+size%2+i,h-1), 1)
             
     def testRegularisedGradient(self):
         """Verifies the correct computation of a regularised gradient"""
@@ -181,11 +182,11 @@ class TestContrasts(unittest.TestCase):
                 regularisedGradient(self.im8_1, self.im8_2, n, SQUARE)
                 vol = computeVolume(self.im8_2)
                 if m<(4*n+1):
-                    self.assert_(vol!=0, "m=%d : n=%d (vol %d)" % (m,n,vol))
+                    self.assertTrue(vol!=0, "m=%d : n=%d (vol %d)" % (m,n,vol))
                     (x,y) = compare(self.im8_3, self.im8_2, self.im8_2)
-                    self.assert_(x<0, "m=%d : n=%d diff in (%d,%d)"%(m,n,x,y))
+                    self.assertTrue(x<0, "m=%d : n=%d diff in (%d,%d)"%(m,n,x,y))
                 else:
-                    self.assert_(vol==0, "m=%d : n=%d (vol %d)" % (m,n,vol))
+                    self.assertTrue(vol==0, "m=%d : n=%d (vol %d)" % (m,n,vol))
 
 
 def getSuite():

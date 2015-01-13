@@ -67,7 +67,7 @@ class TestErodil3D(unittest.TestCase):
         self._drawMat(self.im8_2, 0, w/2,h/2,l/2)
         erode3D(self.im8_1, self.im8_3, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testDilate3D(self):
         """Verifies the default dilation in 3D"""
@@ -79,7 +79,7 @@ class TestErodil3D(unittest.TestCase):
         self._drawMat(self.im8_2, 255, w/2,h/2,l/2)
         dilate3D(self.im8_1, self.im8_3, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def _drawEdge(self, im, value):
         # draws the edge
@@ -99,7 +99,7 @@ class TestErodil3D(unittest.TestCase):
         self._drawEdge(self.im8_2, 0)
         erode3D(self.im8_1, self.im8_3, se=CUBE3X3X3, edge=EMPTY)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testEdgeDilate3D(self):
         """Verifies the dilation correct behavior with edge"""
@@ -110,11 +110,11 @@ class TestErodil3D(unittest.TestCase):
         self._drawEdge(self.im8_2, 255)
         dilate3D(self.im8_1, self.im8_3, se=CUBE3X3X3, edge=FILLED)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testNoZeroErode3D(self):
         """Verifies the erosion correct behavior when direction 0 is missing"""
-        se = structuringElement3D(range(1,27), CUBIC)
+        se = structuringElement3D(list(range(1,27)), CUBIC)
         (w,h) = self.im8_1.getSize()
         l = self.im8_1.getLength()
         self.im8_1.fill(255)
@@ -124,11 +124,11 @@ class TestErodil3D(unittest.TestCase):
         self.im8_2.setPixel(255, (w/2,h/2,l/2))
         erode3D(self.im8_1, self.im8_3, se=se)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testNoZeroDilate3D(self):
         """Verifies the dilation correct behavior when direction 0 is missing"""
-        se = structuringElement3D(range(1,27), CUBIC)
+        se = structuringElement3D(list(range(1,27)), CUBIC)
         (w,h) = self.im8_1.getSize()
         l = self.im8_1.getLength()
         self.im8_1.fill(0)
@@ -138,7 +138,7 @@ class TestErodil3D(unittest.TestCase):
         self.im8_2.setPixel(0, (w/2,h/2,l/2))
         dilate3D(self.im8_1, self.im8_3, se=se)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testLinearErode3D(self):
         """Verifies the linear erosion"""
@@ -152,7 +152,7 @@ class TestErodil3D(unittest.TestCase):
         self.im8_2.setPixel(0, (w/2,h/2,l/2-2))
         linearErode3D(self.im8_1, self.im8_3, 18, 2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testLinearDilate3D(self):
         """Verifies the linear dilation"""
@@ -166,27 +166,27 @@ class TestErodil3D(unittest.TestCase):
         self.im8_2.setPixel(255, (w/2,h/2,l/2-2))
         linearDilate3D(self.im8_1, self.im8_3, 18, 2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testStructuringElement3D(self):
         """Tests the structuring Element 3D class"""
         testse = structuringElement3D([0,4,5,6,9,12] , FACE_CENTER_CUBIC)
         testse2 = structuringElement3D([4,5,6,9,12] , CENTER_CUBIC)
         testse3 = structuringElement3D([0,4,5,6,9,12] , FACE_CENTER_CUBIC)
-        self.assert_(testse.getDirections()==[0,4,5,6,9,12])
-        self.assert_(testse.getGrid()==FACE_CENTER_CUBIC)
-        self.assert_(testse.hasZero())
-        self.assert_(testse2.getDirections()==[4,5,6,9,12])
-        self.assert_(testse2.getGrid()==CENTER_CUBIC)
-        self.assert_(not testse2.hasZero())
+        self.assertTrue(testse.getDirections()==[0,4,5,6,9,12])
+        self.assertTrue(testse.getGrid()==FACE_CENTER_CUBIC)
+        self.assertTrue(testse.hasZero())
+        self.assertTrue(testse2.getDirections()==[4,5,6,9,12])
+        self.assertTrue(testse2.getGrid()==CENTER_CUBIC)
+        self.assertTrue(not testse2.hasZero())
         transse=testse.transpose()
-        self.assert_(transse.getDirections()==[0,1,2,3,9,12])
-        self.assert_(transse.getGrid()==FACE_CENTER_CUBIC)
-        self.assert_(transse.hasZero())
-        self.assert_(testse3==testse)
-        self.assert_(testse3!=testse2)
+        self.assertTrue(transse.getDirections()==[0,1,2,3,9,12])
+        self.assertTrue(transse.getGrid()==FACE_CENTER_CUBIC)
+        self.assertTrue(transse.hasZero())
+        self.assertTrue(testse3==testse)
+        self.assertTrue(testse3!=testse2)
         s = repr(testse)
-        self.assert_(s=="structuringElement3D([0, 4, 5, 6, 9, 12], mamba3D.FACE_CENTER_CUBIC)",s)
+        self.assertTrue(s=="structuringElement3D([0, 4, 5, 6, 9, 12], mamba3D.FACE_CENTER_CUBIC)",s)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestErodil3D)

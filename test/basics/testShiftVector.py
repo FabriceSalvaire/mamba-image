@@ -21,6 +21,7 @@ C functions:
     MB_ShiftVector32
 """
 
+from __future__ import division
 from mamba import *
 import unittest
 import random
@@ -68,7 +69,7 @@ class TestShiftVector(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -106,50 +107,50 @@ class TestShiftVector(unittest.TestCase):
         (w,h) = self.im1_1.getSize()
         
         for i in range(100):
-            xi = random.randint(0,w/2-1)
-            yi = random.randint(0,h/2-1)
+            xi = random.randint(0,w//2-1)
+            yi = random.randint(0,h//2-1)
             for d in self.dir:
                 self.im1_1.reset()
                 self.im1_3.reset()
-                self.im1_1.setPixel(1, (w/2,h/2))
-                self.im1_3.setPixel(1, (w/2+xi*d[0],h/2+yi*d[1]))
+                self.im1_1.setPixel(1, (w//2,h//2))
+                self.im1_3.setPixel(1, (w//2+xi*d[0],h//2+yi*d[1]))
                 shiftVector(self.im1_1, self.im1_1, (xi*d[0],yi*d[1]), 0)
                 (x,y) = compare(self.im1_1, self.im1_3, self.im1_1)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testShifting_8(self):
         """Verifies shift by vector for greyscale image"""
         (w,h) = self.im8_1.getSize()
         
         for i in range(100):
-            xi = random.randint(0,w/2-1)
-            yi = random.randint(0,h/2-1)
+            xi = random.randint(0,w//2-1)
+            yi = random.randint(0,h//2-1)
             vi = random.randint(0,255)
             for d in self.dir:
                 self.im8_1.reset()
                 self.im8_3.reset()
-                self.im8_1.setPixel(vi, (w/2,h/2))
-                self.im8_3.setPixel(vi, (w/2+xi*d[0],h/2+yi*d[1]))
+                self.im8_1.setPixel(vi, (w//2,h//2))
+                self.im8_3.setPixel(vi, (w//2+xi*d[0],h//2+yi*d[1]))
                 shiftVector(self.im8_1, self.im8_1, (xi*d[0],yi*d[1]), 0)
                 (x,y) = compare(self.im8_1, self.im8_3, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testShifting_32(self):
         """Verifies shift by vector for 32-bit image"""
         (w,h) = self.im32_1.getSize()
         
         for i in range(100):
-            xi = random.randint(0,w/2-1)
-            yi = random.randint(0,h/2-1)
+            xi = random.randint(0,w//2-1)
+            yi = random.randint(0,h//2-1)
             vi = random.randint(0,0xffffffff)
             for d in self.dir:
                 self.im32_1.reset()
                 self.im32_3.reset()
-                self.im32_1.setPixel(vi, (w/2,h/2))
-                self.im32_3.setPixel(vi, (w/2+xi*d[0],h/2+yi*d[1]))
+                self.im32_1.setPixel(vi, (w//2,h//2))
+                self.im32_3.setPixel(vi, (w//2+xi*d[0],h//2+yi*d[1]))
                 shiftVector(self.im32_1, self.im32_1, (xi*d[0],yi*d[1]), 0)
                 (x,y) = compare(self.im32_1, self.im32_3, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 
     def testFillValue_1(self):
         """Verifies the filling of created space due to shift by vector in binary image"""
@@ -161,12 +162,12 @@ class TestShiftVector(unittest.TestCase):
             self.im1_2.reset()
             shiftVector(self.im1_1, self.im1_2, d, 0)
             vol = computeVolume(self.im1_2)
-            self.assert_(vol==w*h-created_space_volume[i])
+            self.assertTrue(vol==w*h-created_space_volume[i])
             self.im1_1.reset()
             self.im1_2.reset()
             shiftVector(self.im1_1, self.im1_2, d, 1)
             vol = computeVolume(self.im1_2)
-            self.assert_(vol==created_space_volume[i], "in dir %d,%d : %d/%d" %(d[0],d[1],vol,created_space_volume[i]))
+            self.assertTrue(vol==created_space_volume[i], "in dir %d,%d : %d/%d" %(d[0],d[1],vol,created_space_volume[i]))
     
     def testFillValue_8(self):
         """Verifies the filling of created space due to shift by vector in 8-bit image"""
@@ -179,12 +180,12 @@ class TestShiftVector(unittest.TestCase):
             self.im8_2.reset()
             shiftVector(self.im8_1, self.im8_2, d, 0)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol/vi==w*h-created_space_volume[i])
+            self.assertTrue(vol//vi==w*h-created_space_volume[i])
             self.im8_1.reset()
             self.im8_2.reset()
             shiftVector(self.im8_1, self.im8_2, d, vi)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol/vi==created_space_volume[i], "in dir %d : %d/%d" %(i,vol,created_space_volume[i]))
+            self.assertTrue(vol//vi==created_space_volume[i], "in dir %d : %d/%d" %(i,vol,created_space_volume[i]))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestShiftVector)

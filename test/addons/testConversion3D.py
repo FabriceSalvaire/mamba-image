@@ -78,11 +78,11 @@ class TestConversion3D(unittest.TestCase):
         
         convert3D(self.im8_1, self.im1_1)
         (x,y,z) = compare3D(self.im1_1, self.im1_2, self.im1_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
         convert3D(self.im1_1, self.im8_1)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testConvertByMask3D(self):
         """Tests the 3D image binary 2 greyscale mask conversion function"""
@@ -96,7 +96,7 @@ class TestConversion3D(unittest.TestCase):
         
         convertByMask3D(self.im1_1, self.im8_1, 27, 155)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testThreshold3D(self):
         """Tests the 3D image threshold function"""
@@ -111,7 +111,7 @@ class TestConversion3D(unittest.TestCase):
         
             threshold3D(self.im8_1, self.im1_1, i, 255)
             (x,y,z) = compare3D(self.im1_1, self.im1_2, self.im1_3)
-            self.assert_(x<0, "%d : diff in (%d,%d,%d)"%(i,x,y,z))
+            self.assertTrue(x<0, "%d : diff in (%d,%d,%d)"%(i,x,y,z))
             
             self.im1_2[i].fill(0)
             
@@ -129,13 +129,13 @@ class TestConversion3D(unittest.TestCase):
         drawCube(self.im1_2, (0,0,l/2,w-1,h-1,l-1), 1)
         generateSupMask3D(self.im8_1, self.im8_2, self.im1_1, False)
         (x,y,z) = compare3D(self.im1_1, self.im1_2, self.im1_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
         self.im1_2.reset()
         drawCube(self.im1_2, (0,0,l/2+1,w-1,h-1,l-1), 1)
         generateSupMask3D(self.im8_1, self.im8_2, self.im1_1, True)
         (x,y,z) = compare3D(self.im1_1, self.im1_2, self.im1_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testLookup3D(self):
         """Tests the look-up table conversion on 3D images"""
@@ -148,14 +148,14 @@ class TestConversion3D(unittest.TestCase):
         self.im8_3.reset()
         lookup3D(self.im8_1, self.im8_2, 256*[0])
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
             
         self.im8_3.reset()
         for i in range(l):
             self.im8_3[i].fill(255-i)
-        lookup3D(self.im8_1, self.im8_2, range(255,-1,-1))
+        lookup3D(self.im8_1, self.im8_2, list(range(255,-1,-1)))
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
             
 def getSuite():

@@ -54,7 +54,7 @@ class TestConSub(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im8s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -79,20 +79,20 @@ class TestConSub(unittest.TestCase):
         self.im8_3.reset()
         for i in range(256):
             subConst(self.im8_1, i, self.im8_2)
-            self.assert_(self.im8_2.getPixel((0,0))==255-i)
+            self.assertTrue(self.im8_2.getPixel((0,0))==255-i)
             
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         subConst(self.im8_1, 999, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==0)
+        self.assertTrue(self.im8_2.getPixel((0,0))==0)
         
         self.im8_1.reset()
         subConst(self.im8_1, -255, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==255)
+        self.assertTrue(self.im8_2.getPixel((0,0))==255)
         
         subConst(self.im8_2, -1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==255, "%d/255" % (self.im8_2.getPixel((0,0))))
+        self.assertTrue(self.im8_2.getPixel((0,0))==255, "%d/255" % (self.im8_2.getPixel((0,0))))
 
     def testComputation_8_32(self):
         """Subtracts a constant to a 8-bit image and puts the result in a 32-bit image"""
@@ -104,10 +104,10 @@ class TestConSub(unittest.TestCase):
                 exp_val = 0xffffffff+(256-i)
             else:
                 exp_val = 255-i
-            self.assert_(self.im32_2.getPixel((0,0))==exp_val)
+            self.assertTrue(self.im32_2.getPixel((0,0))==exp_val)
             
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_32_32(self):
         """Subtracts a constant to a 32-bit image and puts the result in a 32-bit image"""
@@ -119,7 +119,7 @@ class TestConSub(unittest.TestCase):
                 exp_val = 0xffffffff+(v+1-i)
             else:
                 exp_val = v-i
-            self.assert_(self.im32_2.getPixel((0,0))==exp_val)
+            self.assertTrue(self.im32_2.getPixel((0,0))==exp_val)
         
 
 def getSuite():

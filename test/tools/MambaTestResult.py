@@ -28,7 +28,7 @@ Module defining the result class used by the Mamba Test Platform.
 
 import unittest
 
-from MambaTestOutput import Success, Failure, Error
+from .MambaTestOutput import Success, Failure, Error
 
 class MambaTestResult(unittest.TestResult):
     """A test result class that is created to display specific Mamba test information.

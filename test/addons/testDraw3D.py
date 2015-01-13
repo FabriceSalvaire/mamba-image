@@ -93,8 +93,8 @@ class TestDraw3D(unittest.TestCase):
             self.im8_1.reset()
             drawLine3D(self.im8_1, (x,y,z,x+d[0]*e,y+d[1]*e,z+d[2]*e), 255)
             vol = computeVolume3D(self.im8_1)
-            evol = (e*max(map(abs, d))+1)*255
-            self.assert_(vol==evol, "%s : %d" %(repr(d),vol/255))
+            evol = (e*max(list(map(abs, d)))+1)*255
+            self.assertTrue(vol==evol, "%s : %d" %(repr(d),vol/255))
         
     def testDrawCube(self):
         """Verifies the drawing cubes function"""
@@ -106,7 +106,7 @@ class TestDraw3D(unittest.TestCase):
         self.im8_1.reset()
         drawCube(self.im8_1, (x+e,y+e,z+e,x-e,y-e,z-e), 200)
         vol = computeVolume3D(self.im8_1)
-        self.assert_(vol==pow(2*e+1,3)*200)
+        self.assertTrue(vol==pow(2*e+1,3)*200)
         
     def testGetIntensityAlongLine3D(self):
         """Tests the intensity extraction function in draw3D"""
@@ -153,11 +153,11 @@ class TestDraw3D(unittest.TestCase):
         for d in dirs:
             inte = getIntensityAlongLine3D(self.im8_1, (x,y,z,x+d[0]*e,y+d[1]*e,z+d[2]*e))
             if d[2]==0:
-                self.assert_(inte == (e*max(map(abs, d))+1)*[z])
+                self.assertTrue(inte == (e*max(list(map(abs, d)))+1)*[z])
             elif d[2]<0:
-                self.assert_(inte == range(z,z-e*max(map(abs, d))-1,-1), "%s : %d" % (repr(d),max(map(abs, d))))
+                self.assertTrue(inte == list(range(z,z-e*max(list(map(abs, d)))-1,-1)), "%s : %d" % (repr(d),max(list(map(abs, d)))))
             else:
-                self.assert_(inte == range(z,z+e*max(map(abs, d))+1), "%s : %d" % (repr(d),max(map(abs, d))))
+                self.assertTrue(inte == list(range(z,z+e*max(list(map(abs, d)))+1)), "%s : %d" % (repr(d),max(list(map(abs, d)))))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestDraw3D)

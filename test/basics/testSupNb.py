@@ -70,7 +70,7 @@ class TestSupNb(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im8s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -126,7 +126,7 @@ class TestSupNb(unittest.TestCase):
             
     def _printMat(self, mat):
         for j in range(3):
-            print mat[j]
+            print(mat[j])
 
     def testComputationSquare_1(self):
         """Tests supremum by neighbor computations in square grid on binary images"""
@@ -144,7 +144,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im1_2, mat_exp, wi, 10)
                 supNeighbor(self.im1_1, self.im1_1, d, 1, grid=SQUARE, edge=FILLED)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections(SQUARE):
                 self.im1_1.fill(1)
                 self.im1_2.fill(1)
@@ -154,7 +154,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im1_2, mat_exp, wi, 13)
                 supNeighbor(self.im1_1, self.im1_1, d, 1, grid=SQUARE, edge=FILLED)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testComputationSquare_8(self):
         """Tests supremum by neighbor computations in square grid on 8-bit images"""
@@ -172,7 +172,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im8_2, mat_exp, wi, 10)
                 supNeighbor(self.im8_1, self.im8_1, d, 1, grid=SQUARE, edge=FILLED)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0, "(%d,10) in dir %d at (%d,%d)" % (wi,d,x,y))
+                self.assertTrue(x<0, "(%d,10) in dir %d at (%d,%d)" % (wi,d,x,y))
             for d in getDirections(SQUARE):
                 self.im8_1.fill(255)
                 self.im8_2.fill(255)
@@ -182,7 +182,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im8_2, mat_exp, wi, 13)
                 supNeighbor(self.im8_1, self.im8_1, d, 1, grid=SQUARE, edge=FILLED)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testComputationSquare_32(self):
         """Tests supremum by neighbor computations in square grid on 32-bit images"""
@@ -201,7 +201,7 @@ class TestSupNb(unittest.TestCase):
 
                 supNeighbor(self.im32_1, self.im32_1, d, 1, grid=SQUARE, edge=FILLED)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections(SQUARE):
                 self.im32_1.fill(0xffffffff)
                 self.im32_2.fill(0xffffffff)
@@ -211,7 +211,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im32_2, mat_exp, wi, 13)
                 supNeighbor(self.im32_1, self.im32_1, d, 1, grid=SQUARE, edge=FILLED)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 
     def _shiftMatHE(self, mat, d, fill=0):
         if d==0:
@@ -229,7 +229,7 @@ class TestSupNb(unittest.TestCase):
         elif d==6:
             ret_mat = [[fill,fill,fill],[fill]+mat[0][0:2], mat[1][:]]
         else:
-            self.assert_(False, "Invalid directions in Hexagonal grid")
+            self.assertTrue(False, "Invalid directions in Hexagonal grid")
         
         return ret_mat
                 
@@ -249,7 +249,7 @@ class TestSupNb(unittest.TestCase):
         elif d==6:
             ret_mat = [[fill,fill,fill],mat[0][:], [fill]+mat[1][0:2]]
         else:
-            self.assert_(False, "Invalid directions in Hexagonal grid")
+            self.assertTrue(False, "Invalid directions in Hexagonal grid")
         
         return ret_mat
 
@@ -269,7 +269,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im1_2, mat_exp, wi, 10)
                 supNeighbor(self.im1_1, self.im1_1, d, 1, grid=HEXAGONAL, edge=FILLED)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections(HEXAGONAL):
                 self.im1_1.fill(1)
                 self.im1_2.fill(1)
@@ -279,7 +279,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im1_2, mat_exp, wi, 13)
                 supNeighbor(self.im1_1, self.im1_1, d, 1, grid=HEXAGONAL, edge=FILLED)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0, "(%d,10) in dir %d" %(wi,d))
+                self.assertTrue(x<0, "(%d,10) in dir %d" %(wi,d))
 
     def testComputationHexagonal_8(self):
         """Tests supremum by neighbor computations in hexagonal grid on 8-bit images"""
@@ -297,7 +297,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im8_2, mat_exp, wi, 10)
                 supNeighbor(self.im8_1, self.im8_1, d, 1, grid=HEXAGONAL, edge=FILLED)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections(HEXAGONAL):
                 self.im8_1.fill(255)
                 self.im8_2.fill(255)
@@ -307,7 +307,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im8_2, mat_exp, wi, 13)
                 supNeighbor(self.im8_1, self.im8_1, d, 1, grid=HEXAGONAL, edge=FILLED)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testComputationHexagonal_32(self):
         """Tests supremum by neighbor computations in hexagonal grid on 32-bit images"""
@@ -325,7 +325,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im32_2, mat_exp, wi, 10)
                 supNeighbor(self.im32_1, self.im32_1, d, 1, grid=HEXAGONAL, edge=FILLED)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections(HEXAGONAL):
                 self.im32_1.fill(0xffffffff)
                 self.im32_2.fill(0xffffffff)
@@ -335,7 +335,7 @@ class TestSupNb(unittest.TestCase):
                 self._drawMat(self.im32_2, mat_exp, wi, 13)
                 supNeighbor(self.im32_1, self.im32_1, d, 1, grid=HEXAGONAL, edge=FILLED)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 
     def testEdgeEffect_1(self):
         """Verifies that edge value is correctly taken into account on binary image"""
@@ -345,13 +345,13 @@ class TestSupNb(unittest.TestCase):
             self.im1_1.reset()
             supNeighbor(self.im1_1, self.im1_1, d, 1, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
         exp_volume = [0, w, h+w-1, h, w+h-1, w, w+h-1, h, h+w-1]
         for d in getDirections(SQUARE):
             self.im1_1.reset()
             supNeighbor(self.im1_1, self.im1_1, d, 1, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
                 
     def testEdgeInocuity_1(self):
         """Verifies edge inocuity when computing binary image"""
@@ -360,30 +360,30 @@ class TestSupNb(unittest.TestCase):
             self.im1_1.fill(1)
             supNeighbor(self.im1_1, self.im1_1, d, 1, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==w*h)
+            self.assertTrue(vol==w*h)
         for d in getDirections(SQUARE):
             self.im1_1.fill(1)
             supNeighbor(self.im1_1, self.im1_1, d, 1, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==w*h)
+            self.assertTrue(vol==w*h)
         for d in getDirections(HEXAGONAL):
             self.im1_1.fill(1)
             supNeighbor(self.im1_1, self.im1_1, d, 1, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==w*h)
+            self.assertTrue(vol==w*h)
             self.im1_1.fill(0)
             supNeighbor(self.im1_1, self.im1_1, d, 1, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections(SQUARE):
             self.im1_1.fill(1)
             supNeighbor(self.im1_1, self.im1_1, d, 1, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==w*h)
+            self.assertTrue(vol==w*h)
             self.im1_1.fill(0)
             supNeighbor(self.im1_1, self.im1_1, d, 1, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
                 
     def testEdgeEffect_8(self):
         """Verifies that edge value is correctly taken into account on 8-bit image"""
@@ -393,13 +393,13 @@ class TestSupNb(unittest.TestCase):
             self.im8_1.reset()
             supNeighbor(self.im8_1, self.im8_1, d, 1, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
         exp_volume = [0, w, h+w-1, h, w+h-1, w, w+h-1, h, h+w-1]
         for d in getDirections(SQUARE):
             self.im8_1.reset()
             supNeighbor(self.im8_1, self.im8_1, d, 1, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
                 
     def testEdgeInocuity_8(self):
         """Verifies edge inocuity when computing 8-bit image"""
@@ -408,30 +408,30 @@ class TestSupNb(unittest.TestCase):
             self.im8_1.fill(255)
             supNeighbor(self.im8_1, self.im8_1, d, 1, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==w*h*255)
+            self.assertTrue(vol==w*h*255)
         for d in getDirections(SQUARE):
             self.im8_1.fill(255)
             supNeighbor(self.im8_1, self.im8_1, d, 1, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==w*h*255)
+            self.assertTrue(vol==w*h*255)
         for d in getDirections(HEXAGONAL):
             self.im8_1.fill(255)
             supNeighbor(self.im8_1, self.im8_1, d, 1, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==w*h*255)
+            self.assertTrue(vol==w*h*255)
             self.im8_1.fill(0)
             supNeighbor(self.im8_1, self.im8_1, d, 1, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections(SQUARE):
             self.im8_1.fill(255)
             supNeighbor(self.im8_1, self.im8_1, d, 1, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==w*h*255)
+            self.assertTrue(vol==w*h*255)
             self.im8_1.fill(0)
             supNeighbor(self.im8_1, self.im8_1, d, 1, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
                 
     def testEdgeEffect_32(self):
         """Verifies that edge value is correctly taken into account on 32-bit image"""
@@ -441,13 +441,13 @@ class TestSupNb(unittest.TestCase):
             self.im32_1.reset()
             supNeighbor(self.im32_1, self.im32_1, d, 1, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol/0xffffffff==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol/0xffffffff==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
         exp_volume = [0, w, h+w-1, h, w+h-1, w, w+h-1, h, h+w-1]
         for d in getDirections(SQUARE):
             self.im32_1.reset()
             supNeighbor(self.im32_1, self.im32_1, d, 1, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol/0xffffffff==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol/0xffffffff==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
                 
     def testEdgeInocuity_32(self):
         """Verifies edge inocuity when computing 32-bit image"""
@@ -456,30 +456,30 @@ class TestSupNb(unittest.TestCase):
             self.im32_1.fill(0xffffffff)
             supNeighbor(self.im32_1, self.im32_1, d, 1, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==w*h*0xffffffff)
+            self.assertTrue(vol==w*h*0xffffffff)
         for d in getDirections(SQUARE):
             self.im32_1.fill(0xffffffff)
             supNeighbor(self.im32_1, self.im32_1, d, 1, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==w*h*0xffffffff)
+            self.assertTrue(vol==w*h*0xffffffff)
         for d in getDirections(HEXAGONAL):
             self.im32_1.fill(0xffffffff)
             supNeighbor(self.im32_1, self.im32_1, d, 1, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==w*h*0xffffffff)
+            self.assertTrue(vol==w*h*0xffffffff)
             self.im32_1.fill(0)
             supNeighbor(self.im32_1, self.im32_1, d, 1, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections(SQUARE):
             self.im32_1.fill(0xffffffff)
             supNeighbor(self.im32_1, self.im32_1, d, 1, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==w*h*0xffffffff)
+            self.assertTrue(vol==w*h*0xffffffff)
             self.im32_1.fill(0)
             supNeighbor(self.im32_1, self.im32_1, d, 1, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         
 
 

@@ -16,6 +16,7 @@ C function:
     MB_ConDiv
 """
 
+from __future__ import division
 from mamba import *
 import unittest
 import random
@@ -49,7 +50,7 @@ class TestConDiv(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im8s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -80,19 +81,19 @@ class TestConDiv(unittest.TestCase):
             vd = random.randint(1,255)
             self.im8_1.fill(vf)
             divConst(self.im8_1, vd, self.im8_2)
-            self.assert_(self.im8_2.getPixel((0,0))==vf/vd)
+            self.assertTrue(self.im8_2.getPixel((0,0))==vf//vd)
             
         self.im8_1.fill(255)
         self.im8_3.fill(127)
         divConst(self.im8_1, 2, self.im8_2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
         self.im8_1.fill(2)
         self.im8_3.fill(1)
         divConst(self.im8_1, 2, self.im8_2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_32_32(self):
         """Divides a 32-bit image by a constant and puts the result in a 32-bit image"""
@@ -101,14 +102,14 @@ class TestConDiv(unittest.TestCase):
             vd = random.randint(1,100000)
             self.im32_1.fill(vf)
             divConst(self.im32_1, vd, self.im32_2)
-            self.assert_(self.im32_2.getPixel((0,0))==vf/vd)
+            self.assertTrue(self.im32_2.getPixel((0,0))==vf//vd)
             
             
         self.im32_1.fill(0x7fffffff)
         self.im32_3.fill(0x3fffffff)
         divConst(self.im32_1, 2, self.im32_2)
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
 
 def getSuite():

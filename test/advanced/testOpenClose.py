@@ -13,6 +13,7 @@ Python functions and classes:
     infClose
 """
 
+from __future__ import division
 from mamba import *
 from mambaComposed import *
 from mambaDraw import *
@@ -43,98 +44,98 @@ class TestOpenClose(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
         
     def testOpen(self):
         """Verifies the correct computation of an opening operation using open"""
         (w,h) = self.im8_1.getSize()
         for n in range(0,10):
             self.im8_1.reset()
-            self.im8_1.setPixel(255, (w/2,h/2))
+            self.im8_1.setPixel(255, (w//2,h//2))
             dilate(self.im8_1, self.im8_1, n)
             for i in range(n+1):
                 copy(self.im8_1, self.im8_2)
                 open(self.im8_2, self.im8_2, i)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+                self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
             copy(self.im8_1, self.im8_2)
             open(self.im8_2, self.im8_2, n+1)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==0, "%d : vol=%d"%(n,vol))
+            self.assertTrue(vol==0, "%d : vol=%d"%(n,vol))
         
     def testClose(self):
         """Verifies the correct computation of a closing operation using close"""
         (w,h) = self.im8_1.getSize()
         for n in range(0,10):
             self.im8_1.fill(255)
-            self.im8_1.setPixel(0, (w/2,h/2))
+            self.im8_1.setPixel(0, (w//2,h//2))
             erode(self.im8_1, self.im8_1, n)
             for i in range(n+1):
                 copy(self.im8_1, self.im8_2)
                 close(self.im8_2, self.im8_2, i)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+                self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
             copy(self.im8_1, self.im8_2)
             close(self.im8_2, self.im8_2, n+1)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==w*h*255, "%d : vol=%d"%(n,vol))
+            self.assertTrue(vol==w*h*255, "%d : vol=%d"%(n,vol))
         
     def testCloseEmptyEdge(self):
         """Verifies the correct computation of a closing operation with an EMPTY edge"""
         (w,h) = self.im8_1.getSize()
         for n in range(0,10):
             self.im8_1.fill(255)
-            self.im8_1.setPixel(0, (0,h/2))
-            self.im8_1.setPixel(0, (w/2,h/2))
+            self.im8_1.setPixel(0, (0,h//2))
+            self.im8_1.setPixel(0, (w//2,h//2))
             erode(self.im8_1, self.im8_1, n)
             for i in range(n+1):
                 copy(self.im8_1, self.im8_2)
                 close(self.im8_2, self.im8_2, i, edge=EMPTY)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+                self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
             copy(self.im8_1, self.im8_2)
             close(self.im8_2, self.im8_2, n+1, edge=EMPTY)
             self.im8_1.fill(255)
-            self.im8_1.setPixel(0, (0,h/2))
+            self.im8_1.setPixel(0, (0,h//2))
             erode(self.im8_1, self.im8_1, n)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-            self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(n+1,n,x,y))
+            self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(n+1,n,x,y))
         
     def testBuildOpen(self):
         """Verifies the correct computation of an opening by build operation"""
         (w,h) = self.im8_1.getSize()
         for n in range(0,10):
             self.im8_1.reset()
-            self.im8_1.setPixel(255, (w/2,h/2))
+            self.im8_1.setPixel(255, (w//2,h//2))
             dilate(self.im8_1, self.im8_1, n)
-            drawLine(self.im8_1, (w/2,h/2,w-2,h/2), 255)
+            drawLine(self.im8_1, (w//2,h//2,w-2,h//2), 255)
             for i in range(n+1):
                 copy(self.im8_1, self.im8_2)
                 buildOpen(self.im8_2, self.im8_2, i)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+                self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
             copy(self.im8_1, self.im8_2)
             buildOpen(self.im8_2, self.im8_2, n+1)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==0, "%d : vol=%d"%(n,vol))
+            self.assertTrue(vol==0, "%d : vol=%d"%(n,vol))
         
     def testBuildClose(self):
         """Verifies the correct computation of a closing by build operation"""
         (w,h) = self.im8_1.getSize()
         for n in range(0,10):
             self.im8_1.fill(255)
-            self.im8_1.setPixel(0, (w/2,h/2))
+            self.im8_1.setPixel(0, (w//2,h//2))
             erode(self.im8_1, self.im8_1, n)
-            drawLine(self.im8_1, (w/2,h/2,w-2,h/2), 0)
+            drawLine(self.im8_1, (w//2,h//2,w-2,h//2), 0)
             for i in range(n+1):
                 copy(self.im8_1, self.im8_2)
                 buildClose(self.im8_2, self.im8_2, i)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+                self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
             copy(self.im8_1, self.im8_2)
             buildClose(self.im8_2, self.im8_2, n+1)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==w*h*255, "%d : vol=%d"%(n,vol))
+            self.assertTrue(vol==w*h*255, "%d : vol=%d"%(n,vol))
         
     def testLinearOpen(self):
         """Verifies the correct computation of a linear opening operation"""
@@ -142,20 +143,20 @@ class TestOpenClose(unittest.TestCase):
         for d in getDirections():
             for n in range(0,10):
                 self.im8_1.reset()
-                self.im8_1.setPixel(255, (w/2,h/2))
+                self.im8_1.setPixel(255, (w//2,h//2))
                 linearDilate(self.im8_1, self.im8_1, d, n)
                 for i in range(n+1):
                     copy(self.im8_1, self.im8_2)
                     linearOpen(self.im8_2, self.im8_2, d, i)
                     (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                    self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+                    self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
                 copy(self.im8_1, self.im8_2)
                 linearOpen(self.im8_2, self.im8_2, d, n+1)
                 vol = computeVolume(self.im8_2)
                 if d==0:
-                    self.assert_(vol==255)
+                    self.assertTrue(vol==255)
                 else:
-                    self.assert_(vol==0, "dir=%d %d : vol=%d"%(d,n,vol))
+                    self.assertTrue(vol==0, "dir=%d %d : vol=%d"%(d,n,vol))
         
     def testLinearClose(self):
         """Verifies the correct computation of a linear closing operation"""
@@ -163,43 +164,43 @@ class TestOpenClose(unittest.TestCase):
         for d in getDirections():
             for n in range(0,10):
                 self.im8_1.fill(255)
-                self.im8_1.setPixel(0, (w/2,h/2))
+                self.im8_1.setPixel(0, (w//2,h//2))
                 linearErode(self.im8_1, self.im8_1, d, n)
                 for i in range(n+1):
                     copy(self.im8_1, self.im8_2)
                     linearClose(self.im8_2, self.im8_2, d, i)
                     (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                    self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+                    self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
                 copy(self.im8_1, self.im8_2)
                 linearClose(self.im8_2, self.im8_2, d, n+1)
                 vol = computeVolume(self.im8_2)
                 if d==0:
-                    self.assert_(vol==(w*h*255-255))
+                    self.assertTrue(vol==(w*h*255-255))
                 else:
-                    self.assert_(vol==w*h*255, "dir=%d %d : vol=%d"%(d,n,vol))
+                    self.assertTrue(vol==w*h*255, "dir=%d %d : vol=%d"%(d,n,vol))
         
     def testLinearCloseEmptyEdge(self):
         """Verifies the correct computation of a linear closing operation with an EMPTY edge"""
         (w,h) = self.im8_1.getSize()
-        pos = [(w/2,h/2), (w/2,h-1), (0,h-1), (0,h/2), (0,0), (w/2,0), (w-1,0), (w-1,h/2), (w-1,h-1)]
+        pos = [(w//2,h//2), (w//2,h-1), (0,h-1), (0,h//2), (0,0), (w//2,0), (w-1,0), (w-1,h//2), (w-1,h-1)]
         for d in getDirections(SQUARE)[1:]:
             for n in range(0,10):
                 self.im8_1.fill(255)
-                self.im8_1.setPixel(0, (w/2,h/2))
+                self.im8_1.setPixel(0, (w//2,h//2))
                 self.im8_1.setPixel(0, pos[d])
                 linearErode(self.im8_1, self.im8_1, transposeDirection(d, SQUARE), n, grid=SQUARE)
                 for i in range(n+1):
                     copy(self.im8_1, self.im8_2)
                     linearClose(self.im8_2, self.im8_2, d, i, grid=SQUARE, edge=EMPTY)
                     (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                    self.assert_(x<0, "dir %d: for %d/%d : diff in (%d,%d)"%(d,i,n,x,y))
+                    self.assertTrue(x<0, "dir %d: for %d/%d : diff in (%d,%d)"%(d,i,n,x,y))
                 copy(self.im8_1, self.im8_2)
                 linearClose(self.im8_2, self.im8_2, d, n+1, grid=SQUARE, edge=EMPTY)
                 self.im8_1.fill(255)
                 self.im8_1.setPixel(0, pos[d])
                 linearErode(self.im8_1, self.im8_1, transposeDirection(d, SQUARE), n, grid=SQUARE)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "dir %d: for %d/%d : diff in (%d,%d)"%(d,n+1,n,x,y))
+                self.assertTrue(x<0, "dir %d: for %d/%d : diff in (%d,%d)"%(d,n+1,n,x,y))
                     
     def _drawSPH(self, imOut, size):
         prov = imageMb(imOut)
@@ -209,7 +210,7 @@ class TestOpenClose(unittest.TestCase):
         cd = random.choice(dirs)
         for d in dirs:
             prov.reset()
-            prov.setPixel(255, (w/2,h/2))
+            prov.setPixel(255, (w//2,h//2))
             if d==cd:
                 linearDilate(prov, prov, d, size+1, grid=HEXAGONAL)
             else:
@@ -227,17 +228,17 @@ class TestOpenClose(unittest.TestCase):
                 copy(self.im8_1, self.im8_2)
                 supOpen(self.im8_2, self.im8_2, s, HEXAGONAL)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d-%d : diff in (%d,%d)"%(i,n,s,x,y))
+                self.assertTrue(x<0, "for %d/%d-%d : diff in (%d,%d)"%(i,n,s,x,y))
             supOpen(self.im8_1, self.im8_2, 2*n+1, HEXAGONAL)
             self.im8_3.reset()
-            self.im8_3.setPixel(255, (w/2,h/2))
+            self.im8_3.setPixel(255, (w//2,h//2))
             linearDilate(self.im8_3, self.im8_3, dc, n+1, HEXAGONAL)
             linearDilate(self.im8_3, self.im8_3, transposeDirection(dc, HEXAGONAL), n, HEXAGONAL)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+            self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
             supOpen(self.im8_1, self.im8_2, 2*n+2, HEXAGONAL)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         
     def testInfCloseHexagonal(self):
         """Tests the infClose operator in hexagonal grid"""
@@ -250,20 +251,20 @@ class TestOpenClose(unittest.TestCase):
                 copy(self.im8_1, self.im8_2)
                 infClose(self.im8_2, self.im8_2, s, HEXAGONAL)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d-%d : diff in (%d,%d)"%(i,n,s,x,y))
+                self.assertTrue(x<0, "for %d/%d-%d : diff in (%d,%d)"%(i,n,s,x,y))
             infClose(self.im8_1, self.im8_2, 2*n+1, HEXAGONAL)
             self.im8_3.fill(255)
-            self.im8_3.setPixel(0, (w/2,h/2))
+            self.im8_3.setPixel(0, (w//2,h//2))
             linearErode(self.im8_3, self.im8_3, dc, n+1, HEXAGONAL)
             linearErode(self.im8_3, self.im8_3, transposeDirection(dc, HEXAGONAL), n, HEXAGONAL)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
+            self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(i,n,x,y))
             infClose(self.im8_1, self.im8_2, 2*n+2, HEXAGONAL)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==255*w*h)
+            self.assertTrue(vol==255*w*h)
             
     def _obliqueSize(self, n):
-        return int((1.4142 * n + 1)/2)
+        return int((1.4142 * n + 1)//2)
         
     def _drawSPS(self, imOut, size):
         prov = imageMb(imOut)
@@ -275,7 +276,7 @@ class TestOpenClose(unittest.TestCase):
         asizes = [self._obliqueSize(size+3), size+3]
         for d in dirs:
             prov.reset()
-            prov.setPixel(255, (w/2,h/2))
+            prov.setPixel(255, (w//2,h//2))
             if d==cd:
                 linearDilate(prov, prov, d, asizes[d%2], grid=SQUARE)
             else:
@@ -295,16 +296,16 @@ class TestOpenClose(unittest.TestCase):
                 copy(self.im8_1, self.im8_2)
                 supOpen(self.im8_2, self.im8_2, s, SQUARE)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d-%d (%d): diff in (%d,%d)"%(i,n,s,dc,x,y))
+                self.assertTrue(x<0, "for %d/%d-%d (%d): diff in (%d,%d)"%(i,n,s,dc,x,y))
             supOpen(self.im8_1, self.im8_2, n+3, SQUARE)
             self.im8_3.reset()
-            self.im8_3.setPixel(255, (w/2,h/2))
+            self.im8_3.setPixel(255, (w//2,h//2))
             linearDilate(self.im8_3, self.im8_3, dc, ans[dc%2], SQUARE)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(n,dc,x,y))
+            self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(n,dc,x,y))
             supOpen(self.im8_1, self.im8_2, n+5, SQUARE)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==0, "for %d/%d : %d"%(n,dc,vol))
+            self.assertTrue(vol==0, "for %d/%d : %d"%(n,dc,vol))
         
     def testInfCloseSquare(self):
         """Tests the infClose operator in square grid"""
@@ -319,16 +320,16 @@ class TestOpenClose(unittest.TestCase):
                 copy(self.im8_1, self.im8_2)
                 infClose(self.im8_2, self.im8_2, s, SQUARE)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "for %d/%d-%d (%d): diff in (%d,%d)"%(i,n,s,dc,x,y))
+                self.assertTrue(x<0, "for %d/%d-%d (%d): diff in (%d,%d)"%(i,n,s,dc,x,y))
             infClose(self.im8_1, self.im8_2, n+3, SQUARE)
             self.im8_3.fill(255)
-            self.im8_3.setPixel(0, (w/2,h/2))
+            self.im8_3.setPixel(0, (w//2,h//2))
             linearErode(self.im8_3, self.im8_3, dc, ans[dc%2], SQUARE)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "for %d/%d : diff in (%d,%d)"%(n,dc,x,y))
+            self.assertTrue(x<0, "for %d/%d : diff in (%d,%d)"%(n,dc,x,y))
             infClose(self.im8_1, self.im8_2, n+5, SQUARE)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol==255*w*h, "for %d/%d : %d"%(n,dc,vol))
+            self.assertTrue(vol==255*w*h, "for %d/%d : %d"%(n,dc,vol))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestOpenClose)

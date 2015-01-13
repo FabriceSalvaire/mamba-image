@@ -122,7 +122,7 @@ class TestGeodesy3D(unittest.TestCase):
             linearDilate3D(self.im1_3, self.im1_3, d, 4)
             build3D(self.im1_1, self.im1_2)
             (x,y,z) = compare3D(self.im1_3, self.im1_2, self.im1_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testBuild3D_8(self):
         """Tests the reconstruction operator on 8-bit 3D images"""
@@ -140,7 +140,7 @@ class TestGeodesy3D(unittest.TestCase):
                 linearDilate3D(self.im8_3, self.im8_3, d, 4, grid=grid)
                 build3D(self.im8_1, self.im8_2, grid=grid)
                 (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-                self.assert_(x<0, "grid %s, dir %d : diff in (%d,%d,%d)"%(repr(grid),d,x,y,z))
+                self.assertTrue(x<0, "grid %s, dir %d : diff in (%d,%d,%d)"%(repr(grid),d,x,y,z))
         
     def testBuild3D_32(self):
         """Tests the reconstruction operator on 32-bit 3D images"""
@@ -156,7 +156,7 @@ class TestGeodesy3D(unittest.TestCase):
             linearDilate3D(self.im32_3, self.im32_3, d, 4)
             build3D(self.im32_1, self.im32_2)
             (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testDualBuild3D_1(self):
         """Tests the reconstruction (dual) operator on binary 3D images"""
@@ -172,7 +172,7 @@ class TestGeodesy3D(unittest.TestCase):
             linearErode3D(self.im1_3, self.im1_3, d, 4)
             dualBuild3D(self.im1_1, self.im1_2)
             (x,y,z) = compare3D(self.im1_3, self.im1_2, self.im1_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testDualBuild3D_8(self):
         """Tests the reconstruction (dual) operator on 8-bit 3D images"""
@@ -190,7 +190,7 @@ class TestGeodesy3D(unittest.TestCase):
                 linearErode3D(self.im8_3, self.im8_3, d, 4, grid=grid)
                 dualBuild3D(self.im8_1, self.im8_2, grid=grid)
                 (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-                self.assert_(x<0, "grid %s, dir %d : diff in (%d,%d,%d)"%(repr(grid),d,x,y,z))
+                self.assertTrue(x<0, "grid %s, dir %d : diff in (%d,%d,%d)"%(repr(grid),d,x,y,z))
         
     def testDualBuild3D_32(self):
         """Tests the reconstruction (dual) operator on 32-bit 3D images"""
@@ -206,7 +206,7 @@ class TestGeodesy3D(unittest.TestCase):
             linearErode3D(self.im32_3, self.im32_3, d, 4)
             dualBuild3D(self.im32_1, self.im32_2)
             (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
             
     def testLowerGeodesicDilate3D_1(self):
         """Verifies the lower geodesic dilation operation for binary 3D images"""
@@ -224,10 +224,10 @@ class TestGeodesy3D(unittest.TestCase):
         drawCube(self.im1_4, (w/2-1,h/2-2,l/2-1,w/2+1,h/2-1,l/2+1), 1)
         lowerGeodesicDilate3D(self.im1_1, self.im1_2, self.im1_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im1_4, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         geodesicDilate3D(self.im1_1, self.im1_2, self.im1_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im1_4, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
     def testUpperGeodesicDilate3D_1(self):
         """Verifies the upper geodesic dilation operation for binary 3D images"""
@@ -246,7 +246,7 @@ class TestGeodesy3D(unittest.TestCase):
         drawCube(self.im1_4, (w/2-2,h/2-2,l/2-2,w/2+2,h/2+2,l/2+2), 1)
         upperGeodesicDilate3D(self.im1_1, self.im1_2, self.im1_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im1_4, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
     def testUpperGeodesicDilate3D_8(self):
         """Verifies the upper geodesic dilation operation for greyscale 3D images"""
@@ -262,7 +262,7 @@ class TestGeodesy3D(unittest.TestCase):
             self.im8_4[i].fill(min(64-i,63))
         upperGeodesicDilate3D(self.im8_1, self.im8_2, self.im8_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_4, self.im8_3, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
     def testLowerGeodesicDilate3D_8(self):
         """Verifies the lower geodesic dilation operation for greyscale 3D images"""
@@ -281,10 +281,10 @@ class TestGeodesy3D(unittest.TestCase):
             self.im8_4[i].fill(64-i)
         lowerGeodesicDilate3D(self.im8_1, self.im8_2, self.im8_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_4, self.im8_3, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         geodesicDilate3D(self.im8_1, self.im8_2, self.im8_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_4, self.im8_3, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
     def testLowerGeodesicErode3D_1(self):
         """Verifies the lower geodesic erosion operation for binary images"""
@@ -300,10 +300,10 @@ class TestGeodesy3D(unittest.TestCase):
         drawCube(self.im1_1, (w/2-1,h/2-3,l/2-1,w/2+1,h/2-1,l/2+1), 1)
         lowerGeodesicErode3D(self.im1_1, self.im1_2, self.im1_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im1_4, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         geodesicErode3D(self.im1_1, self.im1_2, self.im1_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im1_4, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
     def testUpperGeodesicErode3D_1(self):
         """Verifies the upper geodesic erosion operation for binary images"""
@@ -320,7 +320,7 @@ class TestGeodesy3D(unittest.TestCase):
         drawCube(self.im1_1, (w/2-1,h/2-4,l/2-1,w/2+1,h/2-1,l/2+1), 1)
         upperGeodesicErode3D(self.im1_1, self.im1_2, self.im1_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im1_4, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
     def testUpperGeodesicErode3D_8(self):
         """Verifies the upper geodesic erosion operation for greyscale images"""
@@ -336,10 +336,10 @@ class TestGeodesy3D(unittest.TestCase):
             self.im8_4[i].fill(62-i)
         upperGeodesicErode3D(self.im8_1, self.im8_2, self.im8_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_4, self.im8_3, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         geodesicErode3D(self.im8_1, self.im8_2, self.im8_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_4, self.im8_3, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
     def testLowerGeodesicErode3D_8(self):
         """Verifies the lower geodesic erosion operation for greyscale images"""
@@ -358,7 +358,7 @@ class TestGeodesy3D(unittest.TestCase):
             self.im8_4[i].fill(62-i)
         lowerGeodesicErode3D(self.im8_1, self.im8_2, self.im8_3, 1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_4, self.im8_3, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def _drawRandomExtrema(self,imOut, imRes, lh=1, ext="min"):
         imRes.reset()
@@ -390,7 +390,7 @@ class TestGeodesy3D(unittest.TestCase):
             self._drawRandomExtrema(self.im8_1, self.im1_1, lh=i, ext="min")
             minima3D(self.im8_1, self.im1_2, i)
             (x,y,z) = compare3D(self.im1_1, self.im1_2, self.im1_3)
-            self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+            self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
         
     def testMaxima3D(self):
         """Verifies the maxima extraction 3D operator"""
@@ -398,7 +398,7 @@ class TestGeodesy3D(unittest.TestCase):
             self._drawRandomExtrema(self.im8_1, self.im1_1, lh=i, ext="max")
             maxima3D(self.im8_1, self.im1_2, i)
             (x,y,z) = compare3D(self.im1_1, self.im1_2, self.im1_3)
-            self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+            self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
             
     def testCloseHoles3D(self):
         """Verifies the closing holes 3D operator"""
@@ -413,7 +413,7 @@ class TestGeodesy3D(unittest.TestCase):
             drawCube(self.im1_2, (w/2-i,h/2-i,l/2-i,w/2+i,h/2+i,l/2+i), 1)
             closeHoles3D(self.im1_1, self.im1_3)
             (x,y,z) = compare3D(self.im1_3, self.im1_2, self.im1_3)
-            self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+            self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
             
     def testRemoveEdgeParticles3D(self):
         """Tests the 3D operator removing the particles connected to the edge"""
@@ -434,7 +434,7 @@ class TestGeodesy3D(unittest.TestCase):
             i += 1
         removeEdgeParticles3D(self.im1_1, self.im1_3)
         (x,y,z) = compare3D(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+        self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
         
     def testComputeDistance3D(self):
         """Verifies the distance computation on a 3D binary set"""
@@ -451,7 +451,7 @@ class TestGeodesy3D(unittest.TestCase):
             
         computeDistance3D(self.im1_1, self.im32_2)
         (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0, "%d,%d,%d" %(x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" %(x,y,z))
         
     def testComputeDistance3DEdge(self):
         """Verifies edge effect on the distance computation on a 3D binary set"""
@@ -469,7 +469,7 @@ class TestGeodesy3D(unittest.TestCase):
             
         computeDistance3D(self.im1_1, self.im32_2, CUBIC, mamba.EMPTY)
         (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0, "%d,%d,%d" %(x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" %(x,y,z))
         
         self.im32_3.reset
         drawCube(self.im32_3,(0,0,0,6,6,6), 1)
@@ -482,7 +482,7 @@ class TestGeodesy3D(unittest.TestCase):
             
         computeDistance3D(self.im1_1, self.im32_2, CUBIC, mamba.FILLED)
         (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0, "%d,%d,%d" %(x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" %(x,y,z))
         
 
 def getSuite():

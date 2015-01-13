@@ -42,7 +42,7 @@ class TestStatistic(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
         
     def testGetMean(self):
         """Verifies the correct computation of the mean value of an image"""
@@ -55,7 +55,7 @@ class TestStatistic(unittest.TestCase):
                 vi = random.randint(0,255)
                 drawLine(self.im8_1, (wi,0,wi,h-1), vi)
                 s += (h*vi)
-            self.assert_(getMean(self.im8_1)==(float(s)/float(w*h)))
+            self.assertTrue(getMean(self.im8_1)==(float(s)/float(w*h)))
         
     def testGetMedian(self):
         """Verifies the correct computation of the median value of an image"""
@@ -73,7 +73,7 @@ class TestStatistic(unittest.TestCase):
                 s += l[i]
                 if s>((w*h)/2):
                     break
-            self.assert_(getMedian(self.im8_1)==i, "%d!=%d: %d %d"%(i,getMedian(self.im8_1),s,w*h/2))
+            self.assertTrue(getMedian(self.im8_1)==i, "%d!=%d: %d %d"%(i,getMedian(self.im8_1),s,w*h/2))
         
     def testGetVariance(self):
         """Verifies the correct computation of the variance value of an image"""
@@ -93,7 +93,7 @@ class TestStatistic(unittest.TestCase):
             for i in range(256):
                 var += l[i]*(i-mean)*(i-mean)
             var = var/(w*h-1)
-            self.assert_(getVariance(self.im8_1)==var, "var %f %f" % (var,getVariance(self.im8_1)) )
+            self.assertTrue(getVariance(self.im8_1)==var, "var %f %f" % (var,getVariance(self.im8_1)) )
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestStatistic)

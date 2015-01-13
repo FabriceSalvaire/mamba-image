@@ -77,7 +77,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.fill(23+156)
         add3D(self.im8_1, self.im8_2,self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
     
     def testSub3D(self):
         """Verifies the 3D substraction operator"""
@@ -86,7 +86,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.fill(156-23)
         sub3D(self.im8_2, self.im8_1,self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
     
     def testMul3D(self):
         """Verifies the 3D multiplication operator"""
@@ -95,7 +95,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.fill(5*23)
         mul3D(self.im8_2, self.im8_1,self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testAddConst3D(self):
         """Verifies the 3D constant addition operator"""
@@ -103,7 +103,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.fill(156+23)
         addConst3D(self.im8_1, 156,self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testSubConst3D(self):
         """Verifies the 3D constant addition operator"""
@@ -111,7 +111,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.fill(156-23)
         subConst3D(self.im8_1, 23,self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testDivConst3D(self):
         """Verifies the 3D constant addition operator"""
@@ -119,7 +119,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.fill(156/3)
         divConst3D(self.im8_1, 3,self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testMulConst3D(self):
         """Verifies the 3D constant addition operator"""
@@ -127,7 +127,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.fill(41*4)
         mulConst3D(self.im8_1, 4,self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testNegate3D(self):
         """Tests the negation operator on 3D images"""
@@ -135,7 +135,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.fill(255-41)
         negate3D(self.im8_1, self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testLogic3D(self):
         """Tests the logic operators on 3D images"""
@@ -143,10 +143,10 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_2.fill(203)
         logic3D(self.im8_1, self.im8_2, self.im8_3, "sup")
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         logic3D(self.im8_1, self.im8_2, self.im8_3, "inf")
         (x,y,z) = compare3D(self.im8_3, self.im8_1, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testDiff3D(self):
         """Tests the logic operators on 3D images"""
@@ -155,12 +155,12 @@ class TestArithmetic3D(unittest.TestCase):
         self.im8_3.reset()
         diff3D(self.im8_1, self.im8_2, self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         self.im8_2.fill(33)
         self.im8_3.fill(41)
         diff3D(self.im8_1, self.im8_2, self.im8_2)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testCeilingAddConst3D(self):
         """Verifies the 3D constant saturated addition operator"""
@@ -168,7 +168,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im32_3.fill(0xffffffff)
         ceilingAddConst3D(self.im32_1, 10,self.im32_2)
         (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testCeilingAdd3D(self):
         """Verifies the 3D saturated addition operator"""
@@ -177,7 +177,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im32_3.fill(0xffffffff)
         ceilingAdd3D(self.im32_1, self.im32_2, self.im32_2)
         (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testFloorSubConst3D(self):
         """Verifies the 3D constant saturated substraction operator"""
@@ -185,7 +185,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im32_3.fill(0)
         floorSubConst3D(self.im32_1, 10,self.im32_2)
         (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testFloorSub3D(self):
         """Verifies the 3D saturated substraction operator"""
@@ -194,7 +194,7 @@ class TestArithmetic3D(unittest.TestCase):
         self.im32_3.fill(0)
         floorSub3D(self.im32_1, self.im32_2, self.im32_2)
         (x,y,z) = compare3D(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestArithmetic3D)

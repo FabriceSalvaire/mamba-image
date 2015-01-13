@@ -76,18 +76,18 @@ class TestThinthick3D(unittest.TestCase):
         dse3 = doubleStructuringElement3D([5],[2],CENTER_CUBIC)
         dse4 = dse2.flip()
         
-        self.assert_(dse1.getStructuringElement3D(0)==se1)
-        self.assert_(dse2.getStructuringElement3D(0)==se1)
-        self.assert_(dse4.getStructuringElement3D(0)==se2)
-        self.assert_(dse1.getStructuringElement3D(1)==se2)
-        self.assert_(dse2.getStructuringElement3D(1)==se2)
-        self.assert_(dse4.getStructuringElement3D(1)==se1)
-        self.assert_(dse1.getGrid()==CUBIC)
-        self.assert_(dse2.getGrid()==CUBIC)
-        self.assert_(dse3.getGrid()==CENTER_CUBIC)
-        self.assert_(dse4.getGrid()==CUBIC)
+        self.assertTrue(dse1.getStructuringElement3D(0)==se1)
+        self.assertTrue(dse2.getStructuringElement3D(0)==se1)
+        self.assertTrue(dse4.getStructuringElement3D(0)==se2)
+        self.assertTrue(dse1.getStructuringElement3D(1)==se2)
+        self.assertTrue(dse2.getStructuringElement3D(1)==se2)
+        self.assertTrue(dse4.getStructuringElement3D(1)==se1)
+        self.assertTrue(dse1.getGrid()==CUBIC)
+        self.assertTrue(dse2.getGrid()==CUBIC)
+        self.assertTrue(dse3.getGrid()==CENTER_CUBIC)
+        self.assertTrue(dse4.getGrid()==CUBIC)
         
-        self.assert_(repr(dse2)=="doubleStructuringElement(structuringElement3D([5], mamba3D.CUBIC), structuringElement3D([2], mamba3D.CUBIC))")
+        self.assertTrue(repr(dse2)=="doubleStructuringElement(structuringElement3D([5], mamba3D.CUBIC), structuringElement3D([2], mamba3D.CUBIC))")
         
     def testBinaryHMT3D(self):
         """Verifies the binary hit or miss 3D operator"""
@@ -113,13 +113,13 @@ class TestThinthick3D(unittest.TestCase):
         self.im1_3.setPixel(1, (w/2,h/2,l/2))
         binaryHMT3D(self.im1_1, self.im1_2, dse1, EMPTY)
         (x,y,z) = compare3D(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0, "%d,%d,%d" % (x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" % (x,y,z))
         
         self.im1_3.reset()
         self.im1_2.reset()
         binaryHMT3D(self.im1_1, self.im1_2, dse2, EMPTY)
         (x,y,z) = compare3D(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0, "%d,%d,%d" % (x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" % (x,y,z))
         
         self.im1_3.reset()
         self.im1_2.reset()
@@ -127,7 +127,7 @@ class TestThinthick3D(unittest.TestCase):
         self.im1_3.setPixel(1, (w/2,h/2,l-1))
         binaryHMT3D(self.im1_1, self.im1_2, dse1, FILLED)
         (x,y,z) = compare3D(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0, "%d,%d,%d" % (x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" % (x,y,z))
         
     def testThin3D(self):
         """Tests the thinning 3D operator"""
@@ -143,7 +143,7 @@ class TestThinthick3D(unittest.TestCase):
         dse = doubleStructuringElement3D([1,2,8,10,11,17,19,20,26],[4,5,6,13,14,15,22,24], CUBIC)
         thin3D(self.im1_1, self.im1_2, dse)
         (x,y,z) = compare3D(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0, "%d,%d,%d" % (x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" % (x,y,z))
         
     def testThick3D(self):
         """Verifies the thickening 3D operator"""
@@ -159,7 +159,7 @@ class TestThinthick3D(unittest.TestCase):
         dse = doubleStructuringElement3D([1,2,8,10,11,17,19,20,26],[4,5,6,13,14,15,22,24], CUBIC)
         thick3D(self.im1_1, self.im1_2, dse)
         (x,y,z) = compare3D(self.im1_2, self.im1_3, self.im1_2)
-        self.assert_(x<0, "%d,%d,%d" % (x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" % (x,y,z))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestThinthick3D)

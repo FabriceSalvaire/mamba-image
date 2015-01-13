@@ -91,7 +91,7 @@ class TestFilter3D(unittest.TestCase):
         drawCube(self.im8_3, (w/2-1,3*h/4-1,3*l/4-1,w/2+1,3*h/4+1,3*l/4+1), 0)
         drawCube(self.im8_3, (3*w/4-2,3*h/4-2,3*l/4-2,3*w/4+3,3*h/4+3,3*l/4+3), 0)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         alternateFilter3D(self.im8_1, self.im8_2, 1, False, CUBE3X3X3)
         self.im8_3.reset()
         drawCube(self.im8_3, (0,h/2,l/2,w-1,h-1,l-1), 255)
@@ -99,7 +99,7 @@ class TestFilter3D(unittest.TestCase):
         drawCube(self.im8_3, (w/2-1,3*h/4-1,3*l/4-1,w/2+1,3*h/4+1,3*l/4+1), 0)
         drawCube(self.im8_3, (3*w/4-2,h/4-2,l/4-2,3*w/4+3,h/4+3,l/4+3), 255)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testFullAlternateFilter3D(self):
         """Verifies the full alternate filter 3D operator"""
@@ -112,13 +112,13 @@ class TestFilter3D(unittest.TestCase):
         drawCube(self.im8_3, (0,h/2,l/2,w-1,h-1,l-1), 255)
         drawCube(self.im8_3, (3*w/4-2,3*h/4-2,3*l/4-2,3*w/4+3,3*h/4+3,3*l/4+3), 0)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         fullAlternateFilter3D(self.im8_1, self.im8_2, 2, False, CUBE3X3X3)
         self.im8_3.reset()
         drawCube(self.im8_3, (0,h/2,l/2,w-1,h-1,l-1), 255)
         drawCube(self.im8_3, (3*w/4-2,h/4-2,l/4-2,3*w/4+3,h/4+3,l/4+3), 255)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def _drawAlternatedSeg3D(self, imOut):
         (w,h) = imOut.getSize()
@@ -153,7 +153,7 @@ class TestFilter3D(unittest.TestCase):
         drawLine3D(self.im8_3, (3*w/4-1,3*h/4-3,3*l/4-3,3*w/4-1,3*h/4+2,3*l/4+2), 0)
         drawLine3D(self.im8_3, (3*w/4+1,3*h/4-3,3*l/4-3,3*w/4+1,3*h/4+2,3*l/4+2), 0)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0, "%d,%d,%d" % (x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" % (x,y,z))
         linearAlternateFilter3D(self.im8_1, self.im8_2, 4, False, CUBIC)
         self.im8_3.reset()
         drawCube(self.im8_3, (0,h/2,l/2,w-1,h-1,l-1), 255)
@@ -162,7 +162,7 @@ class TestFilter3D(unittest.TestCase):
         drawLine3D(self.im8_3, (3*w/4-1,3*h/4-3,3*l/4-3,3*w/4-1,3*h/4+2,3*l/4+2), 0)
         drawLine3D(self.im8_3, (3*w/4+1,3*h/4-3,3*l/4-3,3*w/4+1,3*h/4+2,3*l/4+2), 0)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testAutoMedian3D(self):
         """Tests the auto median filter 3D operator"""
@@ -176,11 +176,11 @@ class TestFilter3D(unittest.TestCase):
             for i in range(n+1):
                 autoMedian3D(self.im8_1, self.im8_2, i, se=CUBE3X3X3)
                 (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             self.im8_3.fill(value)
             autoMedian3D(self.im8_1, self.im8_2, n+1, se=CUBE3X3X3)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             
     def testSimpleLevelling3D(self):
         """Verifies the simple levelling 3D operator"""
@@ -200,7 +200,7 @@ class TestFilter3D(unittest.TestCase):
             
             simpleLevelling3D(self.im8_1, self.im8_4, self.im8_2, CUBIC)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "%d" % (i))
+            self.assertTrue(x<0, "%d" % (i))
             
     def testStrongLevelling3D(self):
         """Verifies the strong levelling 3D operator"""
@@ -221,7 +221,7 @@ class TestFilter3D(unittest.TestCase):
             
             strongLevelling3D(self.im8_1, self.im8_2, i, (i%2==1), CUBIC)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "%d : %d,%d,%d" % (i,x,y,z))
+            self.assertTrue(x<0, "%d : %d,%d,%d" % (i,x,y,z))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestFilter3D)

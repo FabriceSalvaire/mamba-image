@@ -46,7 +46,7 @@ class TestBldNb(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im8s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -95,7 +95,7 @@ class TestBldNb(unittest.TestCase):
         elif d==8:
             mat = [[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]]
         else:
-            self.assert_(False, "Invalid directions in Square grid")
+            self.assertTrue(False, "Invalid directions in Square grid")
         vol = 0
         for i in range(5):
             for j in range(5):
@@ -139,8 +139,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im1_3, wi, 20, d)
                 vol = buildNeighbor(self.im1_2, self.im1_1, d, grid=SQUARE)
                 (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-                self.assert_(x<0, "in dir %d at (%d,20) : (%d,%d)" % (d,wi,x,y))
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0, "in dir %d at (%d,20) : (%d,%d)" % (d,wi,x,y))
+                self.assertTrue(vol==exp_vol)
         for wi in range(2,w-2):
             self.im1_2.fill(1)
             self._drawContainement(self.im1_2, wi, 27, 0)
@@ -151,8 +151,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im1_3, wi, 27, d)
                 vol = buildNeighbor(self.im1_2, self.im1_1, d, grid=SQUARE)
                 (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
                 
     def testComputationSquare_8(self):
         """Tests build by neighbor computations in square grid on 8-bit images"""
@@ -169,8 +169,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im8_3, wi, 20, d, vi-1)
                 vol = buildNeighbor(self.im8_2, self.im8_1, d, grid=SQUARE)
                 (x,y) = compare(self.im8_3, self.im8_1, self.im8_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
         for wi in range(2,w-2):
             vi = random.randint(2,255)
             self.im8_2.fill(vi)
@@ -182,8 +182,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im8_3, wi, 27, d, vi-1)
                 vol = buildNeighbor(self.im8_2, self.im8_1, d, grid=SQUARE)
                 (x,y) = compare(self.im8_3, self.im8_1, self.im8_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
                 
     def testComputationSquare_32(self):
         """Tests build by neighbor computations in square grid on 32-bit images"""
@@ -200,8 +200,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im32_3, wi, 20, d, vi-1)
                 vol = buildNeighbor(self.im32_2, self.im32_1, d, grid=SQUARE)
                 (x,y) = compare(self.im32_3, self.im32_1, self.im32_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
         for wi in range(2,w-2):
             vi = random.randint(2,0xffffffff)
             self.im32_2.fill(vi)
@@ -213,8 +213,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im32_3, wi, 27, d, vi-1)
                 vol = buildNeighbor(self.im32_2, self.im32_1, d, grid=SQUARE)
                 (x,y) = compare(self.im32_3, self.im32_1, self.im32_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
 
     def _drawExpectedHO(self, im, x, y, d, v=1):
         # draws an expected result centered in x,y
@@ -234,7 +234,7 @@ class TestBldNb(unittest.TestCase):
         elif d==6:
             mat = [[0,1,0,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]]
         else:
-            self.assert_(False, "Invalid directions in Hexagonal grid")
+            self.assertTrue(False, "Invalid directions in Hexagonal grid")
         vol = 0
         for i in range(5):
             for j in range(5):
@@ -259,7 +259,7 @@ class TestBldNb(unittest.TestCase):
         elif d==6:
             mat = [[0,1,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]]
         else:
-            self.assert_(False, "Invalid directions in Hexagonal grid")
+            self.assertTrue(False, "Invalid directions in Hexagonal grid")
         vol = 0
         for i in range(5):
             for j in range(5):
@@ -281,8 +281,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHE(self.im1_3, wi, 20, d)
                 vol = buildNeighbor(self.im1_2, self.im1_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-                self.assert_(x<0, "in dir %d at (%d,20) : (%d,%d)" % (d,wi,x,y))
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0, "in dir %d at (%d,20) : (%d,%d)" % (d,wi,x,y))
+                self.assertTrue(vol==exp_vol)
         for wi in range(2,w-2):
             self.im1_2.fill(1)
             self._drawContainement(self.im1_2, wi, 27, 0)
@@ -293,8 +293,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHO(self.im1_3, wi, 27, d)
                 vol = buildNeighbor(self.im1_2, self.im1_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
                 
     def testComputationHexagonal_8(self):
         """Tests build by neighbor computations in hexagonal grid on 8-bit images"""
@@ -311,8 +311,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHE(self.im8_3, wi, 20, d, vi-1)
                 vol = buildNeighbor(self.im8_2, self.im8_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_3, self.im8_1, self.im8_3)
-                self.assert_(x<0, "for %d at (%d,%d) in dir %d" % (wi,x,y,d))
-                self.assert_(vol==exp_vol, "for %d[%d] in dir %d : %d/%d" % (wi,vi,d,vol,exp_vol))
+                self.assertTrue(x<0, "for %d at (%d,%d) in dir %d" % (wi,x,y,d))
+                self.assertTrue(vol==exp_vol, "for %d[%d] in dir %d : %d/%d" % (wi,vi,d,vol,exp_vol))
         for wi in range(2,w-2):
             vi = random.randint(2,255)
             self.im8_2.fill(vi)
@@ -324,8 +324,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHO(self.im8_3, wi, 27, d, vi-1)
                 vol = buildNeighbor(self.im8_2, self.im8_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_3, self.im8_1, self.im8_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
                 
     def testComputationHexagonal_32(self):
         """Tests build by neighbor computations in hexagonal grid on 32-bit images"""
@@ -342,8 +342,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHE(self.im32_3, wi, 20, d, vi-1)
                 vol = buildNeighbor(self.im32_2, self.im32_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_3, self.im32_1, self.im32_3)
-                self.assert_(x<0, "for %d at (%d,%d) in dir %d" % (wi,x,y,d))
-                self.assert_(vol==exp_vol, "for %d[%d] in dir %d : %d/%d" % (wi,vi,d,vol,exp_vol))
+                self.assertTrue(x<0, "for %d at (%d,%d) in dir %d" % (wi,x,y,d))
+                self.assertTrue(vol==exp_vol, "for %d[%d] in dir %d : %d/%d" % (wi,vi,d,vol,exp_vol))
         for wi in range(2,w-2):
             vi = random.randint(2,0xffffffff)
             self.im32_2.fill(vi)
@@ -355,8 +355,8 @@ class TestBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHO(self.im32_3, wi, 27, d, vi-1)
                 vol = buildNeighbor(self.im32_2, self.im32_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_3, self.im32_1, self.im32_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
     
     def testInoutComputation_1(self):
         """Verifies computation when a binary image is used as both mask and output"""
@@ -369,10 +369,10 @@ class TestBldNb(unittest.TestCase):
                 self.im1_2.setPixel(1, (wi,20))
                 vol = buildNeighbor(self.im1_1, self.im1_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 vol = buildNeighbor(self.im1_1, self.im1_1, d, grid=SQUARE)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
     
     def testInoutComputation_8(self):
         """Verifies computation when a 8-bit image is used as both mask and output"""
@@ -386,10 +386,10 @@ class TestBldNb(unittest.TestCase):
                 self.im8_2.setPixel(vi, (wi,20))
                 vol = buildNeighbor(self.im8_1, self.im8_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 vol = buildNeighbor(self.im8_1, self.im8_1, d, grid=SQUARE)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
     
     def testInoutComputation_32(self):
         """Verifies computation when a 32-bit image is used as both mask and output"""
@@ -403,10 +403,10 @@ class TestBldNb(unittest.TestCase):
                 self.im32_2.setPixel(vi, (wi,20))
                 vol = buildNeighbor(self.im32_1, self.im32_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 vol = buildNeighbor(self.im32_1, self.im32_1, d, grid=SQUARE)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestBldNb)

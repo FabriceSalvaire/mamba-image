@@ -16,6 +16,7 @@ C function:
     MB_Extract
 """
 
+from __future__ import division
 from mamba import *
 import mambaCore
 import unittest
@@ -48,77 +49,77 @@ class TestCreate(unittest.TestCase):
         for i in range(100):
             wi = random.randint(1,4000)
             hi = random.randint(1,4000)
-            wc = ((wi+63)/64)*64
-            hc = ((hi+1)/2)*2
+            wc = ((wi+63)//64)*64
+            hc = ((hi+1)//2)*2
             im1 = imageMb(wi,hi,1)
             im8 = imageMb(wi,hi,8)
             im32 = imageMb(wi,hi,32)
-            self.assert_(im1.getDepth()==1)
-            self.assert_(im1.getSize()==(wc,hc), "%s : %d,%d" %(str(im1.getSize()), wc, hc))
-            self.assert_(im8.getDepth()==8)
-            self.assert_(im8.getSize()==(wc,hc))
-            self.assert_(im32.getDepth()==32)
-            self.assert_(im32.getSize()==(wc,hc))
+            self.assertTrue(im1.getDepth()==1)
+            self.assertTrue(im1.getSize()==(wc,hc), "%s : %d,%d" %(str(im1.getSize()), wc, hc))
+            self.assertTrue(im8.getDepth()==8)
+            self.assertTrue(im8.getSize()==(wc,hc))
+            self.assertTrue(im32.getDepth()==32)
+            self.assertTrue(im32.getSize()==(wc,hc))
             
     def testConstructor(self):
         """Verifies that imageMb constructor works correctly"""
         wi = random.randint(1,4000)
         hi = random.randint(1,4000)
         ci = random.randint(0,255)
-        wc = ((wi+63)/64)*64
-        hc = ((hi+1)/2)*2
+        wc = ((wi+63)//64)*64
+        hc = ((hi+1)//2)*2
         imref = imageMb(wi,hi,1)
         # Creating an image and saving it
         Image.new("RGB", (wi,hi), (ci,ci,ci)).save("test.jpg")
         
         im = imageMb()
-        self.assert_(im.getDepth()==8)
-        self.assert_(im.getSize()==(256,256))
+        self.assertTrue(im.getDepth()==8)
+        self.assertTrue(im.getSize()==(256,256))
         im = imageMb(imref)
-        self.assert_(im.getDepth()==1)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==1)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb(1)
-        self.assert_(im.getDepth()==1)
-        self.assert_(im.getSize()==(256,256))
+        self.assertTrue(im.getDepth()==1)
+        self.assertTrue(im.getSize()==(256,256))
         im = imageMb(8)
-        self.assert_(im.getDepth()==8)
-        self.assert_(im.getSize()==(256,256))
+        self.assertTrue(im.getDepth()==8)
+        self.assertTrue(im.getSize()==(256,256))
         im = imageMb(32)
-        self.assert_(im.getDepth()==32)
-        self.assert_(im.getSize()==(256,256))
+        self.assertTrue(im.getDepth()==32)
+        self.assertTrue(im.getSize()==(256,256))
         im = imageMb("test.jpg")
-        self.assert_(im.getDepth()==8)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==8)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb(imref, 1)
-        self.assert_(im.getDepth()==1)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==1)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb(imref, 8)
-        self.assert_(im.getDepth()==8)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==8)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb(imref, 32)
-        self.assert_(im.getDepth()==32)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==32)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb("test.jpg", 1)
-        self.assert_(im.getDepth()==1)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==1)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb("test.jpg", 8)
-        self.assert_(im.getDepth()==8)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==8)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb("test.jpg", 32)
-        self.assert_(im.getDepth()==32)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==32)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb(wi,hi)
-        self.assert_(im.getDepth()==8)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==8)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb(wi,hi,1)
-        self.assert_(im.getDepth()==1)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==1)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb(wi,hi,8)
-        self.assert_(im.getDepth()==8)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==8)
+        self.assertTrue(im.getSize()==(wc,hc))
         im = imageMb(wi,hi,32)
-        self.assert_(im.getDepth()==32)
-        self.assert_(im.getSize()==(wc,hc))
+        self.assertTrue(im.getDepth()==32)
+        self.assertTrue(im.getSize()==(wc,hc))
         
         os.remove("test.jpg")
 
@@ -128,14 +129,14 @@ class TestCreate(unittest.TestCase):
             wi = random.randint(1,4000)
             hi = random.randint(1,4000)
             ci = random.randint(0,255)
-            wc = ((wi+63)/64)*64
-            hc = ((hi+1)/2)*2
+            wc = ((wi+63)//64)*64
+            hc = ((hi+1)//2)*2
             # Creating an image and saving it
             Image.new("RGB", (wi,hi), (ci,ci,ci)).save("test.jpg")
             im = imageMb("test.jpg")
-            self.assert_(im.getSize()==(wc,hc), "%s : %d,%d" %(str(im.getSize()), wc, hc))
+            self.assertTrue(im.getSize()==(wc,hc), "%s : %d,%d" %(str(im.getSize()), wc, hc))
             vol = computeVolume(im)
-            self.assert_(vol==ci*wi*hi)
+            self.assertTrue(vol==ci*wi*hi)
             os.remove("test.jpg")
             
             ci = random.randint(0,255)
@@ -143,14 +144,14 @@ class TestCreate(unittest.TestCase):
             Image.new("RGB", (wi,hi), (ci,ci,ci)).save("test.jpg")
             im.load("test.jpg")
             vol = computeVolume(im)
-            self.assert_(vol==ci*wi*hi)
+            self.assertTrue(vol==ci*wi*hi)
             im1 = imageMb(wi,hi,1)
             im1.load("test.jpg")
-            self.assert_(im1.getDepth()==1)
+            self.assertTrue(im1.getDepth()==1)
             im32 = imageMb(wi,hi,32)
             im32.load("test.jpg")
             vol = computeVolume(im32)
-            self.assert_(vol==ci*wi*hi)
+            self.assertTrue(vol==ci*wi*hi)
             os.remove("test.jpg")
             
             del(im)
@@ -160,8 +161,8 @@ class TestCreate(unittest.TestCase):
         for i in range(10):
             wi = random.randint(1,4000)
             hi = random.randint(1,4000)
-            wc = ((wi+63)/64)*64
-            hc = ((hi+1)/2)*2
+            wc = ((wi+63)//64)*64
+            hc = ((hi+1)//2)*2
             im1 = imageMb(wi,hi,1)
             im8 = imageMb(wi,hi,8)
             im32 = imageMb(wi,hi,32)
@@ -180,12 +181,12 @@ class TestCreate(unittest.TestCase):
         self.assertRaises(AssertionError, im8.loadRaw, rawdata[1:])
         im8.loadRaw(rawdata)
         vol = computeVolume(im8)
-        self.assert_(vol==128*128*0x11)
+        self.assertTrue(vol==128*128*0x11)
         rawdata = 128*128*"\x11\x00\x00\x00"
         self.assertRaises(AssertionError, im32.loadRaw, rawdata[1:])
         im32.loadRaw(rawdata)
         vol = computeVolume(im32)
-        self.assert_(vol==128*128*0x11, "32: %d,%d" %(vol,128*128*0x11))
+        self.assertTrue(vol==128*128*0x11, "32: %d,%d" %(vol,128*128*0x11))
         
     def testExtractRaw(self):
         """Ensures that the extract raw method works properly"""
@@ -193,12 +194,12 @@ class TestCreate(unittest.TestCase):
         im32 = imageMb(128,128,32)
         im8.fill(0x11)
         rawdata = im8.extractRaw()
-        self.assert_(len(rawdata)==128*128)
-        self.assert_(rawdata==128*128*"\x11")
+        self.assertTrue(len(rawdata)==128*128)
+        self.assertTrue(rawdata==128*128*b"\x11")
         im32.fill(0x11223344)
         rawdata = im32.extractRaw()
-        self.assert_(len(rawdata)==128*128*4)
-        self.assert_(rawdata==128*128*"\x44\x33\x22\x11")
+        self.assertTrue(len(rawdata)==128*128*4)
+        self.assertTrue(rawdata==128*128*b"\x44\x33\x22\x11")
         
 
 def getSuite():

@@ -75,7 +75,7 @@ class TestContrast3D(unittest.TestCase):
         self._drawBox3D(self.im8_2, (w/2-2, h/2-2, l/2-2, w/2+2, h/2+2, l/2+2), 255)
         gradient3D(self.im8_1, self.im8_1, se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
 
     def testHalfGradient(self):
         """Verifies the 3D half-gradient operation"""
@@ -88,7 +88,7 @@ class TestContrast3D(unittest.TestCase):
         self._drawBox3D(self.im8_2, (w/2-1, h/2-1, l/2-1, w/2+1, h/2+1, l/2+1), 255)
         halfGradient3D(self.im8_1, self.im8_1, type="intern", se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
         self.im8_1.reset()
         drawCube(self.im8_1, (w/2-1, h/2-1, l/2-1, w/2+1, h/2+1, l/2+1), 255)
@@ -96,7 +96,7 @@ class TestContrast3D(unittest.TestCase):
         self._drawBox3D(self.im8_2, (w/2-2, h/2-2, l/2-2, w/2+2, h/2+2, l/2+2), 255)
         halfGradient3D(self.im8_1, self.im8_1, type="extern", se=CUBE3X3X3)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def _growingSpot3D(self, imOut, n=None, se=CUBOCTAHEDRON, inv=False):
         (w,h) = imOut.getSize()
@@ -125,13 +125,13 @@ class TestContrast3D(unittest.TestCase):
             whiteTopHat3D(self.im8_1, self.im8_2, i, se=CUBOCTAHEDRON)
             self._growingSpot3D(self.im8_3, i, se=CUBOCTAHEDRON)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         size = self._growingSpot3D(self.im8_1, se=CUBE3X3X3)
         for i in range(size+1):
             whiteTopHat3D(self.im8_1, self.im8_2, i, se=CUBE3X3X3)
             self._growingSpot3D(self.im8_3, i, se=CUBE3X3X3)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testBlackTopHat3D(self):
         """Tests the 3D black top hat operation"""
@@ -140,13 +140,13 @@ class TestContrast3D(unittest.TestCase):
             blackTopHat3D(self.im8_1, self.im8_2, i, se=CUBOCTAHEDRON)
             self._growingSpot3D(self.im8_3, i, se=CUBOCTAHEDRON)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         size = self._growingSpot3D(self.im8_1, se=CUBE3X3X3, inv=True)
         for i in range(size+1):
             blackTopHat3D(self.im8_1, self.im8_2, i, se=CUBE3X3X3)
             self._growingSpot3D(self.im8_3, i, se=CUBE3X3X3)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def _growingLineSpot3D(self, imOut, n=None, inv=False):
         (w,h) = imOut.getSize()
@@ -179,7 +179,7 @@ class TestContrast3D(unittest.TestCase):
             supWhiteTopHat3D(self.im8_1, self.im8_2, i, grid=FACE_CENTER_CUBIC)
             self._growingLineSpot3D(self.im8_3, i)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
 
     def testSupBlackTopHat3D(self):
         """Tests the 3D sup black top hat operation"""
@@ -188,7 +188,7 @@ class TestContrast3D(unittest.TestCase):
             supBlackTopHat3D(self.im8_1, self.im8_2, i, grid=FACE_CENTER_CUBIC)
             self._growingLineSpot3D(self.im8_3, i)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+            self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def _drawSlope3D(self, imOut, imRes, size):
         w,h = imOut.getSize()
@@ -209,11 +209,11 @@ class TestContrast3D(unittest.TestCase):
             regularisedGradient3D(self.im8_1, self.im8_2, n, CUBIC)
             vol = computeVolume3D(self.im8_2)
             if m<(4*n+1):
-                self.assert_(vol!=0, "m=%d : n=%d (vol %d)" % (m,n,vol))
+                self.assertTrue(vol!=0, "m=%d : n=%d (vol %d)" % (m,n,vol))
                 (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_2)
-                self.assert_(x<0, "m=%d : n=%d diff in (%d,%d,%d)"%(m,n,x,y,z))
+                self.assertTrue(x<0, "m=%d : n=%d diff in (%d,%d,%d)"%(m,n,x,y,z))
             else:
-                self.assert_(vol==0, "m=%d : n=%d (vol %d)" % (m,n,vol))
+                self.assertTrue(vol==0, "m=%d : n=%d (vol %d)" % (m,n,vol))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestContrast3D)

@@ -11,6 +11,7 @@ Python functions and classes:
     conjugateHexagonalDilate
 """
 
+from __future__ import division
 from mamba import *
 from mambaDraw import *
 from mambaComposed import *
@@ -53,7 +54,7 @@ class TestErodil(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def _drawMat(self, im, mat, x, y):
         # draws a matrix centered in x,y
@@ -65,26 +66,26 @@ class TestErodil(unittest.TestCase):
         """Verifies the default erosion"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[0,0,255],[0,0,0],[0,0,255]], w/2,h/2)
+        self._drawMat(self.im8_2, [[0,0,255],[0,0,0],[0,0,255]], w//2,h//2)
         erode(self.im8_1, self.im8_3)
         vol = computeVolume(self.im8_3)
         exp_vol = w*h*255-7*255
-        self.assert_(vol==exp_vol, "volume %d!=%d" % (vol, exp_vol))
+        self.assertTrue(vol==exp_vol, "volume %d!=%d" % (vol, exp_vol))
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testErodeSize(self):
         """Verifies that the size is properly taken into account with erosion"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         for n in range(20):
             erode(self.im8_1, self.im8_3, n, se=SQUARE3X3)
             vol = computeVolume(self.im8_3)
             exp_vol = 255*(w*h-(2*n+1)*(2*n+1))
-            self.assert_(vol==exp_vol, "for %d : volume %d!=%d" % (n, vol, exp_vol))
+            self.assertTrue(vol==exp_vol, "for %d : volume %d!=%d" % (n, vol, exp_vol))
         
     def testErodeEdge(self):
         """Verifies the edge effect for an erosion"""
@@ -93,32 +94,32 @@ class TestErodil(unittest.TestCase):
         erode(self.im8_1, self.im8_3, se=SQUARE3X3, edge=EMPTY)
         vol = computeVolume(self.im8_3)
         exp_vol = 255*(w*h-2*w-2*(h-2))
-        self.assert_(vol==exp_vol, "volume %d!=%d" % (vol, exp_vol))
+        self.assertTrue(vol==exp_vol, "volume %d!=%d" % (vol, exp_vol))
         
     def testDilate(self):
         """Verifies the default dilation"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.reset()
-        self.im8_1.setPixel(255, (w/2,h/2))
+        self.im8_1.setPixel(255, (w//2,h//2))
         self.im8_2.reset()
-        self._drawMat(self.im8_2, [[255,255,0],[255,255,255],[255,255,0]], w/2,h/2)
+        self._drawMat(self.im8_2, [[255,255,0],[255,255,255],[255,255,0]], w//2,h//2)
         dilate(self.im8_1, self.im8_3)
         vol = computeVolume(self.im8_3)
         exp_vol = 7*255
-        self.assert_(vol==exp_vol, "volume %d!=%d" % (vol, exp_vol))
+        self.assertTrue(vol==exp_vol, "volume %d!=%d" % (vol, exp_vol))
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testDilateSize(self):
         """Verifies that the size is properly taken into account with dilation"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.reset()
-        self.im8_1.setPixel(255, (w/2,h/2))
+        self.im8_1.setPixel(255, (w//2,h//2))
         for n in range(20):
             dilate(self.im8_1, self.im8_3, n, se=SQUARE3X3)
             vol = computeVolume(self.im8_3)
             exp_vol = 255*(2*n+1)*(2*n+1)
-            self.assert_(vol==exp_vol, "for %d : volume %d!=%d" % (n, vol, exp_vol))
+            self.assertTrue(vol==exp_vol, "for %d : volume %d!=%d" % (n, vol, exp_vol))
         
     def testDilateEdge(self):
         """Verifies the edge effect for a dilation"""
@@ -127,132 +128,132 @@ class TestErodil(unittest.TestCase):
         dilate(self.im8_1, self.im8_3, se=SQUARE3X3, edge=FILLED)
         vol = computeVolume(self.im8_3)
         exp_vol = 255*(2*w+2*(h-2))
-        self.assert_(vol==exp_vol, "volume %d!=%d" % (vol, exp_vol))
+        self.assertTrue(vol==exp_vol, "volume %d!=%d" % (vol, exp_vol))
         
     def testSeHEXAGON(self):
         """Verifies the structuring element HEXAGON"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[0,0,255],[0,0,0],[0,0,255]], w/2,h/2)
+        self._drawMat(self.im8_2, [[0,0,255],[0,0,0],[0,0,255]], w//2,h//2)
         erode(self.im8_1, self.im8_3, se=HEXAGON)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testSeSQUARE3X3(self):
         """Verifies the structuring element SQUARE3X3"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[0,0,0],[0,0,0],[0,0,0]], w/2,h/2)
+        self._drawMat(self.im8_2, [[0,0,0],[0,0,0],[0,0,0]], w//2,h//2)
         erode(self.im8_1, self.im8_3, se=SQUARE3X3)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testSeTRIANGLE(self):
         """Verifies the structuring element TRIANGLE"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[0,0,255],[255,0,255],[255,255,255]], w/2,h/2)
+        self._drawMat(self.im8_2, [[0,0,255],[255,0,255],[255,255,255]], w//2,h//2)
         erode(self.im8_1, self.im8_3, se=TRIANGLE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testSeSQUARE2X2(self):
         """Verifies the structuring element SQUARE2X2"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[255,255,255],[0,0,255],[0,0,255]], w/2,h/2)
+        self._drawMat(self.im8_2, [[255,255,255],[0,0,255],[0,0,255]], w//2,h//2)
         erode(self.im8_1, self.im8_3, se=SQUARE2X2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testSeTRIPOD(self):
         """Verifies the structuring element TRIPOD"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[0,255,255],[255,0,0],[0,255,255]], w/2,h/2)
+        self._drawMat(self.im8_2, [[0,255,255],[255,0,0],[0,255,255]], w//2,h//2)
         erode(self.im8_1, self.im8_3, se=TRIPOD)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testSeDIAMOND(self):
         """Verifies the structuring element DIAMOND"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[255,0,255],[0,0,0],[255,0,255]], w/2,h/2)
+        self._drawMat(self.im8_2, [[255,0,255],[0,0,0],[255,0,255]], w//2,h//2)
         erode(self.im8_1, self.im8_3, se=DIAMOND)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testSeSEGMENT(self):
         """Verifies the structuring element SEGMENT"""
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[255,255,255],[0,0,255],[255,255,255]], w/2,h/2)
+        self._drawMat(self.im8_2, [[255,255,255],[0,0,255],[255,255,255]], w//2,h//2)
         erode(self.im8_1, self.im8_3, se=SEGMENT)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d) [center is %dx%d]"%(x,y,w/2,h/2))
+        self.assertTrue(x<0, "diff in (%d,%d) [center is %dx%d]"%(x,y,w//2,h//2))
         
     def testSEClass(self):
         """Verifies the structuringElement class constructor and methods"""
         se = structuringElement([0,0,1,1,2,2,3,3], grid=SQUARE)
-        self.assert_(se.getGrid()==SQUARE)
-        self.assert_(se.getDirections()==[0,1,2,3])
-        self.assert_(se.getDirections(True)==[1,2,3])
-        self.assert_(repr(se)!="")
+        self.assertTrue(se.getGrid()==SQUARE)
+        self.assertTrue(se.getDirections()==[0,1,2,3])
+        self.assertTrue(se.getDirections(True)==[1,2,3])
+        self.assertTrue(repr(se)!="")
         ed = 1
         ser = structuringElement([ed], grid=SQUARE)
         for i in range(10):
             ed = ed%8+1
             ser = ser.rotate()
             d = ser.getDirections()[0]
-            self.assert_(d==ed)
+            self.assertTrue(d==ed)
         ed = 1
         ser = structuringElement([ed], grid=HEXAGONAL)
         for i in range(10):
             ed = ed%6+1
             ser = ser.rotate()
             d = ser.getDirections()[0]
-            self.assert_(d==ed)
+            self.assertTrue(d==ed)
         for i in range(1,7):
             se_t = structuringElement([i], grid=HEXAGONAL)
             se_t = se_t.transpose()
             d = se_t.getDirections()[0]
-            self.assert_(d==(i+2)%6+1)
+            self.assertTrue(d==(i+2)%6+1)
         for i in range(1,9):
             se_t = structuringElement([i], grid=SQUARE)
             se_t = se_t.transpose()
             d = se_t.getDirections()[0]
-            self.assert_(d==(i+3)%8+1)
+            self.assertTrue(d==(i+3)%8+1)
             
         se = structuringElement([0,1,2,3,4,5,6,7,8], grid=SQUARE)
-        self.assert_(se==SQUARE3X3)
-        self.assert_(se!=HEXAGON)
+        self.assertTrue(se==SQUARE3X3)
+        self.assertTrue(se!=HEXAGON)
             
     def testSetDefault(self):
         """Verifies that setting as default works correctly"""
         DEFAULT_SE.setAs(TRIPOD)
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self._drawMat(self.im8_2, [[0,255,255],[255,0,0],[0,255,255]], w/2,h/2)
+        self._drawMat(self.im8_2, [[0,255,255],[255,0,0],[0,255,255]], w//2,h//2)
         erode(self.im8_1, self.im8_3)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         DEFAULT_SE.setAs(HEXAGON)
         
     def testErodeNoZero(self):
@@ -260,26 +261,26 @@ class TestErodil(unittest.TestCase):
         se = structuringElement([3], grid=SQUARE)
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(255)
-        self.im8_1.setPixel(0, (w/2,h/2))
+        self.im8_1.setPixel(0, (w//2,h//2))
         self.im8_2.fill(255)
-        self.im8_2.setPixel(0, (w/2,h/2))
+        self.im8_2.setPixel(0, (w//2,h//2))
         erode(self.im8_1, self.im8_3, se=se)
         shift(self.im8_2, self.im8_2, 7, 1, 255, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testDilateNoZero(self):
         """Verifies that non centered se dilation are correctly computed"""
         se = structuringElement([4], grid=SQUARE)
         (w,h) = self.im8_1.getSize()
         self.im8_1.fill(0)
-        self.im8_1.setPixel(255, (w/2,h/2))
+        self.im8_1.setPixel(255, (w//2,h//2))
         self.im8_2.fill(0)
-        self.im8_2.setPixel(255, (w/2,h/2))
+        self.im8_2.setPixel(255, (w//2,h//2))
         dilate(self.im8_1, self.im8_3, se=se)
         shift(self.im8_2, self.im8_2, 8, 1, 0, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def _drawConjHexag(self, im, x, y, value):
         drawSquare(im, (x-1,y-1,x+1,y+1), value)
@@ -297,24 +298,24 @@ class TestErodil(unittest.TestCase):
         (w,h) = self.im8_1.getSize()
         for i in range(2):
             self.im8_1.fill(255)
-            self.im8_1.setPixel(0, (w/2,h/2+i))
+            self.im8_1.setPixel(0, (w//2,h//2+i))
             self.im8_2.fill(255)
-            self._drawConjHexag(self.im8_2, w/2, h/2+i, 0)
+            self._drawConjHexag(self.im8_2, w//2, h//2+i, 0)
             conjugateHexagonalErode(self.im8_1, self.im8_1, 1)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-            self.assert_(x<0, "%d: diff in (%d,%d)"%(i,x,y))
+            self.assertTrue(x<0, "%d: diff in (%d,%d)"%(i,x,y))
             
     def testConjugateHexagonalDilate(self):
         """Verifies the conjugate hexagonal dilate operation"""
         (w,h) = self.im8_1.getSize()
         for i in range(2):
             self.im8_1.fill(0)
-            self.im8_1.setPixel(255, (w/2,h/2+i))
+            self.im8_1.setPixel(255, (w//2,h//2+i))
             self.im8_2.fill(0)
-            self._drawConjHexag(self.im8_2, w/2, h/2+i, 255)
+            self._drawConjHexag(self.im8_2, w//2, h//2+i, 255)
             conjugateHexagonalDilate(self.im8_1, self.im8_1, 1)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-            self.assert_(x<0, "%d: diff in (%d,%d)"%(i,x,y))
+            self.assertTrue(x<0, "%d: diff in (%d,%d)"%(i,x,y))
             
     def _squarePixelPrediction(self, im, d, x, y, amp, v):
         (w,h) = im.getSize()
@@ -342,7 +343,7 @@ class TestErodil(unittest.TestCase):
                 self._squarePixelPrediction(self.im1_3, d, xi, yi, ampi, 0)
                 doublePointErode(self.im1_1, self.im1_2, d, ampi, grid=SQUARE)
                 (x,y) = compare(self.im1_2, self.im1_3, self.im1_1)
-                self.assert_(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
 
     def testDoublePointDilate(self):
         """Verifies the dilation by a doublet operation"""
@@ -360,7 +361,7 @@ class TestErodil(unittest.TestCase):
                 self._squarePixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 doublePointDilate(self.im1_1, self.im1_2, d, ampi, grid=SQUARE)
                 (x,y) = compare(self.im1_2, self.im1_3, self.im1_1)
-                self.assert_(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
         
 
 def getSuite():

@@ -44,7 +44,7 @@ class TestLookup(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -84,13 +84,13 @@ class TestLookup(unittest.TestCase):
         lookup(self.im8_1, self.im8_2, luti)
         self.im8_3.fill(vi)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
-        luti = range(255,-1,-1)
+        luti = list(range(255,-1,-1))
         lookup(self.im8_1, self.im8_2, luti)
         negate(self.im8_1, self.im8_3)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestLookup)

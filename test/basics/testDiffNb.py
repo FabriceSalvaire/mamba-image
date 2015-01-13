@@ -70,7 +70,7 @@ class TestDiffNb(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im8s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -140,7 +140,7 @@ class TestDiffNb(unittest.TestCase):
                 self._drawMat(self.im1_2, mat_exp, wi, 10)
                 diffNeighbor(self.im1_1, self.im1_1, d, grid=SQUARE, edge=EMPTY)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0, "in dir %d (%d,10) : at (%d,%d)" % (d,wi,x,y))
+                self.assertTrue(x<0, "in dir %d (%d,10) : at (%d,%d)" % (d,wi,x,y))
             for d in getDirections():
                 self.im1_1.reset()
                 self.im1_2.reset()
@@ -150,7 +150,7 @@ class TestDiffNb(unittest.TestCase):
                 self._drawMat(self.im1_2, mat_exp, wi, 13)
                 diffNeighbor(self.im1_1, self.im1_1, d, grid=SQUARE, edge=EMPTY)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testComputationSquare_8(self):
         """Tests set difference by neighbor computations in square grid on 8-bit images"""
@@ -168,7 +168,7 @@ class TestDiffNb(unittest.TestCase):
                 self._drawMat(self.im8_2, mat_exp, wi, 10)
                 diffNeighbor(self.im8_1, self.im8_1, d, grid=SQUARE, edge=EMPTY)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections():
                 self.im8_1.reset()
                 self.im8_2.reset()
@@ -178,7 +178,7 @@ class TestDiffNb(unittest.TestCase):
                 self._drawMat(self.im8_2, mat_exp, wi, 13)
                 diffNeighbor(self.im8_1, self.im8_1, d, grid=SQUARE, edge=EMPTY)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 
     def _shiftMatHE(self, mat, d, fill=0):
         if d==0:
@@ -196,7 +196,7 @@ class TestDiffNb(unittest.TestCase):
         elif d==6:
             ret_mat = [[fill,fill,fill],[fill]+mat[0][0:2], mat[1][:]]
         else:
-            self.assert_(False, "Invalid directions in Hexagonal grid")
+            self.assertTrue(False, "Invalid directions in Hexagonal grid")
         
         return ret_mat
                 
@@ -216,7 +216,7 @@ class TestDiffNb(unittest.TestCase):
         elif d==6:
             ret_mat = [[fill,fill,fill],mat[0][:], [fill]+mat[1][0:2]]
         else:
-            self.assert_(False, "Invalid directions in Hexagonal grid")
+            self.assertTrue(False, "Invalid directions in Hexagonal grid")
         
         return ret_mat
 
@@ -236,7 +236,7 @@ class TestDiffNb(unittest.TestCase):
                 self._drawMat(self.im1_2, mat_exp, wi, 10)
                 diffNeighbor(self.im1_1, self.im1_1, d, grid=HEXAGONAL, edge=EMPTY)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections():
                 self.im1_1.reset()
                 self.im1_2.reset()
@@ -246,7 +246,7 @@ class TestDiffNb(unittest.TestCase):
                 self._drawMat(self.im1_2, mat_exp, wi, 13)
                 diffNeighbor(self.im1_1, self.im1_1, d, grid=HEXAGONAL, edge=EMPTY)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0, "(%d,10) in dir %d" %(wi,d))
+                self.assertTrue(x<0, "(%d,10) in dir %d" %(wi,d))
 
     def testComputationHexagonal_8(self):
         """Tests set difference by neighbor computations in hexagonal grid on 8-bit images"""
@@ -264,7 +264,7 @@ class TestDiffNb(unittest.TestCase):
                 self._drawMat(self.im8_2, mat_exp, wi, 10)
                 diffNeighbor(self.im8_1, self.im8_1, d, grid=HEXAGONAL, edge=EMPTY)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections():
                 self.im8_1.reset()
                 self.im8_2.reset()
@@ -274,7 +274,7 @@ class TestDiffNb(unittest.TestCase):
                 self._drawMat(self.im8_2, mat_exp, wi, 13)
                 diffNeighbor(self.im8_1, self.im8_1, d, grid=HEXAGONAL, edge=EMPTY)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 
     def testEdgeEffect_1(self):
         """Verifies that edge value is correctly taken into account on binary image"""
@@ -284,13 +284,13 @@ class TestDiffNb(unittest.TestCase):
             self.im1_1.fill(1)
             diffNeighbor(self.im1_1, self.im1_1, d, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
         exp_volume = [0, w, h+w-1, h, h+w-1, w, h+w-1, h, h+w-1]
         for d in getDirections():
             self.im1_1.fill(1)
             diffNeighbor(self.im1_1, self.im1_1, d, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
                 
     def testEdgeInocuity_1(self):
         """Verifies edge inocuity when computing binary image"""
@@ -299,30 +299,30 @@ class TestDiffNb(unittest.TestCase):
             self.im1_1.fill(0)
             diffNeighbor(self.im1_1, self.im1_1, d, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections():
             self.im1_1.fill(0)
             diffNeighbor(self.im1_1, self.im1_1, d, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections():
             self.im1_1.fill(1)
             diffNeighbor(self.im1_1, self.im1_1, d, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0, "%d : %d" % (d,vol))
+            self.assertTrue(vol==0, "%d : %d" % (d,vol))
             self.im1_1.fill(0)
             diffNeighbor(self.im1_1, self.im1_1, d, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections():
             self.im1_1.fill(1)
             diffNeighbor(self.im1_1, self.im1_1, d, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             self.im1_1.fill(0)
             diffNeighbor(self.im1_1, self.im1_1, d, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
                 
     def testEdgeEffect_8(self):
         """Verifies that edge value is correctly taken into account on 8-bit image"""
@@ -332,13 +332,13 @@ class TestDiffNb(unittest.TestCase):
             self.im8_1.fill(255)
             diffNeighbor(self.im8_1, self.im8_1, d, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
         exp_volume = [0, w, h+w-1, h, w+h-1, w, w+h-1, h, h+w-1]
         for d in getDirections():
             self.im8_1.fill(255)
             diffNeighbor(self.im8_1, self.im8_1, d, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
                 
     def testEdgeInocuity_8(self):
         """Verifies edge inocuity when computing 8-bit image"""
@@ -347,30 +347,30 @@ class TestDiffNb(unittest.TestCase):
             self.im8_1.fill(0)
             diffNeighbor(self.im8_1, self.im8_1, d, grid=HEXAGONAL, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections():
             self.im8_1.fill(0)
             diffNeighbor(self.im8_1, self.im8_1, d, grid=SQUARE, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections():
             self.im8_1.fill(255)
             diffNeighbor(self.im8_1, self.im8_1, d, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             self.im8_1.fill(0)
             diffNeighbor(self.im8_1, self.im8_1, d, grid=HEXAGONAL, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         for d in getDirections():
             self.im8_1.fill(255)
             diffNeighbor(self.im8_1, self.im8_1, d, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             self.im8_1.fill(0)
             diffNeighbor(self.im8_1, self.im8_1, d, grid=SQUARE, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
 
 
 def getSuite():

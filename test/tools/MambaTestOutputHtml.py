@@ -4,7 +4,7 @@ file for the Mamba Test Platform.
 The class also produces minimal output, if selected, on the standard output.
 """
 
-from MambaTestOutput import *
+from .MambaTestOutput import *
 
 import sys
 import time
@@ -325,7 +325,7 @@ class MambaTestOutputHtml(MambaTestOutput):
         standard output.
         """
         MambaTestOutput.__init__(self, descriptions, verbosity)
-        self.stream = file(fpath, 'w')
+        self.stream = open(fpath, 'w')
         self.fpath = fpath
         
     def notifyModuleTestStart(self, moduleInfo):
@@ -412,7 +412,7 @@ class MambaTestOutputHtml(MambaTestOutput):
         run = 0
         fails = 0
         timeTaken = 0.0
-        for modinfo, result in playedModules.items():
+        for modinfo, result in list(playedModules.items()):
             run = run + result.testsRun
             fails = fails + sum(map(len, (result.failures, result.errors)))
             timeTaken = timeTaken + modinfo.timeTaken
@@ -434,7 +434,7 @@ class MambaTestOutputHtml(MambaTestOutput):
         first_error_index = -1
         self.stream.write(_header_begin)
         self.stream.write("var testModules = [\n")
-        for modinfo, result in playedModules.items():
+        for modinfo, result in list(playedModules.items()):
             pack = modinfo.name.split('.')[0]
             if not pack in packages:
                 packages[pack] = [True, [], 0]
@@ -448,7 +448,7 @@ class MambaTestOutputHtml(MambaTestOutput):
             index = index + 1
         self.stream.write("];\n\n")
         self.stream.write("var testPackages = [];\n")
-        pack_names = packages.keys()
+        pack_names = list(packages.keys())
         pack_names.sort()
         for pack in pack_names:
             modules = packages[pack][1]

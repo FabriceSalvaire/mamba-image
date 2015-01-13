@@ -46,14 +46,14 @@ class TestBase3D(unittest.TestCase):
         im2 = image3DMb(64,64,1,1)
         im1.fill(1)
         
-        self.assert_(isinstance(im1, image3DMb))
-        self.assert_(isinstance(im2, image3DMb))
-        self.assert_(im1.getLength()==30)
-        self.assert_(im2.getLength()==1)
-        self.assert_(im1.getDepth()==8)
-        self.assert_(im2.getDepth()==1)
+        self.assertTrue(isinstance(im1, image3DMb))
+        self.assertTrue(isinstance(im2, image3DMb))
+        self.assertTrue(im1.getLength()==30)
+        self.assertTrue(im2.getLength()==1)
+        self.assertTrue(im1.getDepth()==8)
+        self.assertTrue(im2.getDepth()==1)
         s = str(im1)
-        self.assert_(s!='')
+        self.assertTrue(s!='')
         
     def testImage3DMbPixels(self):
         """Verifies pixel extraction and setting in 3D images"""
@@ -73,15 +73,15 @@ class TestBase3D(unittest.TestCase):
             
             im1.setPixel(vi, (xi,yi,zi))
             vol = computeVolume3D(im1)
-            self.assert_(vol==vi)
+            self.assertTrue(vol==vi)
             v = im1.getPixel((xi,yi,zi))
-            self.assert_(v==vi)
+            self.assertTrue(v==vi)
             
             im2.setPixel(1, (xi,yi,zi))
             vol = computeVolume3D(im2)
-            self.assert_(vol==1)
+            self.assertTrue(vol==1)
             v = im2.getPixel((xi,yi,zi))
-            self.assert_(v==1)
+            self.assertTrue(v==1)
             
     def _preprocfunc(self, data):
         return len(data)*"\x22"
@@ -99,13 +99,13 @@ class TestBase3D(unittest.TestCase):
         f.close()
         im8.loadRaw("test.dat")
         vol = computeVolume3D(im8)
-        self.assert_(vol== 64*64*4*0x11)
+        self.assertTrue(vol== 64*64*4*0x11)
         f = file("test.dat","w")
         f.write(64*64*4*"\x12")
         f.close()
         im8.loadRaw("test.dat", preprocfunc=self._preprocfunc)
         vol = computeVolume3D(im8)
-        self.assert_(vol== 64*64*4*0x22)
+        self.assertTrue(vol== 64*64*4*0x22)
         f = file("test.dat","w")
         f.write((64*64*4-1)*"\x11\x00\x00\x00")
         f.close()
@@ -115,7 +115,7 @@ class TestBase3D(unittest.TestCase):
         f.close()
         im32.loadRaw("test.dat")
         vol = computeVolume3D(im32)
-        self.assert_(vol== 64*64*4*0x11, "32: %d,%d" %(vol,128*128*0x11))
+        self.assertTrue(vol== 64*64*4*0x11, "32: %d,%d" %(vol,128*128*0x11))
         
         os.remove("test.dat")
         
@@ -125,12 +125,12 @@ class TestBase3D(unittest.TestCase):
         im32 = image3DMb(64,64,6,32)
         im8.fill(0x11)
         rawdata = im8.extractRaw()
-        self.assert_(len(rawdata)==64*64*6)
-        self.assert_(rawdata==64*64*6*"\x11")
+        self.assertTrue(len(rawdata)==64*64*6)
+        self.assertTrue(rawdata==64*64*6*"\x11")
         im32.fill(0x11223344)
         rawdata = im32.extractRaw()
-        self.assert_(len(rawdata)==64*64*6*4)
-        self.assert_(rawdata==64*64*6*"\x44\x33\x22\x11")
+        self.assertTrue(len(rawdata)==64*64*6*4)
+        self.assertTrue(rawdata==64*64*6*"\x44\x33\x22\x11")
             
     def testImage3DMbConvert(self):
         """Tests the convert method of 3D images"""
@@ -140,20 +140,20 @@ class TestBase3D(unittest.TestCase):
         im1.showDisplay("USER")
         im2 = image3DMb(64,64,64,1)
         
-        self.assert_(im1.getDepth()==8)
-        self.assert_(im2.getDepth()==1)
+        self.assertTrue(im1.getDepth()==8)
+        self.assertTrue(im2.getDepth()==1)
         im1.convert(8)
         im2.convert(1)
-        self.assert_(im1.getDepth()==8)
-        self.assert_(im2.getDepth()==1)
+        self.assertTrue(im1.getDepth()==8)
+        self.assertTrue(im2.getDepth()==1)
         im1.convert(1)
         im2.convert(8)
-        self.assert_(im1.getDepth()==1)
-        self.assert_(im2.getDepth()==8)
+        self.assertTrue(im1.getDepth()==1)
+        self.assertTrue(im2.getDepth()==8)
         
     def testImage3DMbDisplay(self):
         """Verifies display management in 3D images"""
-        opa = range(256)
+        opa = list(range(256))
         im1 = image3DMb(64,64,64)
         im2 = image3DMb(64,64,64)
         im3 = image3DMb(64,64,64)
@@ -222,8 +222,8 @@ class TestBase3D(unittest.TestCase):
             
     def testConvert3DErrorToMamba(self):
         """Verifies the error conversion mechanism"""
-        self.assert_(convert3DErrorToMamba(0)==0)
-        self.assert_(convert3DErrorToMamba(core3D.ERR_CANT_ALLOCATE_MEMORY+1)==mambaCore.ERR_UNKNOWN)
+        self.assertTrue(convert3DErrorToMamba(0)==0)
+        self.assertTrue(convert3DErrorToMamba(core3D.ERR_CANT_ALLOCATE_MEMORY+1)==mambaCore.ERR_UNKNOWN)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestBase3D)

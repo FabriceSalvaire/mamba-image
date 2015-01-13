@@ -51,7 +51,7 @@ class TestInv(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -73,13 +73,13 @@ class TestInv(unittest.TestCase):
         self.im1_3.reset()
         negate(self.im1_1, self.im1_2)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_3.fill(1)
         negate(self.im1_1, self.im1_2)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8(self):
         """Verifies the inversion of 8-bit images"""
@@ -88,7 +88,7 @@ class TestInv(unittest.TestCase):
             negate(self.im8_1, self.im8_2)
             self.im8_3.fill(255-i)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputation_32(self):
         """Verifies the inversion of 32-bit images"""
@@ -98,7 +98,7 @@ class TestInv(unittest.TestCase):
             negate(self.im32_1, self.im32_2)
             self.im32_3.fill(0xffffffff-vi)
             (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestInv)

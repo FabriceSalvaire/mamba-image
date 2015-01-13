@@ -69,14 +69,14 @@ class TestMiscellaneous3D(unittest.TestCase):
         self._drawValueByPlane(self.im8_2)
         copy3D(self.im8_1, self.im8_3)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         self.im8_3.reset()
         self.im8_2.reset()
         for i in range(l/2):
             self.im8_2[i].fill(i+l/2)
         copy3D(self.im8_1, self.im8_3, l/2, 0)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
 
     def testCopyBitPlane3D(self):
         """Bit plane copy verification on 3D images"""
@@ -87,7 +87,7 @@ class TestMiscellaneous3D(unittest.TestCase):
         self.im8_2.fill(0x4)
         copyBitPlane3D(self.im1_1, 2, self.im8_1)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testCopyBytePlane3D(self):
         """Byte plane copy verification on 3D images"""
@@ -98,7 +98,7 @@ class TestMiscellaneous3D(unittest.TestCase):
         self.im32_2.fill(0x250000)
         copyBytePlane3D(self.im8_1, 2, self.im32_1)
         (x,y,z) = compare3D(self.im32_1, self.im32_2, self.im32_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testGetHistogram3D(self):
         """Verifies the computation of the histogram on 3D images"""
@@ -106,7 +106,7 @@ class TestMiscellaneous3D(unittest.TestCase):
         self._drawValueByPlane(self.im8_1)
         histo = getHistogram3D(self.im8_1)
         for i in range(256):
-            self.assert_(histo[i]==w*h,"%d : %d!=%d" %(i,histo[i],w*h))
+            self.assertTrue(histo[i]==w*h,"%d : %d!=%d" %(i,histo[i],w*h))
         
     def testComputeVolume3D(self):
         """Verifies the computation of the volume on 3D images"""
@@ -116,7 +116,7 @@ class TestMiscellaneous3D(unittest.TestCase):
         exp_vol = 0
         for i in range(256):
             exp_vol += i*w*h
-        self.assert_(vol==exp_vol)
+        self.assertTrue(vol==exp_vol)
         
     def testComputeRange3D(self):
         """Verifies the computation of the range on 3D images"""
@@ -124,34 +124,34 @@ class TestMiscellaneous3D(unittest.TestCase):
         self.im8_1.setPixel(23, (128,128,0))
         self.im8_1.setPixel(198, (128,128,255))
         (mi,ma) = computeRange3D(self.im8_1)
-        self.assert_(mi==23)
-        self.assert_(ma==198)
+        self.assertTrue(mi==23)
+        self.assertTrue(ma==198)
         
     def testComputeMaxRange3D(self):
         """Verifies the computation of the maximum range on 3D images"""
         (mi,ma) = computeMaxRange3D(self.im1_1)
-        self.assert_(mi==0)
-        self.assert_(ma==1)
+        self.assertTrue(mi==0)
+        self.assertTrue(ma==1)
         (mi,ma) = computeMaxRange3D(self.im8_1)
-        self.assert_(mi==0)
-        self.assert_(ma==255)
+        self.assertTrue(mi==0)
+        self.assertTrue(ma==255)
         (mi,ma) = computeMaxRange3D(self.im32_1)
-        self.assert_(mi==0)
-        self.assert_(ma==0xffffffff)
+        self.assertTrue(mi==0)
+        self.assertTrue(ma==0xffffffff)
         
     def testCheckEmptiness3D(self):
         """Tests the emptyness verification on 3D images"""
         self.im8_1.reset()
         self.im8_1.setPixel(23, (128,128,0))
         empty = checkEmptiness3D(self.im8_1)
-        self.assert_(not empty)
+        self.assertTrue(not empty)
         self.im8_1.reset()
         self.im8_1.setPixel(198, (128,128,255))
         empty = checkEmptiness3D(self.im8_1)
-        self.assert_(not empty)
+        self.assertTrue(not empty)
         self.im8_1.reset()
         empty = checkEmptiness3D(self.im8_1)
-        self.assert_(empty)
+        self.assertTrue(empty)
     
     def testCompare3D(self):
         """Verifies the comparison between 3D images"""
@@ -159,20 +159,20 @@ class TestMiscellaneous3D(unittest.TestCase):
         self.im8_1.setPixel(198, (128,45,255))
         self.im8_2.fill(128)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(z==255, "diff in (%d,%d,%d)"%(x,y,z))
-        self.assert_(x==128, "diff in (%d,%d,%d)"%(x,y,z))
-        self.assert_(y==45, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(z==255, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x==128, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(y==45, "diff in (%d,%d,%d)"%(x,y,z))
         self.im8_1.fill(128)
         self.im8_1.setPixel(198, (255,45,0))
         self.im8_2.fill(128)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(z==0, "diff in (%d,%d,%d)"%(x,y,z))
-        self.assert_(x==255, "diff in (%d,%d,%d)"%(x,y,z))
-        self.assert_(y==45, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(z==0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x==255, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(y==45, "diff in (%d,%d,%d)"%(x,y,z))
         self.im8_1.fill(128)
         self.im8_2.fill(128)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(z<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(z<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def testShift3D(self):
         """Tests the shifting inside 3D images"""
@@ -185,7 +185,7 @@ class TestMiscellaneous3D(unittest.TestCase):
         self.im8_2.setPixel(255, (w/2,h/2,l/2+1))
         shift3D(self.im8_1, self.im8_3, d=18, amp=1, fill=0, grid=CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(z<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(z<0, "diff in (%d,%d,%d)"%(x,y,z))
         
     def _drawEdge(self, im, value):
         # draws the edge
@@ -202,7 +202,7 @@ class TestMiscellaneous3D(unittest.TestCase):
         self._drawEdge(self.im8_2, 255)
         drawEdge3D(self.im8_1)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_1)
-        self.assert_(x<0, "diff in (%d,%d,%d)"%(x,y,z))
+        self.assertTrue(x<0, "diff in (%d,%d,%d)"%(x,y,z))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestMiscellaneous3D)

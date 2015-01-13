@@ -66,7 +66,7 @@ class TestStatistic3D(unittest.TestCase):
                     
         exp_mean = float(s)/(l*h*w)
         mean = getMean3D(self.im8_1)
-        self.assert_(exp_mean==mean, "%f!=%f" % (mean,exp_mean))
+        self.assertTrue(exp_mean==mean, "%f!=%f" % (mean,exp_mean))
         
     def testGetMedian3D(self):
         """Verifies the correct computation of pixel median value in 3D images"""
@@ -89,7 +89,7 @@ class TestStatistic3D(unittest.TestCase):
             i += 1
         exp_median = i-1
         median = getMedian3D(self.im8_1)
-        self.assert_(exp_median==median, "%d!=%d" % (median,exp_median))
+        self.assertTrue(exp_median==median, "%d!=%d" % (median,exp_median))
         
     def testGetVariance3D(self):
         """Verifies the correct computation of the variance value of a 3D image"""
@@ -110,7 +110,7 @@ class TestStatistic3D(unittest.TestCase):
             for i in range(256):
                 var += lis[i]*(i-mean)*(i-mean)
             var = var/(l*w*h-1)
-            self.assert_(getVariance3D(self.im8_1)==var, "var %f %f" % (var,getVariance3D(self.im8_1)) )
+            self.assertTrue(getVariance3D(self.im8_1)==var, "var %f %f" % (var,getVariance3D(self.im8_1)) )
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestStatistic3D)

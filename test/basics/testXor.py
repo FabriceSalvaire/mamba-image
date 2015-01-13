@@ -18,6 +18,7 @@ C function:
     MB_Xor
 """
 
+from __future__ import division
 from mamba import *
 from mambaDraw import drawSquare
 import unittest
@@ -54,7 +55,7 @@ class TestXor(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -99,16 +100,16 @@ class TestXor(unittest.TestCase):
         self.im1_2.reset()
         self.im1_3.reset()
         
-        drawSquare(self.im1_1,[w/2,0,w-1,h/2-1],1)
-        drawSquare(self.im1_3,[w/2,0,w-1,h/2-1],1)
-        drawSquare(self.im1_1,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[w/2,h/2,w-1,h-1],1)
-        drawSquare(self.im1_3,[w/2,h/2,w-1,h-1],1)
+        drawSquare(self.im1_1,[w//2,0,w-1,h//2-1],1)
+        drawSquare(self.im1_3,[w//2,0,w-1,h//2-1],1)
+        drawSquare(self.im1_1,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[w//2,h//2,w-1,h-1],1)
+        drawSquare(self.im1_3,[w//2,h//2,w-1,h-1],1)
         
         logic(self.im1_2, self.im1_1, self.im1_2, 'xor')
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8(self):
         """Computes the result of a binary XOR on 8-bit images"""
@@ -121,7 +122,7 @@ class TestXor(unittest.TestCase):
             logic(self.im8_2, self.im8_1, self.im8_3, 'xor')
             self.im8_2.fill(v1^v2)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputation_32(self):
         """Computes the result of a binary XOR on 32-bit images"""
@@ -134,7 +135,7 @@ class TestXor(unittest.TestCase):
             logic(self.im32_2, self.im32_1, self.im32_3, 'xor')
             self.im32_2.fill(v1^v2)
             (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         
 
 def getSuite():

@@ -46,7 +46,7 @@ class TestDualBldNb(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im8s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -95,7 +95,7 @@ class TestDualBldNb(unittest.TestCase):
         elif d==8:
             mat = [[0,1,1,1,1],[1,0,1,1,1],[1,1,0,1,1],[1,1,1,1,1],[1,1,1,1,1]]
         else:
-            self.assert_(False, "Invalid directions in Square grid")
+            self.assertTrue(False, "Invalid directions in Square grid")
         for i in range(5):
             for j in range(5):
                 im.setPixel(mat[j][i]*v, ((x-2)+i, (y-2)+j))
@@ -137,8 +137,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im1_3, wi, 20, d)
                 vol = dualbuildNeighbor(self.im1_2, self.im1_1, d, grid=SQUARE)
                 (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-                self.assert_(x<0, "at (%d,20) in dir %d (%d,%d)" % (wi,d,x,y))
-                self.assert_(vol==exp_vol, "%d/%d" %(vol,exp_vol))
+                self.assertTrue(x<0, "at (%d,20) in dir %d (%d,%d)" % (wi,d,x,y))
+                self.assertTrue(vol==exp_vol, "%d/%d" %(vol,exp_vol))
         for wi in range(2,w-2):
             self.im1_2.reset()
             self._drawContainement(self.im1_2, wi, 27, 1)
@@ -149,8 +149,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im1_3, wi, 27, d)
                 vol = dualbuildNeighbor(self.im1_2, self.im1_1, d, grid=SQUARE)
                 (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
                 
     def testComputationSquare_8(self):
         """Tests build (dual) by neighbor computations in square grid on 8-bit images"""
@@ -167,8 +167,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im8_3, wi, 20, d, vi)
                 vol = dualbuildNeighbor(self.im8_2, self.im8_1, d, grid=SQUARE)
                 (x,y) = compare(self.im8_3, self.im8_1, self.im8_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol, "in dir %d : %d/%d" %(d,vol,exp_vol))
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol, "in dir %d : %d/%d" %(d,vol,exp_vol))
         for wi in range(2,w-2):
             vi = random.randint(2,255)
             self.im8_2.reset()
@@ -180,8 +180,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im8_3, wi, 27, d, vi)
                 vol = dualbuildNeighbor(self.im8_2, self.im8_1, d, grid=SQUARE)
                 (x,y) = compare(self.im8_3, self.im8_1, self.im8_3)
-                self.assert_(x<0, "at (%d,27) in dir %d (%d,%d)" % (wi,d,x,y))
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0, "at (%d,27) in dir %d (%d,%d)" % (wi,d,x,y))
+                self.assertTrue(vol==exp_vol)
                 
     def testComputationSquare_32(self):
         """Tests build (dual) by neighbor computations in square grid on 32-bit images"""
@@ -198,8 +198,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im32_3, wi, 20, d, vi)
                 vol = dualbuildNeighbor(self.im32_2, self.im32_1, d, grid=SQUARE)
                 (x,y) = compare(self.im32_3, self.im32_1, self.im32_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol, "in dir %d : %d/%d" %(d,vol,exp_vol))
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol, "in dir %d : %d/%d" %(d,vol,exp_vol))
         for wi in range(2,w-2):
             vi = random.randint(2,0xffffffff)
             self.im32_2.reset()
@@ -211,8 +211,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedS(self.im32_3, wi, 27, d, vi)
                 vol = dualbuildNeighbor(self.im32_2, self.im32_1, d, grid=SQUARE)
                 (x,y) = compare(self.im32_3, self.im32_1, self.im32_3)
-                self.assert_(x<0, "at (%d,27) in dir %d (%d,%d)" % (wi,d,x,y))
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0, "at (%d,27) in dir %d (%d,%d)" % (wi,d,x,y))
+                self.assertTrue(vol==exp_vol)
 
     def _drawExpectedHO(self, im, x, y, d, v=1):
         # draws an expected result centered in x,y
@@ -231,7 +231,7 @@ class TestDualBldNb(unittest.TestCase):
         elif d==6:
             mat = [[1,0,1,1,1],[1,1,0,1,1],[1,1,0,1,1],[1,1,1,1,1],[1,1,1,1,1]]
         else:
-            self.assert_(False, "Invalid directions in Hexagonal grid")
+            self.assertTrue(False, "Invalid directions in Hexagonal grid")
         for i in range(5):
             for j in range(5):
                 im.setPixel(mat[j][i]*v, ((x-2)+i, (y-2)+j))
@@ -254,7 +254,7 @@ class TestDualBldNb(unittest.TestCase):
         elif d==6:
             mat = [[1,0,1,1,1],[1,0,1,1,1],[1,1,0,1,1],[1,1,1,1,1],[1,1,1,1,1]]
         else:
-            self.assert_(False, "Invalid directions in Hexagonal grid")
+            self.assertTrue(False, "Invalid directions in Hexagonal grid")
         for i in range(5):
             for j in range(5):
                 im.setPixel(mat[j][i]*v, ((x-2)+i, (y-2)+j))
@@ -274,8 +274,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHE(self.im1_3, wi, 20, d)
                 vol = dualbuildNeighbor(self.im1_2, self.im1_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-                self.assert_(x<0, "at (%d,20) in dir %d (%d,%d)" % (wi,d,x,y))
-                self.assert_(vol==exp_vol, "%d/%d" %(vol,exp_vol))
+                self.assertTrue(x<0, "at (%d,20) in dir %d (%d,%d)" % (wi,d,x,y))
+                self.assertTrue(vol==exp_vol, "%d/%d" %(vol,exp_vol))
         for wi in range(2,w-2):
             self.im1_2.reset()
             self._drawContainement(self.im1_2, wi, 27, 1)
@@ -286,8 +286,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHO(self.im1_3, wi, 27, d)
                 vol = dualbuildNeighbor(self.im1_2, self.im1_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol)
                 
     def testComputationHexagonal_8(self):
         """Tests dualbuild by neighbor computations in hexagonal grid on 8-bit images"""
@@ -304,8 +304,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHE(self.im8_3, wi, 20, d, vi)
                 vol = dualbuildNeighbor(self.im8_2, self.im8_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_3, self.im8_1, self.im8_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol, "in dir %d : %d/%d" %(d,vol,exp_vol))
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol, "in dir %d : %d/%d" %(d,vol,exp_vol))
         for wi in range(2,w-2):
             vi = random.randint(2,255)
             self.im8_2.reset()
@@ -317,8 +317,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHO(self.im8_3, wi, 27, d, vi)
                 vol = dualbuildNeighbor(self.im8_2, self.im8_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_3, self.im8_1, self.im8_3)
-                self.assert_(x<0, "at (%d,27) in dir %d (%d,%d)" % (wi,d,x,y))
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0, "at (%d,27) in dir %d (%d,%d)" % (wi,d,x,y))
+                self.assertTrue(vol==exp_vol)
                 
     def testComputationHexagonal_32(self):
         """Tests dualbuild by neighbor computations in hexagonal grid on 32-bit images"""
@@ -335,8 +335,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHE(self.im32_3, wi, 20, d, vi)
                 vol = dualbuildNeighbor(self.im32_2, self.im32_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_3, self.im32_1, self.im32_3)
-                self.assert_(x<0)
-                self.assert_(vol==exp_vol, "in dir %d : %d/%d" %(d,vol,exp_vol))
+                self.assertTrue(x<0)
+                self.assertTrue(vol==exp_vol, "in dir %d : %d/%d" %(d,vol,exp_vol))
         for wi in range(2,w-2):
             vi = random.randint(2,0xffffffff)
             self.im32_2.reset()
@@ -348,8 +348,8 @@ class TestDualBldNb(unittest.TestCase):
                 exp_vol = self._drawExpectedHO(self.im32_3, wi, 27, d, vi)
                 vol = dualbuildNeighbor(self.im32_2, self.im32_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_3, self.im32_1, self.im32_3)
-                self.assert_(x<0, "at (%d,27) in dir %d (%d,%d)" % (wi,d,x,y))
-                self.assert_(vol==exp_vol)
+                self.assertTrue(x<0, "at (%d,27) in dir %d (%d,%d)" % (wi,d,x,y))
+                self.assertTrue(vol==exp_vol)
             
     def testInoutComputation_1(self):
         """Verifies computation when a binary image is used as both mask and output"""
@@ -362,10 +362,10 @@ class TestDualBldNb(unittest.TestCase):
                 self.im1_2.setPixel(0, (wi,20))
                 vol = dualbuildNeighbor(self.im1_1, self.im1_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 vol = dualbuildNeighbor(self.im1_1, self.im1_1, d, grid=SQUARE)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 
     def testInoutComputation_8(self):
         """Verifies computation when a 8-bit image is used as both mask and output"""
@@ -379,10 +379,10 @@ class TestDualBldNb(unittest.TestCase):
                 self.im8_2.setPixel(0, (wi,20))
                 vol = dualbuildNeighbor(self.im8_1, self.im8_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 vol = dualbuildNeighbor(self.im8_1, self.im8_1, d, grid=SQUARE)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 
     def testInoutComputation_32(self):
         """Verifies computation when a 32-bit image is used as both mask and output"""
@@ -396,10 +396,10 @@ class TestDualBldNb(unittest.TestCase):
                 self.im32_2.setPixel(0, (wi,20))
                 vol = dualbuildNeighbor(self.im32_1, self.im32_1, d, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 vol = dualbuildNeighbor(self.im32_1, self.im32_1, d, grid=SQUARE)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestDualBldNb)

@@ -11,6 +11,7 @@ Python functions and classes:
     closeByCylinderSequence
 """
 
+from __future__ import division
 from mamba import *
 from mambaComposed import *
 from mambaDraw import *
@@ -34,15 +35,15 @@ class TestSequence(unittest.TestCase):
         for f in files:
             os.remove(f)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
             
     def testSequenceMbConstructor(self):
         """Verifies the sequenceMb class constructor"""
         wi = random.randint(1,4000)
         hi = random.randint(1,4000)
         li = random.randint(10,25)
-        wc = ((wi+63)/64)*64
-        hc = ((hi+1)/2)*2
+        wc = ((wi+63)//64)*64
+        hc = ((hi+1)//2)*2
         
         for i in range(li):
             ci = random.randint(0,255)
@@ -51,78 +52,78 @@ class TestSequence(unittest.TestCase):
         
         # first case
         seq = sequenceMb()
-        self.assert_(seq.getDepth()==8)
-        self.assert_(seq.getSize()==(256,256))
-        self.assert_(seq.getLength()==256)
-        self.assert_(len(seq)==256)
-        self.assert_(seq.getName()=="Mamba image sequence")
+        self.assertTrue(seq.getDepth()==8)
+        self.assertTrue(seq.getSize()==(256,256))
+        self.assertTrue(seq.getLength()==256)
+        self.assertTrue(len(seq)==256)
+        self.assertTrue(seq.getName()=="Mamba image sequence")
         # third case
         im = imageMb(wi,hi,1)
         seq = sequenceMb(im)
-        self.assert_(seq.getDepth()==1)
-        self.assert_(seq.getSize()==(wc,hc))
-        self.assert_(seq.getLength()==256)
-        self.assert_(len(seq)==256)
+        self.assertTrue(seq.getDepth()==1)
+        self.assertTrue(seq.getSize()==(wc,hc))
+        self.assertTrue(seq.getLength()==256)
+        self.assertTrue(len(seq)==256)
         # second case
         seq2 = sequenceMb(seq)
-        self.assert_(seq2.getDepth()==1)
-        self.assert_(seq2.getSize()==(wc,hc))
-        self.assert_(seq2.getLength()==256)
-        self.assert_(len(seq2)==256)
+        self.assertTrue(seq2.getDepth()==1)
+        self.assertTrue(seq2.getSize()==(wc,hc))
+        self.assertTrue(seq2.getLength()==256)
+        self.assertTrue(len(seq2)==256)
         # fourth case
         seq = sequenceMb(32)
-        self.assert_(seq.getDepth()==32)
-        self.assert_(seq.getSize()==(256,256))
-        self.assert_(seq.getLength()==256)
-        self.assert_(len(seq)==256)
+        self.assertTrue(seq.getDepth()==32)
+        self.assertTrue(seq.getSize()==(256,256))
+        self.assertTrue(seq.getLength()==256)
+        self.assertTrue(len(seq)==256)
         # fifth case
         seq = sequenceMb(".")
-        self.assert_(seq.getDepth()==8)
-        self.assert_(seq.getSize()==(wc,hc))
-        self.assert_(seq.getLength()==li)
-        self.assert_(len(seq)==li)
-        self.assert_(seq.getName()==".")
+        self.assertTrue(seq.getDepth()==8)
+        self.assertTrue(seq.getSize()==(wc,hc))
+        self.assertTrue(seq.getLength()==li)
+        self.assertTrue(len(seq)==li)
+        self.assertTrue(seq.getName()==".")
         # sixth case
         seq2 = sequenceMb(seq, 32)
-        self.assert_(seq2.getDepth()==32)
-        self.assert_(seq2.getSize()==(wc,hc))
-        self.assert_(seq2.getLength()==li)
-        self.assert_(len(seq2)==li)
+        self.assertTrue(seq2.getDepth()==32)
+        self.assertTrue(seq2.getSize()==(wc,hc))
+        self.assertTrue(seq2.getLength()==li)
+        self.assertTrue(len(seq2)==li)
         # seventh case
         im = imageMb(wi,hi,1)
         seq = sequenceMb(im, li)
-        self.assert_(seq.getDepth()==1)
-        self.assert_(seq.getSize()==(wc,hc))
-        self.assert_(seq.getLength()==li)
-        self.assert_(len(seq)==li)
+        self.assertTrue(seq.getDepth()==1)
+        self.assertTrue(seq.getSize()==(wc,hc))
+        self.assertTrue(seq.getLength()==li)
+        self.assertTrue(len(seq)==li)
         # height case
         seq = sequenceMb(".", 1)
-        self.assert_(seq.getDepth()==1)
-        self.assert_(seq.getSize()==(wc,hc))
-        self.assert_(seq.getLength()==li)
-        self.assert_(len(seq)==li)
+        self.assertTrue(seq.getDepth()==1)
+        self.assertTrue(seq.getSize()==(wc,hc))
+        self.assertTrue(seq.getLength()==li)
+        self.assertTrue(len(seq)==li)
         # ninth case
         wi = random.randint(1,4000)
         hi = random.randint(1,4000)
         li = random.randint(10,45)
-        wc = ((wi+63)/64)*64
-        hc = ((hi+1)/2)*2
+        wc = ((wi+63)//64)*64
+        hc = ((hi+1)//2)*2
         seq = sequenceMb(wi, hi, li)
-        self.assert_(seq.getDepth()==8)
-        self.assert_(seq.getSize()==(wc,hc), "%s %s" % (seq.getSize(), (wc,hc)))
-        self.assert_(seq.getLength()==li)
-        self.assert_(len(seq)==li)
+        self.assertTrue(seq.getDepth()==8)
+        self.assertTrue(seq.getSize()==(wc,hc), "%s %s" % (seq.getSize(), (wc,hc)))
+        self.assertTrue(seq.getLength()==li)
+        self.assertTrue(len(seq)==li)
         # tenth case
         wi = random.randint(1,4000)
         hi = random.randint(1,4000)
         li = random.randint(10,45)
-        wc = ((wi+63)/64)*64
-        hc = ((hi+1)/2)*2
+        wc = ((wi+63)//64)*64
+        hc = ((hi+1)//2)*2
         seq = sequenceMb(wi, hi, li, 1)
-        self.assert_(seq.getDepth()==1)
-        self.assert_(seq.getSize()==(wc,hc))
-        self.assert_(seq.getLength()==li)
-        self.assert_(len(seq)==li)
+        self.assertTrue(seq.getDepth()==1)
+        self.assertTrue(seq.getSize()==(wc,hc))
+        self.assertTrue(seq.getLength()==li)
+        self.assertTrue(len(seq)==li)
 
     def testSequenceMbLoad(self):
         """Verifies the loading method of the sequenceMb class"""
@@ -138,7 +139,7 @@ class TestSequence(unittest.TestCase):
         seq.load(".")
         for i,im in enumerate(seq):
             vol = computeVolume(im)
-            self.assert_(vol==ci[i]*256*256)
+            self.assertTrue(vol==ci[i]*256*256)
 
     def testSequenceMbSave(self):
         """Verifies the saving method of the sequenceMb class"""
@@ -153,14 +154,14 @@ class TestSequence(unittest.TestCase):
         seq2 = sequenceMb("test")
         for i,im in enumerate(seq2):
             vol = computeVolume(im)
-            self.assert_(vol==256*256*ci[i])
+            self.assertTrue(vol==256*256*ci[i])
             
         seq.save("test", ".bmp")
         
         seq2 = sequenceMb("test")
         for i,im in enumerate(seq2):
             vol = computeVolume(im)
-            self.assert_(vol==256*256*ci[i])
+            self.assertTrue(vol==256*256*ci[i])
         
         shutil.rmtree("test")
             
@@ -179,19 +180,19 @@ class TestSequence(unittest.TestCase):
         seq = sequenceMb(".", rgbfilter=(1.0,0.0,0.0))
         for i,im in enumerate(seq):
             vol = computeVolume(im)
-            self.assert_(vol==w*h*ri or vol==w*h*(ri-1) or vol==w*h*(ri+1),
+            self.assertTrue(vol==w*h*ri or vol==w*h*(ri-1) or vol==w*h*(ri+1),
                          "%d %d %d %d %d" %(vol, ri, gi, bi, im.getPixel((0,0))) )
             
         seq = sequenceMb(".", rgbfilter=(0.0,1.0,0.0))
         for i,im in enumerate(seq):
             vol = computeVolume(im)
-            self.assert_(vol==w*h*gi or vol==w*h*(gi-1) or vol==w*h*(gi+1),
+            self.assertTrue(vol==w*h*gi or vol==w*h*(gi-1) or vol==w*h*(gi+1),
                          "%d %d %d %d %d" %(vol, ri, gi, bi, im.getPixel((0,0))) )
             
         seq = sequenceMb(".", rgbfilter=(0.0,0.0,1.0))
         for i,im in enumerate(seq):
             vol = computeVolume(im)
-            self.assert_(vol==w*h*bi or vol==w*h*(bi-1) or vol==w*h*(bi+1),
+            self.assertTrue(vol==w*h*bi or vol==w*h*(bi-1) or vol==w*h*(bi+1),
                          "%d %d %d %d %d" %(vol, ri, gi, bi, im.getPixel((0,0))) )
             
     def testSequenceMbFillAndReset(self):
@@ -203,11 +204,11 @@ class TestSequence(unittest.TestCase):
         seq.fill(ci)
         for im in seq:
             vol = computeVolume(im)
-            self.assert_(vol==ci*256*256)
+            self.assertTrue(vol==ci*256*256)
         seq.reset()
         for im in seq:
             vol = computeVolume(im)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             
     def testSequenceMbPalette(self):
         """Verifies the palette methods of the sequenceMb class"""
@@ -229,8 +230,8 @@ class TestSequence(unittest.TestCase):
         wi = random.randint(1,4000)
         hi = random.randint(1,4000)
         li = random.randint(5,15)
-        wc = ((wi+63)/64)*64
-        hc = ((hi+1)/2)*2
+        wc = ((wi+63)//64)*64
+        hc = ((hi+1)//2)*2
         
         ci = []
         for i in range(li):
@@ -243,11 +244,11 @@ class TestSequence(unittest.TestCase):
         for i in range(li):
             im = seq2[i]
             vol = computeVolume(im)
-            self.assert_(vol==ci[i]*wi*hi, "%d: %d!=%d, %d %d %d" % (i,vol,ci[i]*wi*hi,ci[i],wi,hi))
+            self.assertTrue(vol==ci[i]*wi*hi, "%d: %d!=%d, %d %d %d" % (i,vol,ci[i]*wi*hi,ci[i],wi,hi))
         for i in range(li, li+10):
             im = seq2[i]
             vol = computeVolume(im)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             
     def testDilateByCylinderSequence(self):
         """Verifies the dilation by a cylinder of a sequence"""
@@ -259,18 +260,18 @@ class TestSequence(unittest.TestCase):
         seq[2].setPixel(255, (64,64))
         dilateByCylinderSequence(seq, 1, 0)
         vol = computeVolume(seq[0])
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         vol = computeVolume(seq[1])
-        self.assert_(vol==255, "%d" %(vol))
-        self.assert_(seq[1].getPixel((64,64))==255)
+        self.assertTrue(vol==255, "%d" %(vol))
+        self.assertTrue(seq[1].getPixel((64,64))==255)
         vol = computeVolume(seq[2])
-        self.assert_(vol==255)
-        self.assert_(seq[2].getPixel((64,64))==255)
+        self.assertTrue(vol==255)
+        self.assertTrue(seq[2].getPixel((64,64))==255)
         vol = computeVolume(seq[3])
-        self.assert_(vol==255)
-        self.assert_(seq[3].getPixel((64,64))==255)
+        self.assertTrue(vol==255)
+        self.assertTrue(seq[3].getPixel((64,64))==255)
         vol = computeVolume(seq[4])
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         
         seq.reset()
         seq[2].setPixel(255, (64,64))
@@ -284,29 +285,29 @@ class TestSequence(unittest.TestCase):
         im.setPixel(255, (64,65))
         dilateByCylinderSequence(seq, 0, 1)
         vol = computeVolume(seq[0])
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         vol = computeVolume(seq[1])
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         (x,y) = compare(seq[2], im, im2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         vol = computeVolume(seq[3])
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         vol = computeVolume(seq[4])
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         
         seq.reset()
         seq[2].setPixel(255, (64,64))
         dilateByCylinderSequence(seq, 1, 1)
         vol = computeVolume(seq[0])
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
         (x,y) = compare(seq[1], im, im2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         (x,y) = compare(seq[2], im, im2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         (x,y) = compare(seq[3], im, im2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         vol = computeVolume(seq[4])
-        self.assert_(vol==0)
+        self.assertTrue(vol==0)
             
     def testErodeByCylinderSequence(self):
         """Verifies the erosion by a cylinder of a sequence"""
@@ -318,18 +319,18 @@ class TestSequence(unittest.TestCase):
         seq[2].setPixel(0, (64,64))
         erodeByCylinderSequence(seq, 1, 0)
         vol = computeVolume(seq[0])
-        self.assert_(vol==255*128*128)
+        self.assertTrue(vol==255*128*128)
         vol = computeVolume(seq[1])
-        self.assert_(vol==255*128*128-255, "%d" %(vol))
-        self.assert_(seq[1].getPixel((64,64))==0)
+        self.assertTrue(vol==255*128*128-255, "%d" %(vol))
+        self.assertTrue(seq[1].getPixel((64,64))==0)
         vol = computeVolume(seq[2])
-        self.assert_(vol==255*128*128-255)
-        self.assert_(seq[2].getPixel((64,64))==0)
+        self.assertTrue(vol==255*128*128-255)
+        self.assertTrue(seq[2].getPixel((64,64))==0)
         vol = computeVolume(seq[3])
-        self.assert_(vol==255*128*128-255)
-        self.assert_(seq[3].getPixel((64,64))==0)
+        self.assertTrue(vol==255*128*128-255)
+        self.assertTrue(seq[3].getPixel((64,64))==0)
         vol = computeVolume(seq[4])
-        self.assert_(vol==255*128*128)
+        self.assertTrue(vol==255*128*128)
         
         seq.fill(255)
         seq[2].setPixel(0, (64,64))
@@ -343,29 +344,29 @@ class TestSequence(unittest.TestCase):
         im.setPixel(0, (64,65))
         erodeByCylinderSequence(seq, 0, 1)
         vol = computeVolume(seq[0])
-        self.assert_(vol==255*128*128)
+        self.assertTrue(vol==255*128*128)
         vol = computeVolume(seq[1])
-        self.assert_(vol==255*128*128)
+        self.assertTrue(vol==255*128*128)
         (x,y) = compare(seq[2], im, im2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         vol = computeVolume(seq[3])
-        self.assert_(vol==255*128*128)
+        self.assertTrue(vol==255*128*128)
         vol = computeVolume(seq[4])
-        self.assert_(vol==255*128*128)
+        self.assertTrue(vol==255*128*128)
         
         seq.fill(255)
         seq[2].setPixel(0, (64,64))
         erodeByCylinderSequence(seq, 1, 1)
         vol = computeVolume(seq[0])
-        self.assert_(vol==255*128*128)
+        self.assertTrue(vol==255*128*128)
         (x,y) = compare(seq[1], im, im2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         (x,y) = compare(seq[2], im, im2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         (x,y) = compare(seq[3], im, im2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         vol = computeVolume(seq[4])
-        self.assert_(vol==255*128*128)
+        self.assertTrue(vol==255*128*128)
         
     def testOpenByCylinderSequence(self):
         """Verifies the opening by cylinder of a sequence"""
@@ -381,12 +382,12 @@ class TestSequence(unittest.TestCase):
         openByCylinderSequence(seq1, 1, 1)
         for i in range(5):
             (x,y) = compare(seq1[i], seq2[i], im)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         copySequence(seq2, seq1)
         openByCylinderSequence(seq1, 2, 2)
         for i in range(5):
             vol = computeVolume(seq1[i])
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
         
     def testCloseByCylinderSequence(self):
         """Verifies the opening by cylinder of a sequence"""
@@ -402,12 +403,12 @@ class TestSequence(unittest.TestCase):
         closeByCylinderSequence(seq1, 1, 1)
         for i in range(5):
             (x,y) = compare(seq1[i], seq2[i], im)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         copySequence(seq2, seq1)
         closeByCylinderSequence(seq1, 2, 2)
         for i in range(5):
             vol = computeVolume(seq1[i])
-            self.assert_(vol==255*128*128)
+            self.assertTrue(vol==255*128*128)
             
 
 def getSuite():

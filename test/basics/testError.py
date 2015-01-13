@@ -21,14 +21,14 @@ class TestError(unittest.TestCase):
         """Tests error function"""
         for i in range(mambaCore.ERR_UNKNOWN+1):
             err_str = mambaCore.MB_StrErr(i)
-            self.assert_(err_str!="")
+            self.assertTrue(err_str!="")
             
         ref_str = mambaCore.MB_StrErr(mambaCore.ERR_UNKNOWN)
         for i in range(mambaCore.ERR_UNKNOWN+1,10):
             err_str = mambaCore.MB_StrErr(i)
-            self.assert_(err_str==ref_str)
+            self.assertTrue(err_str==ref_str)
             
-        self.assert_(mambaCore.NO_ERR==0)
+        self.assertTrue(mambaCore.NO_ERR==0)
             
 
 def getSuite():

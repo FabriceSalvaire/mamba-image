@@ -50,7 +50,7 @@ class TestCompare(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -103,23 +103,23 @@ class TestCompare(unittest.TestCase):
                 self.im1_2.reset()
                 self.im1_1.setPixel(1, (wi,hi))
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x==wi)
-                self.assert_(y==hi)
+                self.assertTrue(x==wi)
+                self.assertTrue(y==hi)
             elif i%3==1:
                 self.im1_1.reset()
                 self.im1_2.reset()
                 self.im1_2.setPixel(1, (wi,hi))
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x==wi)
-                self.assert_(y==hi)
+                self.assertTrue(x==wi)
+                self.assertTrue(y==hi)
             else:
                 self.im1_1.reset()
                 self.im1_2.reset()
                 self.im1_1.setPixel(1, (wi,hi))
                 self.im1_2.setPixel(1, (wi,hi))
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x==-1)
-                self.assert_(y==-1)
+                self.assertTrue(x==-1)
+                self.assertTrue(y==-1)
         
         for i in range(100):
             wi1 = random.randint(0,w-1)
@@ -133,8 +133,8 @@ class TestCompare(unittest.TestCase):
             if wi1!=wi2 or hi1!=hi2:
                 self.im1_2.setPixel(1, (wi2,hi2))
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x>=0)
-                self.assert_(y>=0)
+                self.assertTrue(x>=0)
+                self.assertTrue(y>=0)
 
     def testComputation_8(self):
         """Verifies the comparison of two 8-bit images"""
@@ -149,15 +149,15 @@ class TestCompare(unittest.TestCase):
                 self.im8_2.reset()
                 self.im8_1.setPixel(vi, (wi,hi))
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x==wi)
-                self.assert_(y==hi)
+                self.assertTrue(x==wi)
+                self.assertTrue(y==hi)
             elif i%4==1:
                 self.im8_1.reset()
                 self.im8_2.reset()
                 self.im8_2.setPixel(vi, (wi,hi))
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x==wi)
-                self.assert_(y==hi)
+                self.assertTrue(x==wi)
+                self.assertTrue(y==hi)
             elif i%4==2:
                 self.im8_1.reset()
                 self.im8_2.reset()
@@ -165,16 +165,16 @@ class TestCompare(unittest.TestCase):
                 vi2 = (vi<255) and vi+1 or vi-1
                 self.im8_2.setPixel(vi2, (wi,hi))
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x==wi)
-                self.assert_(y==hi)
+                self.assertTrue(x==wi)
+                self.assertTrue(y==hi)
             else:
                 self.im8_1.reset()
                 self.im8_2.reset()
                 self.im8_1.setPixel(vi, (wi,hi))
                 self.im8_2.setPixel(vi, (wi,hi))
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x==-1)
-                self.assert_(y==-1)
+                self.assertTrue(x==-1)
+                self.assertTrue(y==-1)
         
         for i in range(100):
             wi1 = random.randint(0,w-1)
@@ -189,8 +189,8 @@ class TestCompare(unittest.TestCase):
             if wi1!=wi2 or hi1!=hi2:
                 self.im8_2.setPixel(vi, (wi2,hi2))
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x>=0)
-                self.assert_(y>=0)
+                self.assertTrue(x>=0)
+                self.assertTrue(y>=0)
 
     def testComputation_32(self):
         """Verifies the comparison of two 32-bit images"""
@@ -205,15 +205,15 @@ class TestCompare(unittest.TestCase):
                 self.im32_2.reset()
                 self.im32_1.setPixel(vi, (wi,hi))
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x==wi)
-                self.assert_(y==hi)
+                self.assertTrue(x==wi)
+                self.assertTrue(y==hi)
             elif i%4==1:
                 self.im32_1.reset()
                 self.im32_2.reset()
                 self.im32_2.setPixel(vi, (wi,hi))
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x==wi)
-                self.assert_(y==hi)
+                self.assertTrue(x==wi)
+                self.assertTrue(y==hi)
             elif i%4==2:
                 self.im32_1.reset()
                 self.im32_2.reset()
@@ -221,16 +221,16 @@ class TestCompare(unittest.TestCase):
                 vi2 = vi+1
                 self.im32_2.setPixel(vi2, (wi,hi))
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x==wi)
-                self.assert_(y==hi)
+                self.assertTrue(x==wi)
+                self.assertTrue(y==hi)
             else:
                 self.im32_1.reset()
                 self.im32_2.reset()
                 self.im32_1.setPixel(vi, (wi,hi))
                 self.im32_2.setPixel(vi, (wi,hi))
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x==-1)
-                self.assert_(y==-1)
+                self.assertTrue(x==-1)
+                self.assertTrue(y==-1)
         
         for i in range(100):
             wi1 = random.randint(0,w-1)
@@ -245,8 +245,8 @@ class TestCompare(unittest.TestCase):
             if wi1!=wi2 or hi1!=hi2:
                 self.im32_2.setPixel(vi, (wi2,hi2))
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x>=0)
-                self.assert_(y>=0)
+                self.assertTrue(x>=0)
+                self.assertTrue(y>=0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestCompare)

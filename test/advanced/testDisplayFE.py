@@ -19,6 +19,7 @@ Python functions and method:
     sequenceMb.hideImage
 """
 
+from __future__ import division
 from mamba import *
 from mambaComposed import *
 import mambaDisplay
@@ -80,7 +81,7 @@ class testDisplayer(mambaDisplay.mambaDisplayer):
         return self.dict_fun[fun]
         
     def eraseStatsOnFun(self):
-        for k in self.dict_fun.keys():
+        for k in list(self.dict_fun.keys()):
             self.dict_fun[k] = 0
 
 class TestDisplayFE(unittest.TestCase):
@@ -91,25 +92,25 @@ class TestDisplayFE(unittest.TestCase):
     def tearDown(self):
         del(self.testDisp)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
             
     def testShowAndHideDisplay(self):
         """Verifies the activation/deactivation of the display front-end methods"""
         im = imageMb(displayer=self.testDisp)
         
         im.hideDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("hideWindow")==0)
+        self.assertTrue(self.testDisp.getStatsOnFun("hideWindow")==0)
         
         im.showDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==1)
         
         im.hideDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("hideWindow")==1, "hideWindow = %d" % (self.testDisp.getStatsOnFun("hideWindow")))
+        self.assertTrue(self.testDisp.getStatsOnFun("hideWindow")==1, "hideWindow = %d" % (self.testDisp.getStatsOnFun("hideWindow")))
         
         im.showDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==2)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==2)
         
         im2 = imageMb()
         im2.showDisplay()
@@ -120,13 +121,13 @@ class TestDisplayFE(unittest.TestCase):
         im = imageMb(displayer=self.testDisp)
         
         im.showDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==1)
         
         self.testDisp.eraseStatsOnFun()
         
         im.updateDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("updateWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("updateWindow")==1)
         
     def testModificationDisplay(self):
         """Verifies that the display is notified of some internal changes"""
@@ -134,93 +135,93 @@ class TestDisplayFE(unittest.TestCase):
         (w,h) = im.getSize()
         
         im.showDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==1)
         
         Image.new("RGB", (w,h), (10,10,10)).save("test.jpg")
         im.load("test.jpg")
-        self.assert_(self.testDisp.getStatsOnFun("reconnectWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("reconnectWindow")==1)
         os.remove("test.jpg")
         
         im.convert(1)
-        self.assert_(self.testDisp.getStatsOnFun("reconnectWindow")==2)
+        self.assertTrue(self.testDisp.getStatsOnFun("reconnectWindow")==2)
         
     def testFreezeDisplay(self):
         """Verifies the display freeze and unfreeze front-end methods"""
         im = imageMb(displayer=self.testDisp)
         
         im.showDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==1)
         
         im.freezeDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("controlWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("controlWindow")==1)
         im.unfreezeDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("controlWindow")==2)
+        self.assertTrue(self.testDisp.getStatsOnFun("controlWindow")==2)
         
     def testNameDisplay(self):
         """Verifies that display is informed when image name change"""
         im = imageMb(displayer=self.testDisp)
         
         im.setName("test1")
-        self.assert_(self.testDisp.getStatsOnFun("retitleWindow")==0)
+        self.assertTrue(self.testDisp.getStatsOnFun("retitleWindow")==0)
         
         im.showDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==1)
         
         im.setName("test1")
-        self.assert_(self.testDisp.getStatsOnFun("retitleWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("retitleWindow")==1)
         
     def testPaletteDisplay(self):
         """Verifies that the palette is correctly transmitted to display"""
         im = imageMb(displayer=self.testDisp)
         
         im.setPalette(rainbow)
-        self.assert_(self.testDisp.getStatsOnFun("colorizeWindow")==0)
+        self.assertTrue(self.testDisp.getStatsOnFun("colorizeWindow")==0)
         im.resetPalette()
-        self.assert_(self.testDisp.getStatsOnFun("colorizeWindow")==0)
+        self.assertTrue(self.testDisp.getStatsOnFun("colorizeWindow")==0)
         
         im.showDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==1)
         
         im.setPalette(rainbow)
-        self.assert_(self.testDisp.getStatsOnFun("colorizeWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("colorizeWindow")==1)
         im.resetPalette()
-        self.assert_(self.testDisp.getStatsOnFun("colorizeWindow")==2)
+        self.assertTrue(self.testDisp.getStatsOnFun("colorizeWindow")==2)
         
     def testTidyDisplays(self):
         """Verifies that the tidyDisplays function correctly calls the displayer"""
         im = imageMb(displayer=self.testDisp)
         
         im.showDisplay()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==1)
         
         tidyDisplays(displayer=self.testDisp)
-        self.assert_(self.testDisp.getStatsOnFun("tidyWindows")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("tidyWindows")==1)
         
         tidyDisplays() # Standard displayer call (no effect on the test displayer
-        self.assert_(self.testDisp.getStatsOnFun("tidyWindows")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("tidyWindows")==1)
         
     def testSetShowImages(self):
         """Verifies that the automatic display activation is working"""
-        self.assert_(getShowImages()==False)
+        self.assertTrue(getShowImages()==False)
         
         setShowImages(True)
-        self.assert_(getShowImages()==True)
+        self.assertTrue(getShowImages()==True)
         im1 = imageMb(displayer=self.testDisp)
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==1)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==1)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==1)
         
         self.testDisp.eraseStatsOnFun()
         
         setShowImages(False)
-        self.assert_(getShowImages()==False)
+        self.assertTrue(getShowImages()==False)
         im2 = imageMb(displayer=self.testDisp)
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==0)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==0)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==0)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==0)
         
     def testSequenceDisplay(self):
         """Verifies sequence display front-end method"""
@@ -229,17 +230,17 @@ class TestDisplayFE(unittest.TestCase):
         seq = sequenceMb(im, li, displayer=self.testDisp)
         
         seq.showAllImages()
-        self.assert_(self.testDisp.getStatsOnFun("addWindow")==li)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==li)
+        self.assertTrue(self.testDisp.getStatsOnFun("addWindow")==li)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==li)
         
         seq.hideAllImages()
-        self.assert_(self.testDisp.getStatsOnFun("hideWindow")==li)
+        self.assertTrue(self.testDisp.getStatsOnFun("hideWindow")==li)
         
-        seq.showImage(li/2)
-        self.assert_(self.testDisp.getStatsOnFun("showWindow")==li+1)
+        seq.showImage(li//2)
+        self.assertTrue(self.testDisp.getStatsOnFun("showWindow")==li+1)
         
-        seq.hideImage(li/2)
-        self.assert_(self.testDisp.getStatsOnFun("hideWindow")==li+1)
+        seq.hideImage(li//2)
+        self.assertTrue(self.testDisp.getStatsOnFun("hideWindow")==li+1)
     
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestDisplayFE)

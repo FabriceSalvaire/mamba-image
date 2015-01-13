@@ -29,7 +29,7 @@ class TestPixel(unittest.TestCase):
         del(self.im8)
         del(self.im32)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
         
     def testParameterAcceptation(self):
         """Tests that incoherent parameters produce an exception"""
@@ -60,12 +60,12 @@ class TestPixel(unittest.TestCase):
         for wi in range(w):
             for hi in range(h):
                 self.im1.setPixel(1, (wi,hi))
-                self.assert_(self.im1.getPixel((wi,hi))==1)
+                self.assertTrue(self.im1.getPixel((wi,hi))==1)
         self.im1.fill(1)
         for wi in range(w):
             for hi in range(h):
                 self.im1.setPixel(0, (wi,hi))
-                self.assert_(self.im1.getPixel((wi,hi))==0)
+                self.assertTrue(self.im1.getPixel((wi,hi))==0)
 
     def testPixel_8(self):
         """Tests the correct pixel manipulation in 8-bit image"""
@@ -76,7 +76,7 @@ class TestPixel(unittest.TestCase):
                 for hi in range(h):
                     vi = random.randint(0,255)
                     self.im8.setPixel(vi, (wi,hi))
-                    self.assert_(self.im8.getPixel((wi,hi))==vi)
+                    self.assertTrue(self.im8.getPixel((wi,hi))==vi)
 
     def testPixel_32(self):
         """Tests the correct pixel manipulation in 32-bit image"""
@@ -87,7 +87,7 @@ class TestPixel(unittest.TestCase):
                 for hi in range(h):
                     vi = random.randint(0,0xffffffff)
                     self.im32.setPixel(vi, (wi,hi))
-                    self.assert_(self.im32.getPixel((wi,hi))==vi)
+                    self.assertTrue(self.im32.getPixel((wi,hi))==vi)
             
 
 def getSuite():

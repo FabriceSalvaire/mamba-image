@@ -51,7 +51,7 @@ class TestConMul(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im8s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -77,19 +77,19 @@ class TestConMul(unittest.TestCase):
             vd = random.randint(0,255)
             self.im8_1.fill(vf)
             mulConst(self.im8_1, vd, self.im8_2)
-            self.assert_(self.im8_2.getPixel((0,0))==min(vf*vd,255))
+            self.assertTrue(self.im8_2.getPixel((0,0))==min(vf*vd,255))
             
         self.im8_1.fill(127)
         self.im8_3.fill(254)
         mulConst(self.im8_1, 2, self.im8_2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
         self.im8_1.fill(1)
         self.im8_3.fill(2)
         mulConst(self.im8_1, 2, self.im8_2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_32_32(self):
         """Multiplies a 32-bit image by a constant and puts the result in a 32-bit image"""
@@ -106,13 +106,13 @@ class TestConMul(unittest.TestCase):
                 v2 = hex(0xffffffff+self.im32_2.getPixel((0,0))+1)
             else:
                 v2 = hex(self.im32_2.getPixel((0,0)))
-            self.assert_(v2==v1, "[%d]x[%d] = [%s/%s]" %(vf,vd,v2,v1))
+            self.assertTrue(v2==v1, "[%d]x[%d] = [%s/%s]" %(vf,vd,v2,v1))
             
         self.im32_1.fill(0x3fffffff)
         self.im32_3.fill(0x7ffffffe)
         mulConst(self.im32_1, 2, self.im32_2)
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
 
 def getSuite():

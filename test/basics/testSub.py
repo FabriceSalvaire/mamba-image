@@ -60,7 +60,7 @@ class TestSub(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -107,26 +107,26 @@ class TestSub(unittest.TestCase):
         self.im1_2.reset()
         sub(self.im1_1, self.im1_2, self.im1_3)
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_2.fill(1)
         sub(self.im1_1, self.im1_2, self.im1_3)
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.fill(1)
         self.im1_2.reset()
         sub(self.im1_1, self.im1_2, self.im1_3)
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.fill(1)
         self.im1_2.fill(1)
         sub(self.im1_1, self.im1_2, self.im1_3)
         self.im1_1.reset()
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_1_8_8(self):
         """Subtracts binary image out of 8-bit image into 8-bit image"""
@@ -136,20 +136,20 @@ class TestSub(unittest.TestCase):
         self.im8_2.fill(v)
         
         sub(self.im8_2, self.im1_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==v)
+        self.assertTrue(self.im8_2.getPixel((0,0))==v)
         
         self.im8_2.fill(255)
         self.im1_1.fill(1)
         for i in range(255):
             sub(self.im8_2, self.im1_1, self.im8_2)
-            self.assert_(self.im8_2.getPixel((0,0))==255-(i+1))
+            self.assertTrue(self.im8_2.getPixel((0,0))==255-(i+1))
         
         sub(self.im8_2, self.im1_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==0)
+        self.assertTrue(self.im8_2.getPixel((0,0))==0)
         sub(self.im8_2, self.im1_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==0)
+        self.assertTrue(self.im8_2.getPixel((0,0))==0)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8_8_8(self):
         """Subtracts an 8-bit image out of an 8-bit image and into a 8-bit image"""
@@ -157,26 +157,26 @@ class TestSub(unittest.TestCase):
         self.im8_2.fill(255)
         for i in range(255):
             sub(self.im8_2, self.im8_1, self.im8_2)
-            self.assert_(self.im8_2.getPixel((0,0))==255-(i+1))
+            self.assertTrue(self.im8_2.getPixel((0,0))==255-(i+1))
         
         sub(self.im8_2, self.im8_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==0)
+        self.assertTrue(self.im8_2.getPixel((0,0))==0)
         sub(self.im8_2, self.im8_1, self.im8_2)
-        self.assert_(self.im8_2.getPixel((0,0))==0)
+        self.assertTrue(self.im8_2.getPixel((0,0))==0)
         
         self.im8_1.fill(255)
         self.im8_2.fill(50)
         self.im8_3.fill(0)
         sub(self.im8_2, self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im8_1.fill(0)
         self.im8_2.fill(50)
         self.im8_3.fill(50)
         sub(self.im8_2, self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8_8_32(self):
         """Subtracts an 8-bit image out of an 8-bit image and into a 32-bit image"""
@@ -184,21 +184,21 @@ class TestSub(unittest.TestCase):
         for i in range(256):
             self.im8_1.fill(i)
             sub(self.im8_2, self.im8_1, self.im32_3)
-            self.assert_(self.im32_3.getPixel((0,0))==255-i)
+            self.assertTrue(self.im32_3.getPixel((0,0))==255-i)
         
         self.im8_1.fill(255)
         self.im8_2.fill(50)
         self.im32_3.fill(0xffffffff + 1 + (50 - 255))
         sub(self.im8_2, self.im8_1, self.im32_2)
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im8_1.fill(0)
         self.im8_2.fill(50)
         self.im32_3.fill(50)
         sub(self.im8_2, self.im8_1, self.im32_2)
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8_32_32(self):
         """Subtracts an 8-bit image out of a 32-bit image and into a 32-bit image"""
@@ -214,9 +214,9 @@ class TestSub(unittest.TestCase):
             v = v-v2
             if v<0:
                 v = 0xffffffff + 1 + v
-            self.assert_(self.im32_2.getPixel((0,0))==v)
+            self.assertTrue(self.im32_2.getPixel((0,0))==v)
             vol = computeVolume(self.im32_2)
-            self.assert_(vol==(w*h*v), "[%d,%d] : %d : %d!=%d" %(w,h,v,vol,w*h*v))
+            self.assertTrue(vol==(w*h*v), "[%d,%d] : %d : %d!=%d" %(w,h,v,vol,w*h*v))
 
     def testComputation_32_8_32(self):
         """Subtracts a 32-bit image out of a 8-bit image and into a 32-bit image"""
@@ -232,9 +232,9 @@ class TestSub(unittest.TestCase):
             v = v2-v
             if v<0:
                 v = 0xffffffff + 1 + v
-            self.assert_(self.im32_2.getPixel((0,0))==v, "%d : %d %d %d %d" % (i,self.im32_2.getPixel((0,0)),v,v1,v2))
+            self.assertTrue(self.im32_2.getPixel((0,0))==v, "%d : %d %d %d %d" % (i,self.im32_2.getPixel((0,0)),v,v1,v2))
             vol = computeVolume(self.im32_2)
-            self.assert_(vol==(w*h*v), "[%d,%d] : %d : %d!=%d" %(w,h,v,vol,w*h*v))
+            self.assertTrue(vol==(w*h*v), "[%d,%d] : %d : %d!=%d" %(w,h,v,vol,w*h*v))
 
     def testComputation_32_32_32(self):
         """Subtracts 32-bit images into a 32-bit image"""
@@ -248,7 +248,7 @@ class TestSub(unittest.TestCase):
             v = v2-v1
             if v<0:
                 v = 0xffffffff + 1 + v
-            self.assert_(self.im32_3.getPixel((0,0))==v)
+            self.assertTrue(self.im32_3.getPixel((0,0))==v)
 
 
 def getSuite():

@@ -15,6 +15,7 @@ C functions:
     MB_HierarBld
 """
 
+from __future__ import division
 from mamba import *
 from mambaDraw import drawLine
 import unittest
@@ -53,7 +54,7 @@ class TestHierarBld(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -75,15 +76,15 @@ class TestHierarBld(unittest.TestCase):
     def _drawTestIm(self, imOut, value):
 
         (w,h) = imOut.getSize()
-        drawLine(imOut, (1,1,1,h/3), value)
-        drawLine(imOut, (1,h/3,w/3,h/3), value)
-        for i in range(1,min(h/4,w/4)):
-            drawLine(imOut, (w/3+(i-1),h/3-i,w/3+i,h/3-i),value)
-        drawLine(imOut, (w/3+i,h/3-i,w/3+i,(2*h)/3-i), value)
-        for j in range(1,min(h/4,w/4)):
-            drawLine(imOut, (w/3+i-(j-1),(2*h)/3-i+j,w/3+i-j,(2*h)/3-i+j),value)
-        drawLine(imOut, (w/3+i-j,(2*h)/3-i+j,w/3+i-j-w/5,(2*h)/3-i+j),value)
-        drawLine(imOut, (w/3+i-j-w/5,(2*h)/3-i+j,w/3+i-j-w/5,(2*h)/3-i+j-h/6),value)
+        drawLine(imOut, (1,1,1,h//3), value)
+        drawLine(imOut, (1,h//3,w//3,h//3), value)
+        for i in range(1,min(h//4,w//4)):
+            drawLine(imOut, (w//3+(i-1),h//3-i,w//3+i,h//3-i),value)
+        drawLine(imOut, (w//3+i,h//3-i,w//3+i,(2*h)//3-i), value)
+        for j in range(1,min(h//4,w//4)):
+            drawLine(imOut, (w//3+i-(j-1),(2*h)//3-i+j,w//3+i-j,(2*h)//3-i+j),value)
+        drawLine(imOut, (w//3+i-j,(2*h)//3-i+j,w//3+i-j-w//5,(2*h)//3-i+j),value)
+        drawLine(imOut, (w//3+i-j-w//5,(2*h)//3-i+j,w//3+i-j-w//5,(2*h)//3-i+j-h//6),value)
 
     def testComputation(self):
         """Tests hierarchical build for both grids"""
@@ -100,13 +101,13 @@ class TestHierarBld(unittest.TestCase):
             self.im8_2.setPixel(vi, (1,1))
             hierarBuild(self.im8_1, self.im8_2, grid=HEXAGONAL)
             (x,y) = compare(self.im8_4, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             
             self.im8_2.reset()
             self.im8_2.setPixel(vi, (1,1))
             hierarBuild(self.im8_1, self.im8_2, grid=SQUARE)
             (x,y) = compare(self.im8_4, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def _drawCross(self, imOut, imExp, x, y, value):
         imOut.setPixel(value, (x,y))
@@ -133,13 +134,13 @@ class TestHierarBld(unittest.TestCase):
         self.im8_2.setPixel(255, (10,10))
         hierarBuild(self.im8_1, self.im8_2, grid=HEXAGONAL)
         (x,y) = compare(self.im8_4, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im8_2.reset()
         self.im8_2.setPixel(255, (10,10))
         hierarBuild(self.im8_1, self.im8_2, grid=SQUARE)
         (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         
 

@@ -11,6 +11,7 @@ Python functions:
     computeFeretDiameters
 """
 
+from __future__ import division
 from mamba import *
 from mambaComposed import *
 from mambaDraw import *
@@ -42,7 +43,7 @@ class TestMeasure(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
             
     def testDepthAcceptance(self):
         """Verifies that the measure functions work only with binary images"""
@@ -60,7 +61,7 @@ class TestMeasure(unittest.TestCase):
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-1, h/2-1, w/2+1, h/2+1), 1)
+        drawSquare(self.im1_1, (w//2-1, h//2-1, w//2+1, h//2+1), 1)
         area = computeArea(self.im1_1)
         self.assertAlmostEqual(area,9.0, msg = "%f" %(area))
         
@@ -69,9 +70,9 @@ class TestMeasure(unittest.TestCase):
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-2, h/2-2, w/2+2, h/2+2), 1)
+        drawSquare(self.im1_1, (w//2-2, h//2-2, w//2+2, h//2+2), 1)
         diameter = computeDiameter(self.im1_1, 0, grid=SQUARE)
-        self.assert_(diameter==0.0)
+        self.assertTrue(diameter==0.0)
         
         for i in getDirections(SQUARE)[1:]:
             exp_diameter = ((i%2)==0) and 9/math.sqrt(2) or 5
@@ -79,10 +80,10 @@ class TestMeasure(unittest.TestCase):
             self.assertAlmostEqual(diameter,exp_diameter, msg = "%d %f %f" % (i, diameter, exp_diameter))
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/2,h/2))
+        self.im1_1.setPixel(1, (w//2,h//2))
         dilate(self.im1_1, self.im1_1, 2, se=HEXAGON)
         diameter = computeDiameter(self.im1_1, 0, grid=HEXAGONAL)
-        self.assert_(diameter==0.0)
+        self.assertTrue(diameter==0.0)
         
         for i in getDirections(HEXAGONAL)[1:]:
             if i==2 or i==5:
@@ -97,7 +98,7 @@ class TestMeasure(unittest.TestCase):
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-2, h/2-2, w/2+2, h/2+2), 1)
+        drawSquare(self.im1_1, (w//2-2, h//2-2, w//2+2, h//2+2), 1)
         perimeter = computePerimeter(self.im1_1, grid=SQUARE)
         
         exp_perimeter = 0.0
@@ -108,7 +109,7 @@ class TestMeasure(unittest.TestCase):
         self.assertAlmostEqual(perimeter,exp_perimeter, msg = "%f %f" % (perimeter, exp_perimeter))
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/2,h/2))
+        self.im1_1.setPixel(1, (w//2,h//2))
         dilate(self.im1_1, self.im1_1, 2, se=HEXAGON)
         perimeter = computePerimeter(self.im1_1, grid=HEXAGONAL)
         
@@ -128,75 +129,75 @@ class TestMeasure(unittest.TestCase):
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-30,h/2-30,w/2-28,h/2-28), 1)
+        drawSquare(self.im1_1, (w//2-30,h//2-30,w//2-28,h//2-28), 1)
         
         connb = computeConnectivityNumber(self.im1_1, SQUARE)
-        self.assert_(connb==1)
+        self.assertTrue(connb==1)
         connb = computeConnectivityNumber(self.im1_1, HEXAGONAL)
-        self.assert_(connb==1)
+        self.assertTrue(connb==1)
         
-        drawSquare(self.im1_1, (w/2-20,h/2-30,w/2+28,h/2+28), 1)
+        drawSquare(self.im1_1, (w//2-20,h//2-30,w//2+28,h//2+28), 1)
         
         connb = computeConnectivityNumber(self.im1_1, SQUARE)
-        self.assert_(connb==2)
+        self.assertTrue(connb==2)
         connb = computeConnectivityNumber(self.im1_1, HEXAGONAL)
-        self.assert_(connb==2)
+        self.assertTrue(connb==2)
         
-        drawBox(self.im1_1, (w/2-35,h/2-35,w/2+35,h/2+35), 1)
+        drawBox(self.im1_1, (w//2-35,h//2-35,w//2+35,h//2+35), 1)
         
         connb = computeConnectivityNumber(self.im1_1, SQUARE)
-        self.assert_(connb==2)
+        self.assertTrue(connb==2)
         connb = computeConnectivityNumber(self.im1_1, HEXAGONAL)
-        self.assert_(connb==2)
+        self.assertTrue(connb==2)
         
     def testComputeComponentsNumber(self):
         """Verifies the number of components computation"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-30,h/2-30,w/2-28,h/2-28), 1)
+        drawSquare(self.im1_1, (w//2-30,h//2-30,w//2-28,h//2-28), 1)
         
         connb = computeComponentsNumber(self.im1_1, SQUARE)
-        self.assert_(connb==1)
+        self.assertTrue(connb==1)
         connb = computeComponentsNumber(self.im1_1, HEXAGONAL)
-        self.assert_(connb==1)
+        self.assertTrue(connb==1)
         
-        drawSquare(self.im1_1, (w/2-20,h/2-30,w/2+28,h/2+28), 1)
+        drawSquare(self.im1_1, (w//2-20,h//2-30,w//2+28,h//2+28), 1)
         
         connb = computeComponentsNumber(self.im1_1, SQUARE)
-        self.assert_(connb==2)
+        self.assertTrue(connb==2)
         connb = computeComponentsNumber(self.im1_1, HEXAGONAL)
-        self.assert_(connb==2)
+        self.assertTrue(connb==2)
         
-        drawBox(self.im1_1, (w/2-35,h/2-35,w/2+35,h/2+35), 1)
+        drawBox(self.im1_1, (w//2-35,h//2-35,w//2+35,h//2+35), 1)
         
         connb = computeComponentsNumber(self.im1_1, SQUARE)
-        self.assert_(connb==3)
+        self.assertTrue(connb==3)
         connb = computeComponentsNumber(self.im1_1, HEXAGONAL)
-        self.assert_(connb==3)
+        self.assertTrue(connb==3)
         
     def testComputeFeretDiameters(self):
         """Verifies the Feret diameters computation function"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        drawSquare(self.im1_1, (w/2-10,h/2-30,w/2-8,h/2-28), 1)
+        drawSquare(self.im1_1, (w//2-10,h//2-30,w//2-8,h//2-28), 1)
         
         diams = computeFeretDiameters(self.im1_1)
-        self.assert_(diams[0]==2)
-        self.assert_(diams[1]==2)
+        self.assertTrue(diams[0]==2)
+        self.assertTrue(diams[1]==2)
         
-        drawSquare(self.im1_1, (w/2-20,h/2-30,w/2+28,h/2+28), 1)
-        
-        diams = computeFeretDiameters(self.im1_1)
-        self.assert_(diams[0]==48, "%s" % (str(diams)))
-        self.assert_(diams[1]==58)
-        
-        drawBox(self.im1_1, (w/2-35,h/2-35,w/2+35,h/2+35), 1)
+        drawSquare(self.im1_1, (w//2-20,h//2-30,w//2+28,h//2+28), 1)
         
         diams = computeFeretDiameters(self.im1_1)
-        self.assert_(diams[0]==70)
-        self.assert_(diams[1]==70)
+        self.assertTrue(diams[0]==48, "%s" % (str(diams)))
+        self.assertTrue(diams[1]==58)
+        
+        drawBox(self.im1_1, (w//2-35,h//2-35,w//2+35,h//2+35), 1)
+        
+        diams = computeFeretDiameters(self.im1_1)
+        self.assertTrue(diams[0]==70)
+        self.assertTrue(diams[1]==70)
 
     
 def getSuite():

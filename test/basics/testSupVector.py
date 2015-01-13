@@ -25,6 +25,7 @@ C functions:
     MB_SupVector32
 """
 
+from __future__ import division
 from mamba import *
 import unittest
 import random
@@ -70,7 +71,7 @@ class TestSupVector(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im8s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -98,53 +99,53 @@ class TestSupVector(unittest.TestCase):
         (w,h) = self.im1_1.getSize()
         
         for i in range(10):
-            xi = random.randint(1,w/2-1)
-            yi = random.randint(1,h/2-1)
+            xi = random.randint(1,w//2-1)
+            yi = random.randint(1,h//2-1)
             for vect in self.directions:
                 self.im1_1.reset()
-                self.im1_1.setPixel(1, (w/2,h/2))
+                self.im1_1.setPixel(1, (w//2,h//2))
                 self.im1_2.reset()
-                self.im1_2.setPixel(1, (w/2,h/2))
-                self.im1_2.setPixel(1, (w/2+xi*vect[0],h/2+yi*vect[1]))
+                self.im1_2.setPixel(1, (w//2,h//2))
+                self.im1_2.setPixel(1, (w//2+xi*vect[0],h//2+yi*vect[1]))
                 supVector(self.im1_1, self.im1_1, (xi*vect[0],yi*vect[1]), edge=EMPTY)
                 (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             
     def testComputation_8(self):
         """Tests supremum by vector computations on greyscale images"""
         (w,h) = self.im8_1.getSize()
         
         for i in range(10):
-            xi = random.randint(1,w/2-1)
-            yi = random.randint(1,h/2-1)
+            xi = random.randint(1,w//2-1)
+            yi = random.randint(1,h//2-1)
             wi = random.randint(0,255)
             for vect in self.directions:
                 self.im8_1.fill(wi)
-                self.im8_1.setPixel(255, (w/2,h/2))
+                self.im8_1.setPixel(255, (w//2,h//2))
                 self.im8_2.fill(wi)
-                self.im8_2.setPixel(255, (w/2,h/2))
-                self.im8_2.setPixel(255, (w/2+xi*vect[0],h/2+yi*vect[1]))
+                self.im8_2.setPixel(255, (w//2,h//2))
+                self.im8_2.setPixel(255, (w//2+xi*vect[0],h//2+yi*vect[1]))
                 supVector(self.im8_1, self.im8_1, (xi*vect[0],yi*vect[1]), edge=EMPTY)
                 (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testComputation_32(self):
         """Tests supremum by vector computations on 32-bit images"""
         (w,h) = self.im32_1.getSize()
         
         for i in range(10):
-            xi = random.randint(1,w/2-1)
-            yi = random.randint(1,h/2-1)
+            xi = random.randint(1,w//2-1)
+            yi = random.randint(1,h//2-1)
             wi = random.randint(0,0xfffffffe)
             for vect in self.directions:
                 self.im32_1.fill(wi)
-                self.im32_1.setPixel(0xffffffff, (w/2,h/2))
+                self.im32_1.setPixel(0xffffffff, (w//2,h//2))
                 self.im32_2.fill(wi)
-                self.im32_2.setPixel(0xffffffff, (w/2,h/2))
-                self.im32_2.setPixel(0xffffffff, (w/2+xi*vect[0],h/2+yi*vect[1]))
+                self.im32_2.setPixel(0xffffffff, (w//2,h//2))
+                self.im32_2.setPixel(0xffffffff, (w//2+xi*vect[0],h//2+yi*vect[1]))
                 supVector(self.im32_1, self.im32_1, (xi*vect[0],yi*vect[1]), edge=EMPTY)
                 (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
                 
     def testEdgeEffect_1(self):
         """Verifies that edge value is correctly taken into account on binary image"""
@@ -154,7 +155,7 @@ class TestSupVector(unittest.TestCase):
             self.im1_1.reset()
             supVector(self.im1_1, self.im1_1, vect, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
                 
     def testEdgeInocuity_1(self):
         """Verifies edge inocuity when computing binary image"""
@@ -163,16 +164,16 @@ class TestSupVector(unittest.TestCase):
             self.im1_1.fill(1)
             supVector(self.im1_1, self.im1_1, vect, edge=FILLED)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==w*h)
+            self.assertTrue(vol==w*h)
         for vect in self.directions:
             self.im1_1.fill(0)
             supVector(self.im1_1, self.im1_1, vect, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             self.im1_1.fill(1)
             supVector(self.im1_1, self.im1_1, vect, edge=EMPTY)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==w*h)
+            self.assertTrue(vol==w*h)
                 
     def testEdgeEffect_8(self):
         """Verifies that edge value is correctly taken into account on 8-bit image"""
@@ -182,7 +183,7 @@ class TestSupVector(unittest.TestCase):
             self.im8_1.reset()
             supVector(self.im8_1, self.im8_1, vect, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol/255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol//255==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
                 
     def testEdgeInocuity_8(self):
         """Verifies edge inocuity when computing 8-bit image"""
@@ -191,16 +192,16 @@ class TestSupVector(unittest.TestCase):
             self.im8_1.fill(255)
             supVector(self.im8_1, self.im8_1, vect, edge=FILLED)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==w*h*255)
+            self.assertTrue(vol==w*h*255)
         for vect in self.directions:
             self.im8_1.fill(0)
             supVector(self.im8_1, self.im8_1, vect, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             self.im8_1.fill(255)
             supVector(self.im8_1, self.im8_1, vect, edge=EMPTY)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==w*h*255)
+            self.assertTrue(vol==w*h*255)
                 
     def testEdgeEffect_32(self):
         """Verifies that edge value is correctly taken into account on 32-bit image"""
@@ -210,7 +211,7 @@ class TestSupVector(unittest.TestCase):
             self.im32_1.reset()
             supVector(self.im32_1, self.im32_1, vect, edge=FILLED)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol/0xffffffff==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
+            self.assertTrue(vol//0xffffffff==exp_volume[d], "%d : %d/%d [%d]" % (d,vol,exp_volume[d],w*h))
                 
     def testEdgeInocuity_32(self):
         """Verifies edge inocuity when computing 32-bit image"""
@@ -219,16 +220,16 @@ class TestSupVector(unittest.TestCase):
             self.im32_1.fill(0xffffffff)
             supVector(self.im32_1, self.im32_1, vect, edge=FILLED)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==w*h*0xffffffff)
+            self.assertTrue(vol==w*h*0xffffffff)
         for vect in self.directions:
             self.im32_1.fill(0)
             supVector(self.im32_1, self.im32_1, vect, edge=EMPTY)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             self.im32_1.fill(0xffffffff)
             supVector(self.im32_1, self.im32_1, vect, edge=EMPTY)
             vol = computeVolume(self.im32_1)
-            self.assert_(vol==w*h*0xffffffff)
+            self.assertTrue(vol==w*h*0xffffffff)
         
 
 

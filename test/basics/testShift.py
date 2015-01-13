@@ -92,7 +92,7 @@ class TestShift(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -148,7 +148,7 @@ class TestShift(unittest.TestCase):
                 self._squarePixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 shift(self.im1_1, self.im1_2, d, ampi, 0, grid=SQUARE)
                 (x,y) = compare(self.im1_2, self.im1_3, self.im1_1)
-                self.assert_(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
 
     def testShiftingSquare_8(self):
         """Verifies shift of 8-bit image in square grid"""
@@ -167,7 +167,7 @@ class TestShift(unittest.TestCase):
                 self._squarePixelPrediction(self.im8_3, d, xi, yi, ampi, vi)
                 shift(self.im8_1, self.im8_2, d, ampi, 0, grid=SQUARE)
                 (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testShiftingSquare_32(self):
         """Verifies shift of 32-bit image in square grid"""
@@ -186,7 +186,7 @@ class TestShift(unittest.TestCase):
                 self._squarePixelPrediction(self.im32_3, d, xi, yi, ampi, vi)
                 shift(self.im32_1, self.im32_2, d, ampi, 0, grid=SQUARE)
                 (x,y) = compare(self.im32_2, self.im32_3, self.im32_3)
-                self.assert_(x<0, "in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
             
     def _hexagonalPixelPrediction(self, im, d, x, y, amp, v):
         (w,h) = im.getSize()
@@ -216,7 +216,7 @@ class TestShift(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 shift(self.im1_1, self.im1_2, d, ampi, 0, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_2, self.im1_3, self.im1_1)
-                self.assert_(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
     
     def testShiftingHexagonal_8(self):
         """Verifies shift of 8-bit image in hexagonal grid"""
@@ -235,7 +235,7 @@ class TestShift(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im8_3, d, xi, yi, ampi, vi)
                 shift(self.im8_1, self.im8_2, d, ampi, 0, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testShiftingHexagonal_32(self):
         """Verifies shift of 32-bit image in hexagonal grid"""
@@ -254,7 +254,7 @@ class TestShift(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im32_3, d, xi, yi, ampi, vi)
                 shift(self.im32_1, self.im32_2, d, ampi, 0, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_2, self.im32_3, self.im32_3)
-                self.assert_(x<0, "in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
                 
     def testFillValue_1(self):
         """Verifies the filling of created space due to shift in binary image"""
@@ -266,12 +266,12 @@ class TestShift(unittest.TestCase):
             self.im1_2.reset()
             shift(self.im1_1, self.im1_2, d, 1, 0, grid=SQUARE)
             vol = computeVolume(self.im1_2)
-            self.assert_(vol==w*h-created_space_volume[d])
+            self.assertTrue(vol==w*h-created_space_volume[d])
             self.im1_1.reset()
             self.im1_2.reset()
             shift(self.im1_1, self.im1_2, d, 1, 1, grid=SQUARE)
             vol = computeVolume(self.im1_2)
-            self.assert_(vol==created_space_volume[d], "in dir %d : %d/%d" %(d,vol,created_space_volume[d]))
+            self.assertTrue(vol==created_space_volume[d], "in dir %d : %d/%d" %(d,vol,created_space_volume[d]))
             
         created_space_volume = [0, w+h/2, h, w+h/2-1, w+h/2, h, w+h/2-1]
         for d in getDirections(HEXAGONAL):
@@ -279,12 +279,12 @@ class TestShift(unittest.TestCase):
             self.im1_2.reset()
             shift(self.im1_1, self.im1_2, d, 1, 0, grid=HEXAGONAL)
             vol = computeVolume(self.im1_2)
-            self.assert_(vol==w*h-created_space_volume[d])
+            self.assertTrue(vol==w*h-created_space_volume[d])
             self.im1_1.reset()
             self.im1_2.reset()
             shift(self.im1_1, self.im1_2, d, 1, 1, grid=HEXAGONAL)
             vol = computeVolume(self.im1_2)
-            self.assert_(vol==created_space_volume[d])
+            self.assertTrue(vol==created_space_volume[d])
     
     def testFillValue_8(self):
         """Verifies the filling of created space due to shift in 8-bit image"""
@@ -297,12 +297,12 @@ class TestShift(unittest.TestCase):
             self.im8_2.reset()
             shift(self.im8_1, self.im8_2, d, 1, 0, grid=SQUARE)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol/vi==w*h-created_space_volume[d])
+            self.assertTrue(vol/vi==w*h-created_space_volume[d])
             self.im8_1.reset()
             self.im8_2.reset()
             shift(self.im8_1, self.im8_2, d, 1, vi, grid=SQUARE)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol/vi==created_space_volume[d], "in dir %d : %d/%d" %(d,vol,created_space_volume[d]))
+            self.assertTrue(vol/vi==created_space_volume[d], "in dir %d : %d/%d" %(d,vol,created_space_volume[d]))
             
         created_space_volume = [0, w+h/2, h, w+h/2-1, w+h/2, h, w+h/2-1]
         for d in getDirections(HEXAGONAL):
@@ -311,12 +311,12 @@ class TestShift(unittest.TestCase):
             self.im8_2.reset()
             shift(self.im8_1, self.im8_2, d, 1, 0, grid=HEXAGONAL)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol/vi==w*h-created_space_volume[d])
+            self.assertTrue(vol/vi==w*h-created_space_volume[d])
             self.im8_1.reset()
             self.im8_2.reset()
             shift(self.im8_1, self.im8_2, d, 1, vi, grid=HEXAGONAL)
             vol = computeVolume(self.im8_2)
-            self.assert_(vol/vi==created_space_volume[d])
+            self.assertTrue(vol/vi==created_space_volume[d])
     
     def testInoutShifting_1(self):
         """Verifies shift when a binary image is used both as input and output"""
@@ -334,7 +334,7 @@ class TestShift(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 shift(self.im1_1, self.im1_1, d, ampi, 0, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_1, self.im1_3, self.im1_2)
-                self.assert_(x<0, "hex in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "hex in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
             for d in getDirections(SQUARE):
                 self.im1_1.reset()
                 self.im1_2.reset()
@@ -343,7 +343,7 @@ class TestShift(unittest.TestCase):
                 self._squarePixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 shift(self.im1_1, self.im1_1, d, ampi, 0, grid=SQUARE)
                 (x,y) = compare(self.im1_1, self.im1_3, self.im1_2)
-                self.assert_(x<0, "sqr in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "sqr in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
     
     def testInoutShifting_8(self):
         """Verifies shift when a 8-bit image is used both as input and output"""
@@ -362,7 +362,7 @@ class TestShift(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im8_3, d, xi, yi, ampi, vi)
                 shift(self.im8_1, self.im8_1, d, ampi, 0, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_1, self.im8_3, self.im8_2)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections(SQUARE):
                 self.im8_1.reset()
                 self.im8_2.reset()
@@ -371,7 +371,7 @@ class TestShift(unittest.TestCase):
                 self._squarePixelPrediction(self.im8_3, d, xi, yi, ampi, vi)
                 shift(self.im8_1, self.im8_1, d, ampi, 0, grid=SQUARE)
                 (x,y) = compare(self.im8_1, self.im8_3, self.im8_2)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testInoutShifting_32(self):
         """Verifies shift when a 32-bit image is used both as input and output"""
@@ -390,7 +390,7 @@ class TestShift(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im32_3, d, xi, yi, ampi, vi)
                 shift(self.im32_1, self.im32_1, d, ampi, 0, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_1, self.im32_3, self.im32_2)
-                self.assert_(x<0, "hex in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "hex in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
             for d in getDirections(SQUARE):
                 self.im32_1.reset()
                 self.im32_2.reset()
@@ -399,7 +399,7 @@ class TestShift(unittest.TestCase):
                 self._squarePixelPrediction(self.im32_3, d, xi, yi, ampi, vi)
                 shift(self.im32_1, self.im32_1, d, ampi, 0, grid=SQUARE)
                 (x,y) = compare(self.im32_1, self.im32_3, self.im32_2)
-                self.assert_(x<0, "sqr in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "sqr in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
 
 
 def getSuite():

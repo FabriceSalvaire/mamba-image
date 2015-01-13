@@ -30,7 +30,7 @@ class TestHisto(unittest.TestCase):
         del(self.im8)
         del(self.im32)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -49,8 +49,8 @@ class TestHisto(unittest.TestCase):
                     self.im8.setPixel(vi, (wi,hi))
                     exp_histo[vi] = exp_histo[vi]+1
             obt_histo = getHistogram(self.im8)
-            self.assert_(len(obt_histo)==256)
-            self.assert_(obt_histo==exp_histo)
+            self.assertTrue(len(obt_histo)==256)
+            self.assertTrue(obt_histo==exp_histo)
         
 
 def getSuite():

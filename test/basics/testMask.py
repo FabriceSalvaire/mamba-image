@@ -51,7 +51,7 @@ class TestMask(unittest.TestCase):
         del(self.im1s2_1)
         del(self.im8s2_1)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -79,7 +79,7 @@ class TestMask(unittest.TestCase):
         self.im8_2.fill(vi)
         convertByMask(self.im1_1, self.im8_1, 0, vi)
         (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         vi = random.randint(1,255)
         
@@ -87,7 +87,7 @@ class TestMask(unittest.TestCase):
         self.im8_2.fill(vi)
         convertByMask(self.im1_1, self.im8_1, vi, 0)
         (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         vi = random.randint(10,250)
         self.im1_1.reset()
@@ -102,7 +102,7 @@ class TestMask(unittest.TestCase):
                     self.im8_2.setPixel(vi, (wi,hi))
         convertByMask(self.im1_1, self.im8_1, vi, vi+1)
         (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
 
     def testComputation_1_32(self):
@@ -116,7 +116,7 @@ class TestMask(unittest.TestCase):
         self.im32_2.fill(vi)
         convertByMask(self.im1_1, self.im32_1, 0, vi)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         vi = random.randint(0,0xffffffff)
         if vi==0:
@@ -125,7 +125,7 @@ class TestMask(unittest.TestCase):
         self.im32_2.fill(vi)
         convertByMask(self.im1_1, self.im32_1, vi, 0)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         vi = random.randint(0,0xffffffff)
         if vi==0:
@@ -142,7 +142,7 @@ class TestMask(unittest.TestCase):
                     self.im32_2.setPixel(vi, (wi,hi))
         convertByMask(self.im1_1, self.im32_1, vi, vi+1)
         (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestMask)

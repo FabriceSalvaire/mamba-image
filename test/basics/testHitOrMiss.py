@@ -44,7 +44,7 @@ class TesthitOrMiss(unittest.TestCase):
         del(self.im1s2_1)
         del(self.im1s2_2)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -90,13 +90,13 @@ class TesthitOrMiss(unittest.TestCase):
         self.im1_2.reset()
         hitOrMiss(self.im1_1, self.im1_2, 0, 1, grid=SQUARE)
         (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         negate(self.im1_1, self.im1_3)
         self.im1_2.reset()
         hitOrMiss(self.im1_1, self.im1_2, 1, 0, grid=SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_2.reset()
@@ -107,7 +107,7 @@ class TesthitOrMiss(unittest.TestCase):
         self._draw3ptsLineS(self.im1_1,self.im1_3, 15,10)
         hitOrMiss(self.im1_1, self.im1_2, 1+8+128, 2+4+256, grid=SQUARE)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def _draw3ptsLineH(self,im,imexp,x,y):
         for i in range(x,x+3):
@@ -140,13 +140,13 @@ class TesthitOrMiss(unittest.TestCase):
         self.im1_2.reset()
         hitOrMiss(self.im1_1, self.im1_2, 0, 1, grid=HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         negate(self.im1_1, self.im1_3)
         self.im1_2.reset()
         hitOrMiss(self.im1_1, self.im1_2, 1, 0, grid=HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_2.reset()
@@ -157,7 +157,7 @@ class TesthitOrMiss(unittest.TestCase):
         self._draw3ptsLineH(self.im1_1,self.im1_3, 15,10)
         hitOrMiss(self.im1_1, self.im1_2, 1++4+32, 2+64, grid=HEXAGONAL)
         (x,y) = compare(self.im1_2, self.im1_3, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TesthitOrMiss)

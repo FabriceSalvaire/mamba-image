@@ -20,6 +20,7 @@ C function:
     MB_SupMask
 """
 
+from __future__ import division
 from mamba import *
 from mambaDraw import drawSquare
 import unittest
@@ -56,7 +57,7 @@ class TestAnd(unittest.TestCase):
         del(self.im1s2_2)
         del(self.im1s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -104,17 +105,17 @@ class TestAnd(unittest.TestCase):
         self.im1_2.reset()
         self.im1_3.reset()
         
-        drawSquare(self.im1_3,[0,0,w/2-1,h/2-1],1)
-        drawSquare(self.im1_1,[w/2,0,w-1,h/2-1],1)
-        drawSquare(self.im1_1,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_3,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[w/2,h/2,w-1,h-1],1)
-        drawSquare(self.im1_3,[w/2,h/2,w-1,h-1],1)
+        drawSquare(self.im1_3,[0,0,w//2-1,h//2-1],1)
+        drawSquare(self.im1_1,[w//2,0,w-1,h//2-1],1)
+        drawSquare(self.im1_1,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_3,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[w//2,h//2,w-1,h-1],1)
+        drawSquare(self.im1_3,[w//2,h//2,w-1,h-1],1)
         
         generateSupMask(self.im1_2, self.im1_1, self.im1_2, 0)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputationStrict_1(self):
         """Computes the supremum mask (strictly) on binary images"""
@@ -123,15 +124,15 @@ class TestAnd(unittest.TestCase):
         self.im1_2.reset()
         self.im1_3.reset()
         
-        drawSquare(self.im1_1,[w/2,0,w-1,h/2-1],1)
-        drawSquare(self.im1_1,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[w/2,h/2,w-1,h-1],1)
-        drawSquare(self.im1_3,[w/2,h/2,w-1,h-1],1)
+        drawSquare(self.im1_1,[w//2,0,w-1,h//2-1],1)
+        drawSquare(self.im1_1,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[w//2,h//2,w-1,h-1],1)
+        drawSquare(self.im1_3,[w//2,h//2,w-1,h-1],1)
         
         generateSupMask(self.im1_2, self.im1_1, self.im1_2, 1)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8(self):
         """Computes the supremum mask on 8-bit images"""
@@ -144,7 +145,7 @@ class TestAnd(unittest.TestCase):
             generateSupMask(self.im8_2, self.im8_1, self.im1_3, 0)
             self.im1_2.fill(v2>=v1 and 1 or 0)
             (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputationStrict_8(self):
         """Computes the supremum mask (strictly) on 8-bit images"""
@@ -157,7 +158,7 @@ class TestAnd(unittest.TestCase):
             generateSupMask(self.im8_2, self.im8_1, self.im1_3, 1)
             self.im1_2.fill(v2>v1 and 1 or 0)
             (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputation_32(self):
         """Computes the supremum mask on 32-bit images"""
@@ -170,7 +171,7 @@ class TestAnd(unittest.TestCase):
             generateSupMask(self.im32_2, self.im32_1, self.im1_3, 0)
             self.im1_2.fill(v2>=v1 and 1 or 0)
             (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputationStrict_32(self):
         """Computes the supremum mask on 32-bit images"""
@@ -183,7 +184,7 @@ class TestAnd(unittest.TestCase):
             generateSupMask(self.im32_2, self.im32_1, self.im1_3, 1)
             self.im1_2.fill(v2>v1 and 1 or 0)
             (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         
 
 def getSuite():

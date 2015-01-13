@@ -58,7 +58,7 @@ class TestConvert(unittest.TestCase):
         del(self.im8s2_1)
         del(self.im1s2_1)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -85,13 +85,13 @@ class TestConvert(unittest.TestCase):
         self.im8_2.fill(255)
         convert(self.im1_1, self.im8_1)
         (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im8_2.fill(0)
         convert(self.im1_1, self.im8_1)
         (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         vi = random.randint(10,250)
         self.im1_1.reset()
@@ -106,10 +106,10 @@ class TestConvert(unittest.TestCase):
                     self.im8_2.setPixel(0, (wi,hi))
         convert(self.im1_1, self.im8_1)
         (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         self.im1_1.convert(8)
         (x,y) = compare(self.im8_2, self.im1_1, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testConversion_8_1(self):
         """Verifies that converting an 8-bit image into a binary image works fine"""
@@ -122,10 +122,10 @@ class TestConvert(unittest.TestCase):
                 self.im1_2.reset()
             convert(self.im8_1, self.im1_1)
             (x,y) = compare(self.im1_1, self.im1_2, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             self.im8_1.convert(1)
             (x,y) = compare(self.im8_1, self.im1_2, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             self.im8_1.convert(8)
             
     def testComputation_1_1(self):
@@ -133,11 +133,11 @@ class TestConvert(unittest.TestCase):
         self.im1_1.fill(1)
         convert(self.im1_1, self.im1_2)
         (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         self.im1_1.reset()
         convert(self.im1_1, self.im1_2)
         (x,y) = compare(self.im1_2, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testComputation_8_8(self):
         """Verifies that converting a 8-bit image into a 8-bit image amounts to copy it"""
@@ -146,7 +146,7 @@ class TestConvert(unittest.TestCase):
             self.im8_1.fill(vi)
             convert(self.im8_1, self.im8_2)
             (x,y) = compare(self.im8_2, self.im8_1, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputation_32_32(self):
         """Verifies that converting a 32-bit image into a 32-bit image amounts to copy it"""
@@ -155,7 +155,7 @@ class TestConvert(unittest.TestCase):
             self.im32_1.fill(vi)
             convert(self.im32_1, self.im32_2)
             (x,y) = compare(self.im32_2, self.im32_1, self.im32_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestConvert)

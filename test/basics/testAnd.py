@@ -17,6 +17,7 @@ Python function:
 C function:
     MB_And
 """
+from __future__ import division
 from mamba import *
 from mambaDraw import drawSquare
 import unittest
@@ -53,7 +54,7 @@ class TestAnd(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests incorrect depth raise an exception"""
@@ -98,15 +99,15 @@ class TestAnd(unittest.TestCase):
         self.im1_2.reset()
         self.im1_3.reset()
         
-        drawSquare(self.im1_1,[w/2,0,w-1,h/2-1],1)
-        drawSquare(self.im1_1,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_3,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[w/2,h/2,w-1,h-1],1)
+        drawSquare(self.im1_1,[w//2,0,w-1,h//2-1],1)
+        drawSquare(self.im1_1,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_3,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[w//2,h//2,w-1,h-1],1)
         
         logic(self.im1_2, self.im1_1, self.im1_2, 'and')
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8(self):
         """Computes the result of a binary AND on 8-bit images"""
@@ -119,7 +120,7 @@ class TestAnd(unittest.TestCase):
             logic(self.im8_2, self.im8_1, self.im8_3, 'and')
             self.im8_2.fill(v1&v2)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputation_32(self):
         """Computes the result of a binary AND on 32-bit images"""
@@ -132,7 +133,7 @@ class TestAnd(unittest.TestCase):
             logic(self.im32_2, self.im32_1, self.im32_3, 'and')
             self.im32_2.fill(v1&v2)
             (x,y) = compare(self.im32_3, self.im32_2, self.im32_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             
     def testInoutComputation_1(self):
         """Verifies computation when a binary image is used as both input and output"""
@@ -140,12 +141,12 @@ class TestAnd(unittest.TestCase):
         self.im1_3.fill(1)
         logic(self.im1_3, self.im1_1, self.im1_3, 'and')
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         self.im1_1.reset()
         self.im1_3.fill(1)
         logic(self.im1_1, self.im1_3, self.im1_3, 'and')
         (x,y) = compare(self.im1_3, self.im1_1, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
     def testInoutComputation_8(self):
         """Verifies computation when a 8-bit image is used as both input and output"""
@@ -154,13 +155,13 @@ class TestAnd(unittest.TestCase):
         v2 = random.randint(0,128)
         self.im8_3.fill(v2)
         logic(self.im8_3, self.im8_1, self.im8_3, 'and')
-        self.assert_(self.im8_3.getPixel((0,0))==v1&v2)
+        self.assertTrue(self.im8_3.getPixel((0,0))==v1&v2)
         v1 = random.randint(0,128)
         self.im8_1.fill(v1)
         v2 = random.randint(0,128)
         self.im8_3.fill(v2)
         logic(self.im8_1, self.im8_3, self.im8_3, 'and')
-        self.assert_(self.im8_3.getPixel((0,0))==v1&v2)
+        self.assertTrue(self.im8_3.getPixel((0,0))==v1&v2)
             
     def testInoutComputation_32(self):
         """Verifies computation when a 32-bit image is used as both input and output"""
@@ -169,13 +170,13 @@ class TestAnd(unittest.TestCase):
         v2 = random.randint(0,128000)
         self.im32_3.fill(v2)
         logic(self.im32_3, self.im32_1, self.im32_3, 'and')
-        self.assert_(self.im32_3.getPixel((0,0))==v1&v2)
+        self.assertTrue(self.im32_3.getPixel((0,0))==v1&v2)
         v1 = random.randint(0,1280000)
         self.im32_1.fill(v1)
         v2 = random.randint(0,1280000)
         self.im32_3.fill(v2)
         logic(self.im32_1, self.im32_3, self.im32_3, 'and')
-        self.assert_(self.im32_3.getPixel((0,0))==v1&v2)
+        self.assertTrue(self.im32_3.getPixel((0,0))==v1&v2)
         
 
 def getSuite():

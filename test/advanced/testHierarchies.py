@@ -41,7 +41,7 @@ class TestHierarchies(unittest.TestCase):
         del(self.im8_3)
         del(self.im8_4)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
             
     def drawFakeWatershed1(self, imOut):
         (w,h) = imOut.getSize()
@@ -97,7 +97,7 @@ class TestHierarchies(unittest.TestCase):
         
         hierarchy(self.im8_1, self.im1_1, self.im8_2)
         (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testHierarchicalLevel(self):
         """Verifies the proper computation of the next hierarchal level"""
@@ -109,7 +109,7 @@ class TestHierarchies(unittest.TestCase):
         
         hierarchicalLevel(self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testWaterfalls(self):
         """Verifies the proper computation of the waterfalls algorithm"""
@@ -128,7 +128,7 @@ class TestHierarchies(unittest.TestCase):
         
         waterfalls(self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testEnhancedWaterfalls(self):
         """Tests the proper computation of the enhanced waterfalls algorithm"""
@@ -147,7 +147,7 @@ class TestHierarchies(unittest.TestCase):
         
         enhancedWaterfalls(self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testStandardSegment(self):
         """Tests the proper computation of the standard segment algorithm"""
@@ -166,7 +166,7 @@ class TestHierarchies(unittest.TestCase):
         
         standardSegment(self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testGeneralSegment(self):
         """Tests the proper computation of the general segment algorithm"""
@@ -185,7 +185,7 @@ class TestHierarchies(unittest.TestCase):
         
         generalSegment(self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
         
     def testSegmentByP(self):
         """Tests the proper computation of the P algorithm"""
@@ -204,12 +204,12 @@ class TestHierarchies(unittest.TestCase):
         
         n = segmentByP(self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
-        self.assert_(n==2, "levels = %d"%(n))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(n==2, "levels = %d"%(n))
         
         self.drawFakeWatershed2(self.im8_1)
         n = segmentByP(self.im8_1, self.im8_2)
-        self.assert_(n==3, "levels = %d"%(n))
+        self.assertTrue(n==3, "levels = %d"%(n))
         
     def testExtendedSegment(self):
         """Tests the proper computation of the extended segment algorithm"""
@@ -231,7 +231,7 @@ class TestHierarchies(unittest.TestCase):
         
         extendedSegment(self.im8_1, self.im8_4, self.im8_2)
         (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "diff in (%d,%d)"%(x,y))
+        self.assertTrue(x<0, "diff in (%d,%d)"%(x,y))
             
 
 def getSuite():

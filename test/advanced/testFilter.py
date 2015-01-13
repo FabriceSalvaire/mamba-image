@@ -15,6 +15,7 @@ Python functions:
     largeOctogonalAlternateFilter
 """
 
+from __future__ import division
 from mamba import *
 from mambaComposed import *
 from mambaDraw import *
@@ -47,20 +48,20 @@ class TestFilter(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
         
     def _drawAlternated(self, imOut):
         (w,h) = imOut.getSize()
         imOut.reset()
-        drawSquare(imOut, (0,h/2,w-1,h-1), 255)
-        imOut.setPixel(255, (w/4,h/4))
-        imOut.setPixel(0, (w/4,3*h/4))
-        drawSquare(imOut, (w/2-1,h/4-1,w/2+1,h/4+1), 255)
-        drawSquare(imOut, (w/2-1,3*h/4-1,w/2+1,3*h/4+1), 0)
-        drawBox(imOut, (3*w/4-1,h/4-1,3*w/4+2,h/4+2), 255)
-        drawBox(imOut, (3*w/4-2,h/4-2,3*w/4+3,h/4+3), 255)
-        drawBox(imOut, (3*w/4-1,3*h/4-1,3*w/4+2,3*h/4+2), 0)
-        drawBox(imOut, (3*w/4-2,3*h/4-2,3*w/4+3,3*h/4+3), 0)
+        drawSquare(imOut, (0,h//2,w-1,h-1), 255)
+        imOut.setPixel(255, (w//4,h//4))
+        imOut.setPixel(0, (w//4,3*h//4))
+        drawSquare(imOut, (w//2-1,h//4-1,w//2+1,h//4+1), 255)
+        drawSquare(imOut, (w//2-1,3*h//4-1,w//2+1,3*h//4+1), 0)
+        drawBox(imOut, (3*w//4-1,h//4-1,3*w//4+2,h//4+2), 255)
+        drawBox(imOut, (3*w//4-2,h//4-2,3*w//4+3,h//4+3), 255)
+        drawBox(imOut, (3*w//4-1,3*h//4-1,3*w//4+2,3*h//4+2), 0)
+        drawBox(imOut, (3*w//4-2,3*h//4-2,3*w//4+3,3*h//4+3), 0)
         
     def testAlternateFilter(self):
         """Verifies the alternate filter operator"""
@@ -69,20 +70,20 @@ class TestFilter(unittest.TestCase):
         self._drawAlternated(self.im8_1)
         alternateFilter(self.im8_1, self.im8_2, 1, True, SQUARE3X3)
         self.im8_3.reset()
-        drawSquare(self.im8_3, (0,h/2,w-1,h-1), 255)
-        drawSquare(self.im8_3, (w/2-1,h/4-1,w/2+1,h/4+1), 255)
-        drawSquare(self.im8_3, (w/2-1,3*h/4-1,w/2+1,3*h/4+1), 0)
-        drawSquare(self.im8_3, (3*w/4-2,3*h/4-2,3*w/4+3,3*h/4+3), 0)
+        drawSquare(self.im8_3, (0,h//2,w-1,h-1), 255)
+        drawSquare(self.im8_3, (w//2-1,h//4-1,w//2+1,h//4+1), 255)
+        drawSquare(self.im8_3, (w//2-1,3*h//4-1,w//2+1,3*h//4+1), 0)
+        drawSquare(self.im8_3, (3*w//4-2,3*h//4-2,3*w//4+3,3*h//4+3), 0)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         alternateFilter(self.im8_1, self.im8_2, 1, False, SQUARE3X3)
         self.im8_3.reset()
-        drawSquare(self.im8_3, (0,h/2,w-1,h-1), 255)
-        drawSquare(self.im8_3, (w/2-1,h/4-1,w/2+1,h/4+1), 255)
-        drawSquare(self.im8_3, (w/2-1,3*h/4-1,w/2+1,3*h/4+1), 0)
-        drawSquare(self.im8_3, (3*w/4-2,h/4-2,3*w/4+3,h/4+3), 255)
+        drawSquare(self.im8_3, (0,h//2,w-1,h-1), 255)
+        drawSquare(self.im8_3, (w//2-1,h//4-1,w//2+1,h//4+1), 255)
+        drawSquare(self.im8_3, (w//2-1,3*h//4-1,w//2+1,3*h//4+1), 0)
+        drawSquare(self.im8_3, (3*w//4-2,h//4-2,3*w//4+3,h//4+3), 255)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testFullAlternateFilter(self):
         """Verifies the full alternate filter operator"""
@@ -91,34 +92,34 @@ class TestFilter(unittest.TestCase):
         self._drawAlternated(self.im8_1)
         fullAlternateFilter(self.im8_1, self.im8_2, 2, True, SQUARE3X3)
         self.im8_3.reset()
-        drawSquare(self.im8_3, (0,h/2,w-1,h-1), 255)
-        drawSquare(self.im8_3, (3*w/4-2,3*h/4-2,3*w/4+3,3*h/4+3), 0)
+        drawSquare(self.im8_3, (0,h//2,w-1,h-1), 255)
+        drawSquare(self.im8_3, (3*w//4-2,3*h//4-2,3*w//4+3,3*h//4+3), 0)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         fullAlternateFilter(self.im8_1, self.im8_2, 2, False, SQUARE3X3)
         self.im8_3.reset()
-        drawSquare(self.im8_3, (0,h/2,w-1,h-1), 255)
-        drawSquare(self.im8_3, (3*w/4-2,h/4-2,3*w/4+3,h/4+3), 255)
+        drawSquare(self.im8_3, (0,h//2,w-1,h-1), 255)
+        drawSquare(self.im8_3, (3*w//4-2,h//4-2,3*w//4+3,h//4+3), 255)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def _drawAlternatedSeg(self, imOut):
         (w,h) = imOut.getSize()
         imOut.reset()
-        drawSquare(imOut, (0,h/2,w-1,h-1), 255)
+        drawSquare(imOut, (0,h//2,w-1,h-1), 255)
         
-        drawLine(imOut, (w/4,h/4-1,w/4,h/4+1), 255)
-        drawLine(imOut, (w/4,3*h/4-1,w/4,3*h/4+1), 0)
+        drawLine(imOut, (w//4,h//4-1,w//4,h//4+1), 255)
+        drawLine(imOut, (w//4,3*h//4-1,w//4,3*h//4+1), 0)
         
-        drawLine(imOut, (3*w/4-1,h/4-3,3*w/4-1,h/4+2), 255)
-        drawLine(imOut, (3*w/4,h/4-3,3*w/4,h/4+2), 255)
-        drawLine(imOut, (3*w/4,h/4-1,3*w/4,h/4  ), 0)
-        drawLine(imOut, (3*w/4+1,h/4-3,3*w/4+1,h/4+2), 255)
+        drawLine(imOut, (3*w//4-1,h//4-3,3*w//4-1,h//4+2), 255)
+        drawLine(imOut, (3*w//4,h//4-3,3*w//4,h//4+2), 255)
+        drawLine(imOut, (3*w//4,h//4-1,3*w//4,h//4  ), 0)
+        drawLine(imOut, (3*w//4+1,h//4-3,3*w//4+1,h//4+2), 255)
         
-        drawLine(imOut, (3*w/4-1,3*h/4-3,3*w/4-1,3*h/4+2), 0)
-        drawLine(imOut, (3*w/4,3*h/4-3,3*w/4,3*h/4+2), 0)
-        drawLine(imOut, (3*w/4,3*h/4-1,3*w/4,3*h/4  ), 255)
-        drawLine(imOut, (3*w/4+1,3*h/4-3,3*w/4+1,3*h/4+2), 0)
+        drawLine(imOut, (3*w//4-1,3*h//4-3,3*w//4-1,3*h//4+2), 0)
+        drawLine(imOut, (3*w//4,3*h//4-3,3*w//4,3*h//4+2), 0)
+        drawLine(imOut, (3*w//4,3*h//4-1,3*w//4,3*h//4  ), 255)
+        drawLine(imOut, (3*w//4+1,3*h//4-3,3*w//4+1,3*h//4+2), 0)
         
     def testLinearAlternateFilter(self):
         """Verifies the linear alternate filter operator"""
@@ -127,26 +128,26 @@ class TestFilter(unittest.TestCase):
         self._drawAlternatedSeg(self.im8_1)
         linearAlternateFilter(self.im8_1, self.im8_2, 3, True, SQUARE)
         self.im8_3.reset()
-        drawSquare(self.im8_3, (0,h/2,w-1,h-1), 255)
-        drawLine(self.im8_3, (3*w/4-1,h/4-3,3*w/4-1,h/4+2), 255)
-        drawLine(self.im8_3, (3*w/4,h/4-2,3*w/4,h/4+1), 255)
-        drawLine(self.im8_3, (3*w/4+1,h/4-3,3*w/4+1,h/4+2), 255)
-        drawLine(self.im8_3, (3*w/4-1,3*h/4-3,3*w/4-1,3*h/4+2), 0)
-        drawLine(self.im8_3, (3*w/4,3*h/4-3,3*w/4,3*h/4+2), 0)
-        drawLine(self.im8_3, (3*w/4+1,3*h/4-3,3*w/4+1,3*h/4+2), 0)
+        drawSquare(self.im8_3, (0,h//2,w-1,h-1), 255)
+        drawLine(self.im8_3, (3*w//4-1,h//4-3,3*w//4-1,h//4+2), 255)
+        drawLine(self.im8_3, (3*w//4,h//4-2,3*w//4,h//4+1), 255)
+        drawLine(self.im8_3, (3*w//4+1,h//4-3,3*w//4+1,h//4+2), 255)
+        drawLine(self.im8_3, (3*w//4-1,3*h//4-3,3*w//4-1,3*h//4+2), 0)
+        drawLine(self.im8_3, (3*w//4,3*h//4-3,3*w//4,3*h//4+2), 0)
+        drawLine(self.im8_3, (3*w//4+1,3*h//4-3,3*w//4+1,3*h//4+2), 0)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         linearAlternateFilter(self.im8_1, self.im8_2, 3, False, SQUARE)
         self.im8_3.reset()
-        drawSquare(self.im8_3, (0,h/2,w-1,h-1), 255)
-        drawLine(self.im8_3, (3*w/4-1,h/4-3,3*w/4-1,h/4+2), 255)
-        drawLine(self.im8_3, (3*w/4,h/4-3,3*w/4,h/4+2), 255)
-        drawLine(self.im8_3, (3*w/4+1,h/4-3,3*w/4+1,h/4+2), 255)
-        drawLine(self.im8_3, (3*w/4-1,3*h/4-3,3*w/4-1,3*h/4+2), 0)
-        drawLine(self.im8_3, (3*w/4,3*h/4-2,3*w/4,3*h/4+1), 0)
-        drawLine(self.im8_3, (3*w/4+1,3*h/4-3,3*w/4+1,3*h/4+2), 0)
+        drawSquare(self.im8_3, (0,h//2,w-1,h-1), 255)
+        drawLine(self.im8_3, (3*w//4-1,h//4-3,3*w//4-1,h//4+2), 255)
+        drawLine(self.im8_3, (3*w//4,h//4-3,3*w//4,h//4+2), 255)
+        drawLine(self.im8_3, (3*w//4+1,h//4-3,3*w//4+1,h//4+2), 255)
+        drawLine(self.im8_3, (3*w//4-1,3*h//4-3,3*w//4-1,3*h//4+2), 0)
+        drawLine(self.im8_3, (3*w//4,3*h//4-2,3*w//4,3*h//4+1), 0)
+        drawLine(self.im8_3, (3*w//4+1,3*h//4-3,3*w//4+1,3*h//4+2), 0)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testAutoMedian(self):
         """Tests the auto median filter operator"""
@@ -155,15 +156,15 @@ class TestFilter(unittest.TestCase):
         for n in range(1,6):
             value = n%2==1 and 255 or 0
             self.im8_1.fill(value)
-            drawSquare(self.im8_1, (w/2-n,h/2-n,w/2+n,h/2+n), 100)
+            drawSquare(self.im8_1, (w//2-n,h//2-n,w//2+n,h//2+n), 100)
             for i in range(n+1):
                 autoMedian(self.im8_1, self.im8_2, i, se=SQUARE3X3)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             self.im8_3.fill(value)
             autoMedian(self.im8_1, self.im8_2, n+1, se=SQUARE3X3)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             
     def testSimpleLevelling(self):
         """Verifies the simple levelling operator"""
@@ -171,18 +172,18 @@ class TestFilter(unittest.TestCase):
         
         self.im8_1.reset()
         for i in range(21):
-            drawLine(self.im8_1, (w/2-10+i, h/2-10, w/2-10+i, h/2+10), 101+i)
+            drawLine(self.im8_1, (w//2-10+i, h//2-10, w//2-10+i, h//2+10), 101+i)
         
         for i in range(22):
             self.im8_4.reset()
-            drawSquare(self.im8_4, (w/2-10, h/2-10, w/2+10, h/2+10), 100+i)
+            drawSquare(self.im8_4, (w//2-10, h//2-10, w//2+10, h//2+10), 100+i)
             self.im8_3.reset()
             for j in range(21):
-                drawLine(self.im8_3, (w/2-10+j, h/2-10, w/2-10+j, h/2+10), min(101+j,100+i))
+                drawLine(self.im8_3, (w//2-10+j, h//2-10, w//2-10+j, h//2+10), min(101+j,100+i))
             
             simpleLevelling(self.im8_1, self.im8_4, self.im8_2, SQUARE)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "%d" % (i))
+            self.assertTrue(x<0, "%d" % (i))
             
     def testStrongLevelling(self):
         """Verifies the strong levelling operator"""
@@ -190,19 +191,19 @@ class TestFilter(unittest.TestCase):
         
         self.im8_1.reset()
         for i in range(21):
-            drawLine(self.im8_1, (w/2-10+i, h/2-10, w/2-10+i, h/2+10), 101+i)
+            drawLine(self.im8_1, (w//2-10+i, h//2-10, w//2-10+i, h//2+10), 101+i)
         
         for i in range(12):
             self.im8_3.reset()
             if i<11:
                 for j in range(21-2*i):
-                    drawLine(self.im8_3, (w/2-10+j, h/2-10, w/2-10+j, h/2+10), 101+j)
+                    drawLine(self.im8_3, (w//2-10+j, h//2-10, w//2-10+j, h//2+10), 101+j)
                 for j in range(21-2*i, 21):
-                    drawLine(self.im8_3, (w/2-10+j, h/2-10, w/2-10+j, h/2+10), 121-2*i)
+                    drawLine(self.im8_3, (w//2-10+j, h//2-10, w//2-10+j, h//2+10), 121-2*i)
             
             strongLevelling(self.im8_1, self.im8_2, i, (i%2==1), SQUARE)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0, "%d" % (i))
+            self.assertTrue(x<0, "%d" % (i))
         
     def testLargeSquareAlternateFilter(self):
         """Verifies the large square full alternate filter operator"""

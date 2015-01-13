@@ -28,7 +28,7 @@ class TestConSet(unittest.TestCase):
         del(self.im8)
         del(self.im32)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testSetting_1(self):
         """Verifies that binary images are correctly filled"""
@@ -38,13 +38,13 @@ class TestConSet(unittest.TestCase):
         for wi in range(w):
             for hi in range(h):
                 v = self.im1.getPixel((wi,hi))
-                self.assert_(v==1)
+                self.assertTrue(v==1)
         
         self.im1.fill(0)
         for wi in range(w):
             for hi in range(h):
                 v = self.im1.getPixel((wi,hi))
-                self.assert_(v==0)
+                self.assertTrue(v==0)
 
     def testSetting_8(self):
         """Verifies that 8-bit images are correctly filled"""
@@ -57,7 +57,7 @@ class TestConSet(unittest.TestCase):
             for wi in range(w):
                 for hi in range(h):
                     v = self.im8.getPixel((wi,hi))
-                    self.assert_(v==vi)
+                    self.assertTrue(v==vi)
 
     def testSetting_32(self):
         """Verifies that 32-bit images are correctly filled"""
@@ -70,7 +70,7 @@ class TestConSet(unittest.TestCase):
             for wi in range(w):
                 for hi in range(h):
                     v = self.im32.getPixel((wi,hi))
-                    self.assert_(v==vi)
+                    self.assertTrue(v==vi)
         
 
 def getSuite():

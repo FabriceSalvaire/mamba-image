@@ -14,11 +14,11 @@ Python function:
     
 C functions:
     MB_Labelb
-"""
-"""
+
 Test cases for the MB_Labelb function
 """
 
+from __future__ import division
 from mamba import *
 import unittest
 
@@ -49,7 +49,7 @@ class TestLabelb(unittest.TestCase):
         del(self.im1s2_1)
         del(self.im32s2_1)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -89,10 +89,10 @@ class TestLabelb(unittest.TestCase):
             self.im1_1.setPixel(1, (x+3, 1))
         
         n = label(self.im1_1, self.im32_1, grid=SQUARE)
-        self.assert_(n==1)
+        self.assertTrue(n==1)
         
         n = label(self.im1_1, self.im32_1, grid=HEXAGONAL)
-        self.assert_(n==1)
+        self.assertTrue(n==1)
 
     def testComputationMultipleLabel(self):
         """Labelling numerous simple objects"""
@@ -106,17 +106,17 @@ class TestLabelb(unittest.TestCase):
             for hi in range(0,h-2,2):
                 self.im1_1.setPixel(1, (wi,hi))
                 n_exp=n_exp+1
-                vol_exp = vol_exp+n_exp+(n_exp-1)/255
+                vol_exp = vol_exp+n_exp+(n_exp-1)//255
         
         n = label(self.im1_1, self.im32_1, grid=SQUARE)
-        self.assert_(n==n_exp)
+        self.assertTrue(n==n_exp)
         vol = computeVolume(self.im32_1)
-        self.assert_(vol==vol_exp)
+        self.assertTrue(vol==vol_exp)
         
         n = label(self.im1_1, self.im32_1, grid=HEXAGONAL)
-        self.assert_(n==n_exp)
+        self.assertTrue(n==n_exp)
         vol = computeVolume(self.im32_1)
-        self.assert_(vol==vol_exp)
+        self.assertTrue(vol==vol_exp)
 
     def testComputationGridEffect(self):
         """Verifies grid configuration on labelling"""
@@ -133,10 +133,10 @@ class TestLabelb(unittest.TestCase):
         self.im1_1.setPixel(1, (4,10))
         
         n = label(self.im1_1, self.im32_1, grid=SQUARE)
-        self.assert_(n==2)
+        self.assertTrue(n==2)
         
         n = label(self.im1_1, self.im32_1, grid=HEXAGONAL)
-        self.assert_(n==6)
+        self.assertTrue(n==6)
 
     def testComputationEdge(self):
         """Verifies that objects touching the edge are correctly labelled"""
@@ -150,10 +150,10 @@ class TestLabelb(unittest.TestCase):
         self.im1_1.setPixel(1, (w-1,h-1))
         
         n = label(self.im1_1, self.im32_1, grid=SQUARE)
-        self.assert_(n==4)
+        self.assertTrue(n==4)
         
         n = label(self.im1_1, self.im32_1, grid=HEXAGONAL)
-        self.assert_(n==4)
+        self.assertTrue(n==4)
 
     def testComputationRange(self):
         """Labelling in the lower byte according to range specified"""
@@ -167,21 +167,21 @@ class TestLabelb(unittest.TestCase):
         
         n = label(self.im1_1, self.im32_1, 10, 230, grid=SQUARE)
         copyBytePlane(self.im32_1, 0, self.im8_1)
-        l = range(256)
+        l = list(range(256))
         l[0] = 10
         lookup(self.im8_1, self.im8_1, l)
         mi, ma = computeRange(self.im8_1)
-        self.assert_(mi==10)
-        self.assert_(ma==229)
+        self.assertTrue(mi==10)
+        self.assertTrue(ma==229)
         
         n = label(self.im1_1, self.im32_1, 10, 230, grid=HEXAGONAL)
         copyBytePlane(self.im32_1, 0, self.im8_1)
-        l = range(256)
+        l = list(range(256))
         l[0] = 10
         lookup(self.im8_1, self.im8_1, l)
         mi, ma = computeRange(self.im8_1)
-        self.assert_(mi==10)
-        self.assert_(ma==229)
+        self.assertTrue(mi==10)
+        self.assertTrue(ma==229)
         
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestLabelb)

@@ -30,7 +30,7 @@ class TestVolume(unittest.TestCase):
         del(self.im8)
         del(self.im32)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testComputation_1(self):
         """Computes the volume of a binary image"""
@@ -42,7 +42,7 @@ class TestVolume(unittest.TestCase):
                 self.im1.setPixel(vi, (wi,hi))
                 exp_volume = exp_volume+vi
         obt_volume = computeVolume(self.im1)
-        self.assert_(obt_volume==exp_volume)
+        self.assertTrue(obt_volume==exp_volume)
 
     def testComputation_8(self):
         """Computes the volume of a 8-bit image"""
@@ -54,7 +54,7 @@ class TestVolume(unittest.TestCase):
                 self.im8.setPixel(vi, (wi,hi))
                 exp_volume = exp_volume+vi
         obt_volume = computeVolume(self.im8)
-        self.assert_(obt_volume==exp_volume)
+        self.assertTrue(obt_volume==exp_volume)
 
     def testComputation_32(self):
         """Computes the volume of a 32-bit image"""
@@ -66,7 +66,7 @@ class TestVolume(unittest.TestCase):
                 self.im32.setPixel(vi, (wi,hi))
                 exp_volume = exp_volume+vi
         obt_volume = computeVolume(self.im32)
-        self.assert_(obt_volume==exp_volume)
+        self.assertTrue(obt_volume==exp_volume)
         
 
 def getSuite():

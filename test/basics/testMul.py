@@ -30,6 +30,7 @@ C function:
     MB_Mul
 """
 
+from __future__ import division
 from mamba import *
 from mambaDraw import drawSquare
 import unittest
@@ -66,7 +67,7 @@ class TestMul(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -114,15 +115,15 @@ class TestMul(unittest.TestCase):
         self.im1_2.reset()
         self.im1_3.reset()
         
-        drawSquare(self.im1_1,[w/2,0,w-1,h/2-1],1)
-        drawSquare(self.im1_1,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_3,[0,h/2,w/2-1,h-1],1)
-        drawSquare(self.im1_2,[w/2,h/2,w-1,h-1],1)
+        drawSquare(self.im1_1,[w//2,0,w-1,h//2-1],1)
+        drawSquare(self.im1_1,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_3,[0,h//2,w//2-1,h-1],1)
+        drawSquare(self.im1_2,[w//2,h//2,w-1,h-1],1)
         
         mul(self.im1_2, self.im1_1, self.im1_2)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_1_8_8(self):
         """Multiplies a binary image with a 8-bit image into a 8-bit image"""
@@ -135,7 +136,7 @@ class TestMul(unittest.TestCase):
             else:
                 mul(self.im1_1, self.im8_1, self.im8_2)
             (x,y) = compare(self.im8_3, self.im8_2, self.im8_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         self.im1_1.fill(1)
         for i in range(256):
             self.im8_1.fill(i)
@@ -144,7 +145,7 @@ class TestMul(unittest.TestCase):
             else:
                 mul(self.im1_1, self.im8_1, self.im8_2)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
 
     def testComputation_8_8_8(self):
@@ -156,21 +157,21 @@ class TestMul(unittest.TestCase):
             self.im8_1.fill(v1)
             self.im8_2.fill(v2)
             mul(self.im8_2, self.im8_1, self.im8_3)
-            self.assert_(self.im8_3.getPixel((0,0))==min(v1*v2,255))
+            self.assertTrue(self.im8_3.getPixel((0,0))==min(v1*v2,255))
             
         self.im8_1.fill(255)
         self.im8_2.fill(255)
         self.im8_3.fill(255)
         mul(self.im8_2, self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
         self.im8_1.fill(0)
         self.im8_2.fill(255)
         self.im8_3.fill(0)
         mul(self.im8_2, self.im8_1, self.im8_2)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_1_8_32(self):
         """Multiplies a binary image with a 8-bit image into a 32-bit image"""
@@ -183,7 +184,7 @@ class TestMul(unittest.TestCase):
             else:
                 mul(self.im1_1, self.im8_1, self.im32_2)
             (x,y) = compare(self.im32_3, self.im32_2, self.im32_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         self.im1_1.fill(1)
         for i in range(256):
             self.im8_1.fill(i)
@@ -193,7 +194,7 @@ class TestMul(unittest.TestCase):
             else:
                 mul(self.im1_1, self.im8_1, self.im32_2)
             (x,y) = compare(self.im32_1, self.im32_2, self.im32_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputation_1_32_32(self):
         """Multiplies a binary image with a 32-bit image into a 32-bit image"""
@@ -206,7 +207,7 @@ class TestMul(unittest.TestCase):
             else:
                 mul(self.im1_1, self.im32_1, self.im32_2)
             (x,y) = compare(self.im32_3, self.im32_2, self.im32_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         self.im1_1.fill(1)
         for i in range(0,20000):
             self.im32_1.fill(i*50)
@@ -215,7 +216,7 @@ class TestMul(unittest.TestCase):
             else:
                 mul(self.im1_1, self.im32_1, self.im32_2)
             (x,y) = compare(self.im32_1, self.im32_2, self.im32_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputation_8_8_32(self):
         """Multiplies two 8-bit images into a 32-bit image"""
@@ -226,21 +227,21 @@ class TestMul(unittest.TestCase):
             self.im8_1.fill(v1)
             self.im8_2.fill(v2)
             mul(self.im8_2, self.im8_1, self.im32_3)
-            self.assert_(self.im32_3.getPixel((0,0))==v1*v2)
+            self.assertTrue(self.im32_3.getPixel((0,0))==v1*v2)
             
         self.im8_1.fill(255)
         self.im8_2.fill(255)
         self.im32_3.fill(65025)
         mul(self.im8_2, self.im8_1, self.im32_2)
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
             
         self.im8_1.fill(0)
         self.im8_2.fill(255)
         self.im32_3.fill(0)
         mul(self.im8_2, self.im8_1, self.im32_2)
         (x,y) = compare(self.im32_3, self.im32_2, self.im32_2)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
 
     def testComputation_8_32_32(self):
         """Multiplies a 8-bit image with a 32-bit image into a 32-bit image"""
@@ -255,7 +256,7 @@ class TestMul(unittest.TestCase):
             else:
                 mul(self.im8_1, self.im32_1, self.im32_2)
             (x,y) = compare(self.im32_3, self.im32_2, self.im32_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
     def testComputation_32_32_32(self):
         """Multiplies two 32-bit images into a 32-bit image"""
@@ -267,7 +268,7 @@ class TestMul(unittest.TestCase):
             self.im32_3.fill(i*5*v1)
             mul(self.im32_2, self.im32_1, self.im32_2)
             (x,y) = compare(self.im32_3, self.im32_2, self.im32_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         
 
 def getSuite():

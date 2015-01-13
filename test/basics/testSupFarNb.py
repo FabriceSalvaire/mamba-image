@@ -95,7 +95,7 @@ class TestSupFarNb(unittest.TestCase):
         del(self.im8s2_2)
         del(self.im8s2_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -151,7 +151,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._squarePixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 supFarNeighbor(self.im1_1, self.im1_2, d, ampi, grid=SQUARE)
                 (x,y) = compare(self.im1_2, self.im1_3, self.im1_1)
-                self.assert_(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
 
     def testComputationSquare_8(self):
         """Tests supremum by far neighbor computations in square grid on greyscale images"""
@@ -171,7 +171,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._squarePixelPrediction(self.im8_3, d, xi, yi, ampi, wi)
                 supFarNeighbor(self.im8_1, self.im8_2, d, ampi, grid=SQUARE)
                 (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testComputationSquare_32(self):
         """Tests supremum by far neighbor computations in square grid on 32-bit images"""
@@ -191,7 +191,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._squarePixelPrediction(self.im32_3, d, xi, yi, ampi, wi)
                 supFarNeighbor(self.im32_1, self.im32_2, d, ampi, grid=SQUARE)
                 (x,y) = compare(self.im32_2, self.im32_3, self.im32_3)
-                self.assert_(x<0, "in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
             
     def _hexagonalPixelPrediction(self, im, d, x, y, amp, v):
         (w,h) = im.getSize()
@@ -221,7 +221,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 supFarNeighbor(self.im1_1, self.im1_2, d, ampi, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_2, self.im1_3, self.im1_1)
-                self.assert_(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
     
     def testComputationHexagonal_8(self):
         """Tests supremum by far neighbor computations in hexagonal grid on greyscale images"""
@@ -241,7 +241,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im8_3, d, xi, yi, ampi, wi)
                 supFarNeighbor(self.im8_1, self.im8_2, d, ampi, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_2, self.im8_3, self.im8_3)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testComputationHexagonal_32(self):
         """Tests supremum by far neighbor computations in hexagonal grid on 32-bit images"""
@@ -261,7 +261,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im32_3, d, xi, yi, ampi, wi)
                 supFarNeighbor(self.im32_1, self.im32_2, d, ampi, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_2, self.im32_3, self.im32_3)
-                self.assert_(x<0, "in dir %d [vi=%d, wi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,wi,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "in dir %d [vi=%d, wi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,wi,xi,yi,ampi,x,y))
                 
     def testEdgeEffect_1(self):
         """Verifies that edge value is correctly taken into account on binary image"""
@@ -272,22 +272,22 @@ class TestSupFarNb(unittest.TestCase):
             self.im1_1.reset()
             supFarNeighbor(self.im1_1, self.im1_1, d, 1, edge=FILLED, grid=SQUARE)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==created_space_volume[d])
+            self.assertTrue(vol==created_space_volume[d])
             self.im1_1.reset()
             supFarNeighbor(self.im1_1, self.im1_1, d, 1, edge=EMPTY, grid=SQUARE)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             
         created_space_volume = [0, w+h/2, h, w+h/2-1, w+h/2, h, w+h/2-1]
         for d in getDirections(HEXAGONAL):
             self.im1_1.reset()
             supFarNeighbor(self.im1_1, self.im1_1, d, 1, edge=FILLED, grid=HEXAGONAL)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==created_space_volume[d])
+            self.assertTrue(vol==created_space_volume[d])
             self.im1_1.reset()
             supFarNeighbor(self.im1_1, self.im1_1, d, 1, edge=EMPTY, grid=HEXAGONAL)
             vol = computeVolume(self.im1_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
     
     def testEdgeEffect_8(self):
         """Verifies that edge value is correctly taken into account on greyscale image"""
@@ -298,22 +298,22 @@ class TestSupFarNb(unittest.TestCase):
             self.im8_1.reset()
             supFarNeighbor(self.im8_1, self.im8_1, d, 1, edge=FILLED, grid=SQUARE)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==255*created_space_volume[d])
+            self.assertTrue(vol==255*created_space_volume[d])
             self.im8_1.reset()
             supFarNeighbor(self.im8_1, self.im8_1, d, 1, edge=EMPTY, grid=SQUARE)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
             
         created_space_volume = [0, w+h/2, h, w+h/2-1, w+h/2, h, w+h/2-1]
         for d in getDirections(HEXAGONAL):
             self.im8_1.reset()
             supFarNeighbor(self.im8_1, self.im8_1, d, 1, edge=FILLED, grid=HEXAGONAL)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==255*created_space_volume[d])
+            self.assertTrue(vol==255*created_space_volume[d])
             self.im8_1.reset()
             supFarNeighbor(self.im8_1, self.im8_1, d, 1, edge=EMPTY, grid=HEXAGONAL)
             vol = computeVolume(self.im8_1)
-            self.assert_(vol==0)
+            self.assertTrue(vol==0)
     
     def testInoutComputation_1(self):
         """Verifies computation when a binary image is used as both input and output"""
@@ -331,7 +331,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 supFarNeighbor(self.im1_1, self.im1_1, d, ampi, grid=HEXAGONAL)
                 (x,y) = compare(self.im1_1, self.im1_3, self.im1_2)
-                self.assert_(x<0, "hex in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "hex in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
             for d in getDirections(SQUARE):
                 self.im1_1.reset()
                 self.im1_3.reset()
@@ -340,7 +340,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._squarePixelPrediction(self.im1_3, d, xi, yi, ampi, 1)
                 supFarNeighbor(self.im1_1, self.im1_1, d, ampi, grid=SQUARE)
                 (x,y) = compare(self.im1_1, self.im1_3, self.im1_2)
-                self.assert_(x<0, "sqr in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "sqr in dir %d, (%d,%d)-%d : (%d,%d)" % (d,xi,yi,ampi,x,y))
     
     def testInoutComputation_8(self):
         """Verifies computation when a 8-bit image is used as both input and output"""
@@ -360,7 +360,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im8_3, d, xi, yi, ampi, wi)
                 supFarNeighbor(self.im8_1, self.im8_1, d, ampi, grid=HEXAGONAL)
                 (x,y) = compare(self.im8_1, self.im8_3, self.im8_2)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
             for d in getDirections(SQUARE):
                 self.im8_1.fill(vi)
                 self.im8_2.fill(vi)
@@ -370,7 +370,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._squarePixelPrediction(self.im8_3, d, xi, yi, ampi, wi)
                 supFarNeighbor(self.im8_1, self.im8_1, d, ampi, grid=SQUARE)
                 (x,y) = compare(self.im8_1, self.im8_3, self.im8_2)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
     def testInoutComputation_32(self):
         """Verifies computation when a 32-bit image is used as both input and output"""
@@ -390,7 +390,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._hexagonalPixelPrediction(self.im32_3, d, xi, yi, ampi, wi)
                 supFarNeighbor(self.im32_1, self.im32_1, d, ampi, grid=HEXAGONAL)
                 (x,y) = compare(self.im32_1, self.im32_3, self.im32_2)
-                self.assert_(x<0, "hex in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "hex in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
             for d in getDirections(SQUARE):
                 self.im32_1.fill(vi)
                 self.im32_3.fill(vi)
@@ -399,7 +399,7 @@ class TestSupFarNb(unittest.TestCase):
                 self._squarePixelPrediction(self.im32_3, d, xi, yi, ampi, wi)
                 supFarNeighbor(self.im32_1, self.im32_1, d, ampi, grid=SQUARE)
                 (x,y) = compare(self.im32_1, self.im32_3, self.im32_2)
-                self.assert_(x<0, "sqr in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
+                self.assertTrue(x<0, "sqr in dir %d [vi=%d], (%d,%d)-%d : (%d,%d)" % (d,vi,xi,yi,ampi,x,y))
 
 
 def getSuite():

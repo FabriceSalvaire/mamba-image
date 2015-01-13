@@ -129,7 +129,7 @@ class TestSegment3D(unittest.TestCase):
             basinSegment3D(self.im8_1, self.im32_1, grid=CUBIC)
             copyBytePlane3D(self.im32_1, 0, self.im8_2)
             vol = computeVolume3D(self.im8_2)
-            self.assert_(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,l/4,(3*l)/4,vol,exp_vol1,exp_vol2))
+            self.assertTrue(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,l/4,(3*l)/4,vol,exp_vol1,exp_vol2))
         
     def testWatershedSegment3D(self):
         """Tests the 3D watershed segmentation operator"""
@@ -148,7 +148,7 @@ class TestSegment3D(unittest.TestCase):
             watershedSegment3D(self.im8_1, self.im32_1, grid=grid)
             copyBytePlane3D(self.im32_1, 3, self.im8_3)
             (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_3)
-            self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+            self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
             
         self.im8_1.reset()
         self._drawBox3D(self.im8_1, 10, 51)
@@ -161,7 +161,7 @@ class TestSegment3D(unittest.TestCase):
         watershedSegment3D(self.im8_1, self.im32_1, grid=CUBIC)
         copyBytePlane3D(self.im32_1, 3, self.im8_3)
         (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+        self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
         self.im8_2.reset()
         self._drawBox3D(self.im8_2, 10, 255)
         self._drawBox3D(self.im8_2, 5, 255)
@@ -172,7 +172,7 @@ class TestSegment3D(unittest.TestCase):
         watershedSegment3D(self.im8_1, self.im32_1, grid=CUBIC)
         copyBytePlane3D(self.im32_1, 3, self.im8_3)
         (x,y,z) = compare3D(self.im8_2, self.im8_3, self.im8_3)
-        self.assert_(x<0, "%d : %d,%d,%d" %(i,x,y,z))
+        self.assertTrue(x<0, "%d : %d,%d,%d" %(i,x,y,z))
         
     def testIdempotencyWatershedSegment3D(self):
         """Makes sure the computed watershed is idempotent"""
@@ -207,7 +207,7 @@ class TestSegment3D(unittest.TestCase):
             watershedSegment3D(self.im8_1, self.im32_2, grid=grid)
             copyBytePlane3D(self.im32_1, 3, self.im8_3)
             (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
         
     def testLabel3D(self):
         """Verifies the labelling 3D operator"""
@@ -219,20 +219,20 @@ class TestSegment3D(unittest.TestCase):
         self.im1_1.setPixel(1, (31,31,31))
         
         n = label3D(self.im1_1, self.im32_1, grid=FACE_CENTER_CUBIC)
-        self.assert_(n==2, "%d" %(n))
+        self.assertTrue(n==2, "%d" %(n))
         self.im32_2.reset()
         self.im32_2.setPixel(1, (31,30,30))
         self.im32_2.setPixel(2, (31,31,31))
         (x,y,z) = compare3D(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d,%d" %(x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" %(x,y,z))
         
         n = label3D(self.im1_1, self.im32_1, lblow=10, grid=CUBIC)
-        self.assert_(n==1, "%d" %(n))
+        self.assertTrue(n==1, "%d" %(n))
         self.im32_2.reset()
         self.im32_2.setPixel(10, (31,30,30))
         self.im32_2.setPixel(10, (31,31,31))
         (x,y,z) = compare3D(self.im32_2, self.im32_1, self.im32_3)
-        self.assert_(x<0, "%d,%d,%d" %(x,y,z))
+        self.assertTrue(x<0, "%d,%d,%d" %(x,y,z))
         
     def testWatershedSegment3D_32(self):
         """Verifies the 32-bit watershed segment 3D operator"""
@@ -259,31 +259,31 @@ class TestSegment3D(unittest.TestCase):
                 watershedSegment3D_32(self.im32_1, self.im32_2, max_level=level, grid=CUBIC)
                 copyBytePlane3D(self.im32_2, 3, self.im8_2)
                 (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(z<0)
+                self.assertTrue(z<0)
             elif i%4==1:
                 level = -1
                 watershedSegment3D_32(self.im32_1, self.im32_2, max_level=level, grid=CUBIC)
                 copyBytePlane3D(self.im32_2, 3, self.im8_2)
                 (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(z<0)
+                self.assertTrue(z<0)
             elif i%4==2:
                 level = 128
                 watershedSegment3D_32(self.im32_1, self.im32_2, max_level=level, grid=CUBIC)
                 copyBytePlane3D(self.im32_2, 0, self.im8_2)
                 vol = computeVolume3D(self.im8_2)
-                self.assert_(exp_vol==vol)
+                self.assertTrue(exp_vol==vol)
                 copyBytePlane3D(self.im32_2, 3, self.im8_2)
                 (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(z>0, "wall %d [%d]: %d,%d,%d" %(i,l,x,y,z))
+                self.assertTrue(z>0, "wall %d [%d]: %d,%d,%d" %(i,l,x,y,z))
             else:
                 level = 384
                 watershedSegment3D_32(self.im32_1, self.im32_2, max_level=level, grid=CUBIC)
                 copyBytePlane3D(self.im32_2, 0, self.im8_2)
                 vol = computeVolume3D(self.im8_2)
-                self.assert_(exp_vol==vol)
+                self.assertTrue(exp_vol==vol)
                 copyBytePlane3D(self.im32_2, 3, self.im8_2)
                 (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(z>0)
+                self.assertTrue(z>0)
             
     def testBasinSegment3D_32(self):
         """Verifies the 32-bit basin segment 3D operator"""
@@ -315,7 +315,7 @@ class TestSegment3D(unittest.TestCase):
             basinSegment3D_32(self.im32_1, self.im32_2, max_level=level, grid=CUBIC)
             copyBytePlane3D(self.im32_2, 0, self.im8_2)
             vol = computeVolume3D(self.im8_2)
-            self.assert_(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,l/2,(3*l)/4,vol,exp_vol1,exp_vol2))
+            self.assertTrue(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,l/2,(3*l)/4,vol,exp_vol1,exp_vol2))
             
     def _drawWells(self, imOut, wall=[1,2,3,4]):
         (w,h) = imOut.getSize()
@@ -353,7 +353,7 @@ class TestSegment3D(unittest.TestCase):
         self.im1_1.setPixel(1, (w/2,3*h/4,3*l/4))
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (w/2,h/4,3*l/4))
@@ -366,7 +366,7 @@ class TestSegment3D(unittest.TestCase):
 #        self.im8_1.setPalette(rainbow)
 #        a = raw_input()
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (w/4,h/4,l/4))
@@ -374,7 +374,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[3,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (w/4,h/4,l/4))
@@ -382,7 +382,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[2,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (3*w/4,h/4,3*l/4))
@@ -390,7 +390,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[3,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (w/4,3*h/4,l/4))
@@ -398,7 +398,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[3,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (3*w/4,h/4,3*l/4))
@@ -406,7 +406,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[2,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (3*w/4,h/4,3*l/4))
@@ -415,7 +415,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[1,3,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (3*w/4,h/4,3*l/4))
@@ -424,7 +424,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[2,3,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (3*w/4,h/4,3*l/4))
@@ -433,7 +433,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[1,2,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
         self.im1_1.setPixel(1, (w/4,h/4,l/4))
@@ -442,7 +442,7 @@ class TestSegment3D(unittest.TestCase):
         self._drawWells(self.im8_3, wall=[2,3,4])
         markerControlledWatershed3D(self.im8_1, self.im1_1, self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testValuedWatershed3D(self):
         """Verifies the minima controlled valued watershed 3D computation"""
@@ -450,7 +450,7 @@ class TestSegment3D(unittest.TestCase):
         
         valuedWatershed3D(self.im8_1,self.im8_2, CUBIC)
         (x,y,z) = compare3D(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testFastSKIZ3D(self):
         """Verifies the fast SKIZ 3D operator based on watershed"""
@@ -469,7 +469,7 @@ class TestSegment3D(unittest.TestCase):
         
         fastSKIZ3D(self.im1_1, self.im1_2, CUBIC)
         (x,y,z) = compare3D(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def _drawCubes(self, imOut):
         (w,h) = imOut.getSize()
@@ -499,14 +499,14 @@ class TestSegment3D(unittest.TestCase):
         for i in range(w/4+1,l-1-w/4):
             drawBox(self.im8_4[i], (w/4,w/4,w-1-w/4,h-1-w/4), 255)
         (x,y,z) = compare3D(self.im8_2, self.im8_4, self.im8_4)
-        self.assert_(x<0, "%d,%d,%d - %d" % (x,y,z,w/4))
+        self.assertTrue(x<0, "%d,%d,%d - %d" % (x,y,z,w/4))
         self.im8_4.reset()
         drawSquare(self.im8_4[w/4], (w/4,w/4,w-1-w/4,h-1-w/4), 255)
         drawSquare(self.im8_4[l-1-w/4], (w/4,w/4,w-1-w/4,h-1-w/4), 255)
         for i in range(w/4+1,l-1-w/4):
             drawBox(self.im8_4[i], (w/4,w/4,w-1-w/4,h-1-w/4), 255)
         (x,y,z) = compare3D(self.im8_3, self.im8_4, self.im8_4)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testMosaicGradient3D(self):
         """Verifies the computation of 3D mosaic gradient using watershed segment"""
@@ -522,7 +522,7 @@ class TestSegment3D(unittest.TestCase):
         for i in range(w/4+1,l-1-w/4):
             drawBox(self.im8_4[i], (w/4,w/4,w-1-w/4,h-1-w/4), w-3)
         (x,y,z) = compare3D(self.im8_2, self.im8_4, self.im8_4)
-        self.assert_(x<0, "%d,%d,%d - %d" % (x,y,z,w/4))
+        self.assertTrue(x<0, "%d,%d,%d - %d" % (x,y,z,w/4))
         
 
 def getSuite():

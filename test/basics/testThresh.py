@@ -50,7 +50,7 @@ class TestThresh(unittest.TestCase):
         del(self.im1s2_1)
         del(self.im8s2_1)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -89,10 +89,10 @@ class TestThresh(unittest.TestCase):
                 self.im1_2.setPixel(1, (w-1-i,hi))
             threshold(self.im8_1, self.im1_3, 0, i)
             (x,y) = compare(self.im1_1, self.im1_3, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             threshold(self.im8_1, self.im1_3, 255-i, 255)
             (x,y) = compare(self.im1_2, self.im1_3, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             
 
     def testComputation_32_1(self):
@@ -112,10 +112,10 @@ class TestThresh(unittest.TestCase):
                 self.im1_2.setPixel(1, (w-1-i,hi))
             threshold(self.im32_1, self.im1_3, vi, vi+i)
             (x,y) = compare(self.im1_1, self.im1_3, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             threshold(self.im32_1, self.im1_3, vi+255-i, vi+255)
             (x,y) = compare(self.im1_2, self.im1_3, self.im1_3)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestThresh)

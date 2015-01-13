@@ -47,6 +47,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
+from __future__ import print_function
+
 import os
 import sys
 import getopt
@@ -120,13 +122,13 @@ def playSelectedTest(testModule):
                 else:
                     # Test module found
                     found = True
-                    print "Found test module \"%s\" in %s ! " % (testModule, directory)
+                    print("Found test module \"%s\" in %s ! " % (testModule, directory))
                     del(td)
                     _mb_runner.runModule(directory+'.'+testModule)
                     break
                 
             if not found:
-                print "test module %s not found !" % (testModule)
+                print("test module %s not found !" % (testModule))
                 sys.exit(1)
 
 ################################################################################
@@ -134,10 +136,10 @@ def playSelectedTest(testModule):
 ################################################################################
 try:
     opts, args = getopt.getopt(sys.argv[1:], 'hcv:t:o:d:', ["help","output="])
-except getopt.GetoptError, err:
+except getopt.GetoptError as err:
     # print help information and exit:
-    print str(err) # will print something like "option -a not recognized"
-    print __doc__
+    print(str(err)) # will print something like "option -a not recognized"
+    print(__doc__)
     sys.exit(2)
     
 for o, a in opts:
@@ -146,14 +148,14 @@ for o, a in opts:
         try:
             _verbose = int(a)
         except ValueError:
-            print "verbose parameter incorrect (must be an integer): fall back to 0"
+            print("verbose parameter incorrect (must be an integer): fall back to 0")
             _verbose = 0
     elif o in ("-o", "--output"):
         # An output is specified
         _fpath = a
         _ftype = os.path.splitext(_fpath)[-1]
     elif o in ("-h", "--help"):
-        print __doc__
+        print(__doc__)
         sys.exit()
     elif o == "-c":
         # Coverage is activated (only if package coverage can be activated)
@@ -162,14 +164,14 @@ for o, a in opts:
             _cov = coverage()
             _coverageOn = True
         except ImportError:
-            print "Package coverage cannot be found : disabling code coverage"
+            print("Package coverage cannot be found : disabling code coverage")
             _coverageOn = False
     elif o == "-t":
         _testModule = a
     elif o == "-d":
         TEST_DIRECTORIES.append(a)
     else:
-        print __doc__
+        print(__doc__)
         sys.exit()
         
 # Falling back to default directories if no one was provided
@@ -205,7 +207,7 @@ try:
         ]
     del(mb)
 except ImportError:
-    print "mamba module not found !"
+    print("mamba module not found !")
     sys.exit(1)
 try:
     if 'addons' in TEST_DIRECTORIES:
@@ -215,7 +217,7 @@ try:
         _morfs.remove(os.path.join(dirname, 'display3D.py'))
         del(m3D)
 except ImportError:
-    print "mamba3D package not found !"
+    print("mamba3D package not found !")
     sys.exit(1)
     
 # Launching the tests

@@ -13,6 +13,7 @@ Python functions and classes:
     basinSegment32
 """
 
+from __future__ import division
 from mamba import *
 from mambaDraw import *
 from mambaComposed import *
@@ -51,21 +52,21 @@ class TestSegment(unittest.TestCase):
         del(self.im32_3)
         del(self.im32_4)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
             
     def _drawWells(self, imOut, wall=[1,2,3,4]):
         (w,h) = imOut.getSize()
         
         imOut.reset()
         if wall.count(1)>0:
-            drawLine(imOut, (w/2,0,w/2,h/2), 20)
+            drawLine(imOut, (w//2,0,w//2,h//2), 20)
         if wall.count(2)>0:
-            drawLine(imOut, (0,h/2,w/2,h/2), 40)
+            drawLine(imOut, (0,h//2,w//2,h//2), 40)
         if wall.count(3)>0:
-            drawLine(imOut, (w/2,h/2+1,w/2,h-1), 60)
+            drawLine(imOut, (w//2,h//2+1,w//2,h-1), 60)
         if wall.count(4)>0:
-            drawLine(imOut, (w/2+1,h/2,w-1,h/2), 80)
-        imOut.setPixel(255, (w/2,h/2))
+            drawLine(imOut, (w//2+1,h//2,w-1,h//2), 80)
+        imOut.setPixel(255, (w//2,h//2))
         
     def testMarkerControlledWatershed(self):
         """Verifies the marker controlled valued watershed computation"""
@@ -74,97 +75,97 @@ class TestSegment(unittest.TestCase):
         self._drawWells(self.im8_1)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,h//4))
         self._drawWells(self.im8_3, wall=[1,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[3,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[2,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[3,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/4,3*h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[3,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[2,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[1,3,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[2,3,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[1,2,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self._drawWells(self.im8_3, wall=[2,3,4])
         markerControlledWatershed(self.im8_1, self.im1_1, self.im8_2, SQUARE)
         (x,y) = compare(self.im8_3, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testValuedWatershed(self):
         """Verifies the minima controlled valued watershed computation"""
@@ -174,51 +175,51 @@ class TestSegment(unittest.TestCase):
         
         valuedWatershed(self.im8_1,self.im8_2, SQUARE)
         (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testFastSKIZ(self):
         """Verifies the fast SKIZ operator based on watershed"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self.im1_3.fill(1)
-        drawLine(self.im1_3, (w/2,0,w/2,h-1), 0)
-        drawLine(self.im1_3, (0,h/2,w-1,h/2), 0)
+        drawLine(self.im1_3, (w//2,0,w//2,h-1), 0)
+        drawLine(self.im1_3, (0,h//2,w-1,h//2), 0)
         fastSKIZ(self.im1_1, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testGeodesicSKIZ(self):
         """Verifies the geodesic SKIZ operator based on watershed"""
         (w,h) = self.im1_1.getSize()
         
         self.im1_1.reset()
-        self.im1_1.setPixel(1, (3*w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,h/4))
-        self.im1_1.setPixel(1, (w/4,3*h/4))
-        self.im1_1.setPixel(1, (3*w/4,3*h/4))
+        self.im1_1.setPixel(1, (3*w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,h//4))
+        self.im1_1.setPixel(1, (w//4,3*h//4))
+        self.im1_1.setPixel(1, (3*w//4,3*h//4))
         self.im1_4.reset()
-        drawSquare(self.im1_4, (5,5,w-6,h/2-6), 1)
-        drawSquare(self.im1_4, (5,h/2+5,w-6,h-6), 1)
-        drawSquare(self.im1_4, (w/2+5,5,w-6,h-6), 1)
+        drawSquare(self.im1_4, (5,5,w-6,h//2-6), 1)
+        drawSquare(self.im1_4, (5,h//2+5,w-6,h-6), 1)
+        drawSquare(self.im1_4, (w//2+5,5,w-6,h-6), 1)
         copy(self.im1_4, self.im1_3)
-        drawLine(self.im1_3, (w/2,0,w/2,h-1), 0)
-        drawLine(self.im1_3, (0,h/2,w-1,h/2), 0)
+        drawLine(self.im1_3, (w//2,0,w//2,h-1), 0)
+        drawLine(self.im1_3, (0,h//2,w-1,h//2), 0)
         geodesicSKIZ(self.im1_1, self.im1_4, self.im1_2, SQUARE)
         (x,y) = compare(self.im1_3, self.im1_2, self.im1_3)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def _drawSquares(self, imOut):
         (w,h) = imOut.getSize()
         
-        for i in range(w/4):
+        for i in range(w//4):
             drawSquare(imOut, (i,i,w-1-i,h-1-i), i+1)
-        for i in range(w/4):
-            drawSquare(imOut, (i+w/4,i+w/4,w-1-i-w/4,h-1-i-w/4), w/2+i*2)
+        for i in range(w//4):
+            drawSquare(imOut, (i+w//4,i+w//4,w-1-i-w//4,h-1-i-w//4), w//2+i*2)
         
     def testMosaic(self):
         """Verifies the computation of mosaic image using watershed segment"""
@@ -228,20 +229,20 @@ class TestSegment(unittest.TestCase):
         mosaic(self.im8_1, self.im8_2, self.im8_3, SQUARE)
             
         self.im8_5.fill(1)
-        drawSquare(self.im8_5, (w/4,w/4+1,w-2-w/4,h-1-w/4), w-2)
+        drawSquare(self.im8_5, (w//4,w//4+1,w-2-w//4,h-1-w//4), w-2)
         (x,y) = compare(self.im8_2, self.im8_5, self.im8_5)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         self.im8_5.reset()
-        drawBox(self.im8_5, (w/4,w/4,w-1-w/4,h-1-w/4), 255)
+        drawBox(self.im8_5, (w//4,w//4,w-1-w//4,h-1-w//4), 255)
         (x,y) = compare(self.im8_3, self.im8_5, self.im8_5)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         mosaic(self.im8_1, self.im8_1, self.im8_3, SQUARE)
             
         self.im8_5.fill(1)
-        drawSquare(self.im8_5, (w/4,w/4+1,w-2-w/4,h-1-w/4), w-2)
+        drawSquare(self.im8_5, (w//4,w//4+1,w-2-w//4,h-1-w//4), w-2)
         (x,y) = compare(self.im8_1, self.im8_5, self.im8_5)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
     def testMosaicGradient(self):
         """Verifies the computation of mosaic gradient using watershed segment"""
@@ -251,16 +252,16 @@ class TestSegment(unittest.TestCase):
         mosaicGradient(self.im8_1, self.im8_2, SQUARE)
             
         self.im8_5.reset()
-        drawBox(self.im8_5, (w/4,w/4,w-1-w/4,h-1-w/4), w-3)
+        drawBox(self.im8_5, (w//4,w//4,w-1-w//4,h-1-w//4), w-3)
         (x,y) = compare(self.im8_2, self.im8_5, self.im8_5)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         mosaicGradient(self.im8_1, self.im8_1, SQUARE)
             
         self.im8_5.reset()
-        drawBox(self.im8_5, (w/4,w/4,w-1-w/4,h-1-w/4), w-3)
+        drawBox(self.im8_5, (w//4,w//4,w-1-w//4,h-1-w//4), w-3)
         (x,y) = compare(self.im8_1, self.im8_5, self.im8_5)
-        self.assert_(x<0)
+        self.assertTrue(x<0)
         
         # Doesn't test anything just here to enter the mosaicGradient while
         # loop and make sure everything is ok inside
@@ -273,12 +274,12 @@ class TestSegment(unittest.TestCase):
         """Verifies the 32-bit watershed segment operator with SQUARE grid"""
         (w,h) = self.im32_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im32_1.reset()
             self.im8_1.reset()
             for hi in range(h):
-                self.im32_1.setPixel(127*(i-w/4+1), (i,hi))
+                self.im32_1.setPixel(127*(i-w//4+1), (i,hi))
                 self.im8_1.setPixel(255, (i,hi))
                 
             exp_vol = (i*50+(w-1-i)*100)*h
@@ -287,45 +288,45 @@ class TestSegment(unittest.TestCase):
                     
             # adding 2 well
             self.im32_2.reset()
-            self.im32_2.setPixel(50, (w/4-1,h/2))
-            self.im32_2.setPixel(100, ((3*w)/4,h/2))
+            self.im32_2.setPixel(50, (w//4-1,h//2))
+            self.im32_2.setPixel(100, ((3*w)//4,h//2))
             
             if i%4==0:
-                level = 127*(i-w/4+1)+1
+                level = 127*(i-w//4+1)+1
                 watershedSegment32(self.im32_1, self.im32_2, max_level=level, grid=SQUARE)
                 copyBytePlane(self.im32_2, 3, self.im8_2)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w/4,(3*w)/4,x,y))
+                self.assertTrue(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w//4,(3*w)//4,x,y))
             elif i%4==1:
                 level = -1
                 watershedSegment32(self.im32_1, self.im32_2, max_level=level, grid=SQUARE)
                 copyBytePlane(self.im32_2, 3, self.im8_2)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w/4,(3*w)/4,x,y))
+                self.assertTrue(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w//4,(3*w)//4,x,y))
             elif i%4==2:
                 level = 128
                 watershedSegment32(self.im32_1, self.im32_2, max_level=level, grid=SQUARE)
                 copyBytePlane(self.im32_2, 0, self.im8_2)
                 vol = computeVolume(self.im8_2)
-                self.assert_(exp_vol==vol)
+                self.assertTrue(exp_vol==vol)
                 copyBytePlane(self.im32_2, 3, self.im8_2)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x>0)
+                self.assertTrue(x>0)
             else:
                 level = 384
                 watershedSegment32(self.im32_1, self.im32_2, max_level=level, grid=SQUARE)
                 copyBytePlane(self.im32_2, 0, self.im8_2)
                 vol = computeVolume(self.im8_2)
-                self.assert_(exp_vol==vol)
+                self.assertTrue(exp_vol==vol)
                 copyBytePlane(self.im32_2, 3, self.im8_2)
                 (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-                self.assert_(x>0)
+                self.assertTrue(x>0)
 
     def testWatershedSegment32Hexagonal(self):
         """Verifies the 32-bit watershed segment operator with HEXAGONAL grid"""
         (w,h) = self.im32_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im32_1.reset()
             self.im8_1.reset()
@@ -335,8 +336,8 @@ class TestSegment(unittest.TestCase):
                     
             # adding 2 well
             self.im32_2.reset()
-            self.im32_2.setPixel(50, (w/4-1,h/2))
-            self.im32_2.setPixel(100, ((3*w)/4,h/2))
+            self.im32_2.setPixel(50, (w//4-1,h//2))
+            self.im32_2.setPixel(100, ((3*w)//4,h//2))
             
             if i%2==0:
                 level = 5001
@@ -345,7 +346,7 @@ class TestSegment(unittest.TestCase):
             watershedSegment32(self.im32_1, self.im32_2, max_level=level, grid=HEXAGONAL)
             copyBytePlane(self.im32_2, 3, self.im8_2)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_3)
-            self.assert_(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w/4,(3*w)/4,x,y))
+            self.assertTrue(x<0, "wall at %d [%d,%d]: %d,%d" %(i,w//4,(3*w)//4,x,y))
             
     def _draw(self,im,draws,x,y):
         for j,line in enumerate(draws):
@@ -373,7 +374,7 @@ class TestSegment(unittest.TestCase):
                                     [2,6,5,6,2,2],
                                     [2,2,6,4,3,2],
                                     [2,2,3,4,2,2],
-                                    [2,2,2,2,4,2]], w/2, h/2)
+                                    [2,2,2,2,4,2]], w//2, h//2)
             mulConst(self.im32_1, random.randint(20,105), self.im32_1)
             self.im32_2.reset()
             self._draw(self.im32_2,[[1,1,1,1,1,1],
@@ -382,11 +383,11 @@ class TestSegment(unittest.TestCase):
                                     [2,0,0,0,3,3],
                                     [2,2,0,0,0,3],
                                     [2,2,0,0,3,3],
-                                    [2,2,2,2,0,3]], w/2, h/2)
+                                    [2,2,2,2,0,3]], w//2, h//2)
             
             watershedSegment32(self.im32_1, self.im32_2, grid=HEXAGONAL)
             copyBytePlane(self.im32_2, 3, self.im8_2)
-            obt_draws = self._get(self.im8_2, w/2, h/2, 6, 7)
+            obt_draws = self._get(self.im8_2, w//2, h//2, 6, 7)
             exp_draws = [[0,0,0,0,0,0],
                          [255,0,255,255,255,255],
                          [0,255,255,0,0,0],
@@ -394,9 +395,9 @@ class TestSegment(unittest.TestCase):
                          [0,0,0,255,0,0],
                          [0,0,0,255,0,0],
                          [0,0,0,0,255,0]]
-            self.assert_(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
+            self.assertTrue(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
             copyBytePlane(self.im32_2, 0, self.im8_2)
-            obt_draws = self._get(self.im8_2, w/2, h/2, 6, 7)
+            obt_draws = self._get(self.im8_2, w//2, h//2, 6, 7)
             exp_draws = [[1,1,1,1,1,1],
                          [1,1,1,1,1,1],
                          [2,1,3,3,3,3],
@@ -404,7 +405,7 @@ class TestSegment(unittest.TestCase):
                          [2,2,2,3,3,3],
                          [2,2,2,3,3,3],
                          [2,2,2,2,3,3]]
-            self.assert_(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
+            self.assertTrue(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
             
     def testWatershedSegment32ThickWTS(self):
         """Tests that thick watershed are correctly computed by the 32-bit operator"""
@@ -416,30 +417,30 @@ class TestSegment(unittest.TestCase):
                                      [2,2,6,6,2],
                                      [6,6,6,6,6],
                                      [2,2,6,6,2],
-                                     [2,6,2,6,2]], w/2, h/2+1)
+                                     [2,6,2,6,2]], w//2, h//2+1)
             mulConst(self.im32_1, random.randint(20,105), self.im32_1)
             self.im32_2.reset()
             self._draw(self.im32_2, [[1,0,2,0,3],
                                      [1,1,0,0,3],
                                      [0,0,0,0,0],
                                      [4,4,0,0,5],
-                                     [4,0,6,0,5]], w/2, h/2+1)
+                                     [4,0,6,0,5]], w//2, h//2+1)
             
             watershedSegment32(self.im32_1, self.im32_2, grid=HEXAGONAL)
             copyBytePlane(self.im32_2, 3, self.im8_2)
-            obt_draws = self._get(self.im8_2, w/2, h/2+1, 5, 5)
+            obt_draws = self._get(self.im8_2, w//2, h//2+1, 5, 5)
             exp_draws = [[0,255,0,255,0],[0,0,255,255,0],[255,255,255,255,255],[0,0,255,255,0],[0,255,0,255,0]]
-            self.assert_(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
+            self.assertTrue(obt_draws==exp_draws, "%s!=%s" % (str(obt_draws), str(exp_draws)))
             
     def testBasinSegment32Square(self):
         """Verifies the 32-bit basin segment operator with SQUARE grid"""
         (w,h) = self.im32_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im32_1.reset()
             for hi in range(h):
-                self.im32_1.setPixel(127*(i-w/4+1), (i,hi))
+                self.im32_1.setPixel(127*(i-w//4+1), (i,hi))
                 
             exp_vol = (i*50+(w-1-i)*100)*h
             exp_vol1 = exp_vol+50*h
@@ -447,11 +448,11 @@ class TestSegment(unittest.TestCase):
                     
             # adding 2 well
             self.im32_2.reset()
-            self.im32_2.setPixel(50, (w/4-1,h/2))
-            self.im32_2.setPixel(100, ((3*w)/4,h/2))
+            self.im32_2.setPixel(50, (w//4-1,h//2))
+            self.im32_2.setPixel(100, ((3*w)//4,h//2))
             
             if i%4==0:
-                level = 127*(i-w/4+1)+1
+                level = 127*(i-w//4+1)+1
             elif i%4==1:
                 level = -1
             elif i%4==2:
@@ -461,13 +462,13 @@ class TestSegment(unittest.TestCase):
             basinSegment32(self.im32_1, self.im32_2, max_level=level, grid=SQUARE)
             copyBytePlane(self.im32_2, 0, self.im8_2)
             vol = computeVolume(self.im8_2)
-            self.assert_(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w/4,(3*w)/4,vol,exp_vol1,exp_vol2))
+            self.assertTrue(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w//4,(3*w)//4,vol,exp_vol1,exp_vol2))
             
     def testBasinSegment32Hexagonal(self):
         """Verifies the 32-bit basin segment operator with HEXAGONAL grid"""
         (w,h) = self.im32_1.getSize()
         
-        for i in range(w/4,(3*w)/4):
+        for i in range(w//4,(3*w)//4):
             # creating a wall image
             self.im32_1.reset()
             for hi in range(h):
@@ -479,8 +480,8 @@ class TestSegment(unittest.TestCase):
                     
             # adding 2 well
             self.im32_2.reset()
-            self.im32_2.setPixel(50, (w/4-1,h/2))
-            self.im32_2.setPixel(100, ((3*w)/4,h/2))
+            self.im32_2.setPixel(50, (w//4-1,h//2))
+            self.im32_2.setPixel(100, ((3*w)//4,h//2))
             
             if i%2==0:
                 level = 5001
@@ -489,7 +490,7 @@ class TestSegment(unittest.TestCase):
             basinSegment32(self.im32_1, self.im32_2, max_level=level, grid=HEXAGONAL)
             copyBytePlane(self.im32_2, 0, self.im8_2)
             vol = computeVolume(self.im8_2)
-            self.assert_(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w/4,(3*w)/4,vol,exp_vol1,exp_vol2))
+            self.assertTrue(exp_vol1<=vol and exp_vol2>=vol, "wall at %d [%d,%d]: %d/%d/%d" %(i,w//4,(3*w)//4,vol,exp_vol1,exp_vol2))
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestSegment)

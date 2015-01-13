@@ -4,6 +4,7 @@ Test cases for the utility functions found in mamba.
 These tests cover all the functions that are not performing any computations.
 """
 
+from __future__ import division
 from mamba import *
 from mambaComposed import *
 from mambaDraw import *
@@ -38,23 +39,23 @@ class TestVarious(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
             
     def testGridAndEdgeRepr(self):
         """Verifies that the representation of the grid and edge value is correct"""
-        self.assert_(repr(EMPTY)=="EMPTY")
-        self.assert_(repr(FILLED)=="FILLED")
-        self.assert_(repr(HEXAGONAL)=="HEXAGONAL")
-        self.assert_(repr(SQUARE)=="SQUARE")
-        self.assert_(repr(DEFAULT_GRID)=="DEFAULT_GRID")
+        self.assertTrue(repr(EMPTY)=="EMPTY")
+        self.assertTrue(repr(FILLED)=="FILLED")
+        self.assertTrue(repr(HEXAGONAL)=="HEXAGONAL")
+        self.assertTrue(repr(SQUARE)=="SQUARE")
+        self.assertTrue(repr(DEFAULT_GRID)=="DEFAULT_GRID")
         DEFAULT_GRID.id = 40
         DEFAULT_GRID.default = False
-        self.assert_(repr(DEFAULT_GRID)=="")
+        self.assertTrue(repr(DEFAULT_GRID)=="")
         DEFAULT_GRID.default = True
         setDefaultGrid(HEXAGONAL)
         id = EMPTY.id
         EMPTY.id = 40
-        self.assert_(repr(EMPTY)=="")
+        self.assertTrue(repr(EMPTY)=="")
         EMPTY.id = id
         
     def testSetDefaultGrid(self):
@@ -62,40 +63,40 @@ class TestVarious(unittest.TestCase):
         (w,h) = self.im8_1.getSize()
         
         self.im8_1.reset()
-        self.im8_1.setPixel(255, (w/2,h/2))
+        self.im8_1.setPixel(255, (w//2,h//2))
         setDefaultGrid(SQUARE)
         supNeighbor(self.im8_1, self.im8_1, 2, 1)
-        v = self.im8_1.getPixel((w/2-1,h/2+1))
-        self.assert_(v==255)
-        v = self.im8_1.getPixel((w/2-1,h/2))
-        self.assert_(v==0)
+        v = self.im8_1.getPixel((w//2-1,h//2+1))
+        self.assertTrue(v==255)
+        v = self.im8_1.getPixel((w//2-1,h//2))
+        self.assertTrue(v==0)
         self.im8_1.reset()
-        self.im8_1.setPixel(255, (w/2,h/2))
+        self.im8_1.setPixel(255, (w//2,h//2))
         setDefaultGrid(HEXAGONAL)
         supNeighbor(self.im8_1, self.im8_1, 2, 1)
-        v = self.im8_1.getPixel((w/2-1,h/2+1))
-        self.assert_(v==0)
-        v = self.im8_1.getPixel((w/2-1,h/2))
-        self.assert_(v==255)
+        v = self.im8_1.getPixel((w//2-1,h//2+1))
+        self.assertTrue(v==0)
+        v = self.im8_1.getPixel((w//2-1,h//2))
+        self.assertTrue(v==255)
         DEFAULT_GRID.id = 40
         setDefaultGrid(DEFAULT_GRID)
-        self.assert_(getDirections()==[])
-        self.assert_(gridNeighbors()==0)
+        self.assertTrue(getDirections()==[])
+        self.assertTrue(gridNeighbors()==0)
         setDefaultGrid(HEXAGONAL)
         
     def testImageNaming(self):
         """Verifies that image names methods are correctly working"""
         nb = random.randint(-10000, -1000)
         self.im8_1.setName("test %d" % (nb))
-        self.assert_(self.im8_1.getName()=="test %d" % (nb))
+        self.assertTrue(self.im8_1.getName()=="test %d" % (nb))
         
         setImageIndex(nb)
         im = imageMb()
-        self.assert_(im.getName()=="Image %d" % (nb))
+        self.assertTrue(im.getName()=="Image %d" % (nb))
         im = imageMb()
-        self.assert_(im.getName()=="Image %d" % (nb+1))
+        self.assertTrue(im.getName()=="Image %d" % (nb+1))
         
-        self.assert_(str(im)!="")
+        self.assertTrue(str(im)!="")
         
     def testRGBFilter(self):
         """Verifies that the RGB filtering used when loading image works"""
@@ -112,17 +113,17 @@ class TestVarious(unittest.TestCase):
             
             im = imageMb("test.bmp", rgbfilter=(1.0,0.0,0.0))
             vol = computeVolume(im)
-            self.assert_(vol==w*h*ri or vol==w*h*(ri-1) or vol==w*h*(ri+1),
+            self.assertTrue(vol==w*h*ri or vol==w*h*(ri-1) or vol==w*h*(ri+1),
                          "%d %d %d %d %d" %(vol, ri, gi, bi, im.getPixel((0,0))) )
             
             im = imageMb("test.bmp", rgbfilter=(0.0,1.0,0.0))
             vol = computeVolume(im)
-            self.assert_(vol==w*h*gi or vol==w*h*(gi-1) or vol==w*h*(gi+1),
+            self.assertTrue(vol==w*h*gi or vol==w*h*(gi-1) or vol==w*h*(gi+1),
                          "%d %d %d %d %d" %(vol, ri, gi, bi, im.getPixel((0,0))) )
             
             im = imageMb("test.bmp", rgbfilter=(0.0,0.0,1.0))
             vol = computeVolume(im)
-            self.assert_(vol==w*h*bi or vol==w*h*(bi-1) or vol==w*h*(bi+1),
+            self.assertTrue(vol==w*h*bi or vol==w*h*(bi-1) or vol==w*h*(bi+1),
                          "%d %d %d %d %d" %(vol, ri, gi, bi, im.getPixel((0,0))) )
             
             os.remove("test.bmp")

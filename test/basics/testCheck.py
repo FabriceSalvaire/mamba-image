@@ -40,42 +40,42 @@ class TestCheck(unittest.TestCase):
         del(self.im32_2)
         del(self.im32_3)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testEmptyness_1(self):
         """Tests the correct emptiness checking for binary images"""
         (w,h) = self.im1_1.getSize()
         for i in range(1000):
             self.im1_1.reset()
-            self.assert_(checkEmptiness(self.im1_1))
+            self.assertTrue(checkEmptiness(self.im1_1))
             wi = random.randint(0,w-1)
             hi = random.randint(0,h-1)
             self.im1_1.setPixel(1, (wi,hi))
-            self.assert_(not checkEmptiness(self.im1_1))
+            self.assertTrue(not checkEmptiness(self.im1_1))
 
     def testEmptyness_8(self):
         """Tests the correct emptiness checking for 8-bit images"""
         (w,h) = self.im8_1.getSize()
         for i in range(1000):
             self.im8_1.reset()
-            self.assert_(checkEmptiness(self.im8_1))
+            self.assertTrue(checkEmptiness(self.im8_1))
             wi = random.randint(0,w-1)
             hi = random.randint(0,h-1)
             vi = random.randint(1,255)
             self.im8_1.setPixel(vi, (wi,hi))
-            self.assert_(not checkEmptiness(self.im8_1))
+            self.assertTrue(not checkEmptiness(self.im8_1))
 
     def testEmptyness_32(self):
         """Tests the correct emptiness checking for 32-bit images"""
         (w,h) = self.im32_1.getSize()
         for i in range(1000):
             self.im32_1.reset()
-            self.assert_(checkEmptiness(self.im32_1))
+            self.assertTrue(checkEmptiness(self.im32_1))
             wi = random.randint(0,w-1)
             hi = random.randint(0,h-1)
             vi = random.randint(1,100000)
             self.im32_1.setPixel(vi, (wi,hi))
-            self.assert_(not checkEmptiness(self.im32_1))
+            self.assertTrue(not checkEmptiness(self.im32_1))
         
 
 def getSuite():

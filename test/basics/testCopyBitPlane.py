@@ -47,7 +47,7 @@ class TestCopyBitPlane(unittest.TestCase):
         del(self.im1s2_1)
         del(self.im8s2_1)
         if getImageCounter()!=0:
-            print "ERROR : Mamba image are not all deleted !"
+            print("ERROR : Mamba image are not all deleted !")
 
     def testDepthAcceptation(self):
         """Tests that incorrect depth raises an exception"""
@@ -79,13 +79,13 @@ class TestCopyBitPlane(unittest.TestCase):
             copyBitPlane(self.im1_1, p, self.im8_1)
             self.im8_2.fill(1<<p)
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
             self.im8_1.fill(255)
             self.im1_1.reset()
             copyBitPlane(self.im1_1, p, self.im8_1)
             self.im8_2.fill(255-(1<<p))
             (x,y) = compare(self.im8_1, self.im8_2, self.im8_2)
-            self.assert_(x<0)
+            self.assertTrue(x<0)
 
 
     def testCopy_8_1(self):
@@ -96,7 +96,7 @@ class TestCopyBitPlane(unittest.TestCase):
                 self.im1_2.fill((i>>p)&1)
                 copyBitPlane(self.im8_1, p, self.im1_1)
                 (x,y) = compare(self.im1_1, self.im1_2, self.im1_2)
-                self.assert_(x<0)
+                self.assertTrue(x<0)
 
 def getSuite():
     return unittest.TestLoader().loadTestsFromTestCase(TestCopyBitPlane)

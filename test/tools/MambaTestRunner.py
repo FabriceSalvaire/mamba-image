@@ -29,8 +29,8 @@ Module defining the test runner class used by the Mamba Test Platform.
 import sys
 import time
 
-from MambaTestResult import MambaTestResult
-from MambaTestOutput import ModuleInfo
+from .MambaTestResult import MambaTestResult
+from .MambaTestOutput import ModuleInfo
 
 class MambaTestRunner:
     """A test runner class.
