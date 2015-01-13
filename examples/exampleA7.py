@@ -18,7 +18,7 @@ from mamba import *
 from mambaComposed import *
 from mambaExtra import *
 # This example needs to import PIL and the struct package
-import Image
+from PIL import Image
 import struct
 
 def createImageFromTIFF(path, fmt=""):

@@ -20,7 +20,7 @@ from mamba import *
 import mambaExtra
 import mambaComposed as mC
 # This example needs to import PIL and the struct package
-import Image
+from PIL import Image
 import struct
 
 # Reusing the palette from a previous example as it gives a better

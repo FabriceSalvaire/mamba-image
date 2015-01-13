@@ -18,8 +18,8 @@
 # Importing the mamba module and the mambaComposed package
 from mamba import *
 from mambaComposed import *
-import ImageDraw
-import ImageFont
+from PIL import ImageDraw
+from PIL import ImageFont
 import mambaExtra as mE
 
 # The antibiotics are incorporated to the Petri dish using discs

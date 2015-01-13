@@ -17,7 +17,7 @@
 # Importing the mamba module, the mambaExtra module and the Image module (PIL)
 from mamba import *
 import mambaExtra
-import Image
+from PIL import Image
 
 # Opening an image and storing it in Mamba format
 im = imageMb('images/colorful.jpg')

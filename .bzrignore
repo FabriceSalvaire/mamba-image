@@ -69,3 +69,5 @@ src/mambaApi/build/
 src/mambaApi/dist/
 src/mambaApi/python/mambaCore.py
 src/mambaApi/swig/mambaApi_wrap.c
+examples/output/*.png
+examples/output/*.jpg

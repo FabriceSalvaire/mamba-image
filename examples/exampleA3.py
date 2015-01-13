@@ -17,7 +17,7 @@
 ## SCRIPT ######################################################################
 # Importing the Image PIL module, mamba module, the mambaComposed package and 
 # the mambaExtra module
-import Image
+from PIL import Image
 from mamba import *
 import mambaComposed as mC
 import mambaExtra as mE
