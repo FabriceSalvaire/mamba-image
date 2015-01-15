@@ -7,10 +7,10 @@ This Git repository corresponds to an unofficial repository for the `Mamba Image
 Mamba is an open-source Mathematical Morphology library written in C and Python.  I believe it is
 the most complete implementation available in open source.  It was developed by `Serge Beucher
 <http://cmm.ensmp.fr/~beucher/sbpage_eng.html>`_, Nicolas Beucher and Michel Bilodeau.  Serge
-Beucher and Michel Bilodeau are researchers in the `CMM <http://cmm.ensmp.fr>`_ laboratory where the
-Mathematical Morphology was invented by `Jean Serra <http://cmm.ensmp.fr/~serra/aaccueil.htm>`_.
-The source code originates from a software so called `Micromorph <http://cmm.ensmp.fr/Micromorph>`_
-developed and commercialised by CMM in the past.
+Beucher and Michel Bilodeau are researchers in the `CMM (Centre de Morphologie Mathématique)
+<http://cmm.ensmp.fr>`_ laboratory where the Mathematical Morphology was invented by `Jean Serra
+<http://cmm.ensmp.fr/~serra/aaccueil.htm>`_.  The source code originates from a software so called
+`Micromorph <http://cmm.ensmp.fr/Micromorph>`_ developed and commercialised by CMM in the past.
 
 The project home page is located `here <http://www.mamba-image.org>`_ and look at this `page
 <http://www.mamba-image.org/about.html>`_ for history and licence.
@@ -37,7 +37,7 @@ Note: all these libraries have a Python interface.
  * stands for Simple Image Processing Lirary
  * is developed by Matthieu Faessel and ARMINE
  * should be open source, but source code is not yet made available
- * see this presentation to learn more about SMIL`pdf <http://cmm.ensmp.fr/~faessel/documents/2013_03_SMIL_LRDE.pdf>`_
+ * see this presentation to learn more about SMIL `pdf <http://cmm.ensmp.fr/~faessel/documents/2013_03_SMIL_LRDE.pdf>`_
    It compares Mamba, SMIL, Morph-M and Fulguro.
 
 * `Fulguro <http://fulguro.sourceforge.net/index.html>`_
@@ -51,8 +51,7 @@ Note: all these libraries have a Python interface.
 * `OpenMorpho <http://openmorpho.sourceforge.net>`_
  * is no more active and doesn't have a Python interface.
 
-`Morph-M <http://cmm.ensmp.fr/Morph-M>`_ is a proprietary library developed by the `Centre de
-Morphologie Mathématique <<http://cmm.ensmp.fr>'_.
+`Morph-M <http://cmm.ensmp.fr/Morph-M>`_ is a proprietary library developed by the CMM.
 
 `ImageJ <http://fiji.sc/Fiji>`_ has some plugins on the topic.
 
