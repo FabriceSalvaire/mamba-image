@@ -176,6 +176,17 @@
 %apply unsigned int *OUTPUT {Uint32 *pixVal};
 %apply unsigned int *OUTPUT {Uint32 *ulx, Uint32 *uly, Uint32 *brx, Uint32 *bry};
 
+%{
+#define SWIG_FILE_WITH_INIT
+%}
+%include "numpy.i"
+%init %{
+  import_array();
+%}
+
+%apply (unsigned char *IN_ARRAY2, int DIM1, int DIM2) {(PIX8 *pixel_array, Uint32 array_height, Uint32 array_width)};
+%apply (unsigned int *IN_ARRAY2, int DIM1, int DIM2) {(PIX32 *pixel_array, Uint32 array_height, Uint32 array_width)};
+
 /* the functions and variables wrapped */
 %include "MB_error.h"
 %include "mambaApi.h"
@@ -189,7 +200,3 @@
         MB_Destroy($self);
     }    
 }
-
-
-
-

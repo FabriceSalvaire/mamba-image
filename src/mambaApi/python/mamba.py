@@ -16,6 +16,11 @@ from mambaError import raiseExceptionOnError, raiseWarning, MambaError
 
 import os.path
 
+try:
+    import numpy as np
+except:
+    np = None
+
 VERSION = "1.1.3"
 
 ###############################################################################
@@ -226,6 +231,77 @@ for _i in range (8):
 ###############################################################################
 #  Classes
 
+class NumpyWrapper(object):
+
+    MB_ROUND_WIDTH = 64 # px
+    MB_ROUND_HEIGHT = 2 # px
+    
+    Y_TOP = Y_BOTTOM = 1 # line
+    X_LEFT = X_RIGHT = 16 # bytes = 16 uint8 = 8 uint16 = 4 uint32 = 2 uint64
+    
+    CHARBIT = 8 # bits
+    
+    MB_MAX_IMAGE_SIZE = 4294967296 # px
+
+    def __init__(self, height, width, depth):
+
+        self.height = height
+        self.width = width
+        self.depth = depth
+
+        if np is None:
+            raise NameError("Could not import Numpy")
+
+        print("height, width = ({}, {}) depth {}".format(height, width, depth))
+    
+        # computation of the corrected size
+        # w = n*M + r    where 0 <= r < M
+        # ((w + M-1)//M)*M = (( (n+1)*M + r-1 )//M)*M
+        # if r = 0: n*M
+        # else: (n+1)*M
+        self.adjusted_width = ((width + self.MB_ROUND_WIDTH-1) // self.MB_ROUND_WIDTH) * self.MB_ROUND_WIDTH
+        self.adjusted_height = ((height + self.MB_ROUND_HEIGHT-1) // self.MB_ROUND_HEIGHT) * self.MB_ROUND_HEIGHT
+
+        print("adjusted height, width = ({}, {})".format(self.adjusted_height, self.adjusted_width))
+        
+        # verification over the image size
+        image_size = self.adjusted_width * self.adjusted_height
+        if not (self.adjusted_width > 0 and self.adjusted_height > 0 and image_size <= self.MB_MAX_IMAGE_SIZE):
+            raise NameError('Bad image dimensions')
+
+        # verification over the depth
+        # acceptable values are 8, or 32 bits
+        if depth not in (8, 32):
+            raise NameError('Bad depth')
+    
+        # full height in pixel with edge
+        # full_h = height + 2 * 1
+        self.full_height = self.adjusted_height + self.Y_TOP + self.Y_BOTTOM
+        # full width in bytes with edge
+        # full_w = (with*depth + 8-1)/8 + 2 * 16
+        # ensure with*depth multiple of 8 + 32
+        self.line_step = (self.adjusted_width*depth + self.CHARBIT-1)//self.CHARBIT + self.X_LEFT + self.X_RIGHT
+        pixel_byte_size = depth//self.CHARBIT
+        self.full_width = self.line_step//pixel_byte_size
+        self.x_offset = self.X_LEFT//pixel_byte_size
+
+        print("offset y, x = ({}, {})".format(self.Y_TOP, self.x_offset))
+        print("full height, width = ({}, {})".format(self.full_height, self.full_width))
+
+        if depth == 8:
+            dtype = np.uint8
+        elif depth == 32:
+            dtype = np.uint32
+
+        self.array = np.zeros((self.full_height, self.full_width), dtype=dtype)
+
+    @property
+    def view(self):
+        return self.array[self.Y_TOP:self.Y_TOP+self.height, self.x_offset:self.x_offset+self.width]
+
+    def clone(self):
+        return self.__class__(self.height, self.width, self.depth)
+
 class imageMb(object):
     """
     Defines the imageMb class and its methods.
@@ -284,6 +360,10 @@ class imageMb(object):
             if isinstance(args[0], imageMb):
                 # -> imageMb(im)
                 self.mbIm = mbUtls.create(args[0].mbIm.width, args[0].mbIm.height, args[0].mbIm.depth)
+                self.name = "Image "+str(_image_index)
+                _image_index = _image_index + 1
+            elif isinstance(args[0], NumpyWrapper):
+                self.mbIm = mbUtls.create_from_numpy(args[0])
                 self.name = "Image "+str(_image_index)
                 _image_index = _image_index + 1
             elif isinstance(args[0], str):

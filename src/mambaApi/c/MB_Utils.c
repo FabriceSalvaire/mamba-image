@@ -65,11 +65,10 @@ void *MB_aligned_malloc(int size, int alignment) {
     return _aligned_malloc(size, alignment);
 # else
     void *ptr;
-    if(posix_memalign((void *) &ptr, alignment, size)!=0) {
+    if (posix_memalign((void *) &ptr, alignment, size) != 0)
         return NULL;
-    } else {
+    else
         return ptr;
-    }
 # endif
 }
 

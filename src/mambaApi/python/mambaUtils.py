@@ -43,6 +43,21 @@ def create(width,height,depth):
     
     return im
 
+def create_from_numpy(wrapper):
+
+    # Creating the image.
+    im = mambaCore.MB_Image()
+    if wrapper.depth == 8:
+        function = mambaCore.MB_Create_from_numpy8
+    elif wrapper.depth == 32:
+        function = mambaCore.MB_Create_from_numpy32
+    else:
+        raise NameError("Bad depth")
+    err = function(im, wrapper.array, wrapper.adjusted_width, wrapper.line_step)
+    raiseExceptionOnError(err)
+    
+    return im
+
 def loadFromPILFormat(pilim, size=None, rgb2l = None):
     """
     Converts a PIL image into a C core image. All images are converted in grey 

@@ -149,6 +149,8 @@ typedef struct {
     Uint32 height;
     /** The depth of the image */
     Uint32 depth;
+    /** allocated flag : true if PIXARRAY must be released by the destructor */
+    Uint32 allocated;
     /** accesors to pixel lines */
     PLINE *PLINES;
     /** pixel array */

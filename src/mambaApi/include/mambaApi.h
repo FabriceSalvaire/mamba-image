@@ -73,6 +73,10 @@ extern Uint32 MB_refcounter;
 
 /* Creation : memory allocation */
 MB_errcode MB_Create(MB_Image *image, Uint32 width, Uint32 height, Uint32 depth);
+  MB_errcode MB_Create_from_numpy8(MB_Image *image, PIX8 *pixel_array,
+				   Uint32 array_height, Uint32 array_width, Uint32 width, Uint32 line_step);
+MB_errcode MB_Create_from_numpy32(MB_Image *image, PIX32 *pixel_array,
+				  Uint32 array_height, Uint32 array_width, Uint32 width, Uint32 line_step);
 /* destruction */
 MB_errcode MB_Destroy(MB_Image *image);
 /* loading pixel data in a created image */
