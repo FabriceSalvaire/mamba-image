@@ -3,6 +3,8 @@
 # This file serves two purposes: creating an IDLE shell that is correctly working
 # with Mamba (no subprocess) and starting a basic workspace more easily
 
+from __future__ import print_function
+
 # You can edit it to fit your own needs
 try:
     # Add your import here
@@ -10,9 +12,9 @@ try:
     from mambaDraw import *
     from mambaExtra import *
     from mambaComposed import *
-except ImportError, excpt:
-    print "Error : Mamba could not be imported on your computer"
-    print "Please check you have correctly installed it"
+except ImportError as excpt:
+    print("Error : Mamba could not be imported on your computer")
+    print("Please check you have correctly installed it")
     raise ImportError(excpt)
 
 ################################################################################
@@ -29,11 +31,11 @@ def _runDemo(demo, askGo):
     
     for l in demoLines:
         if l.find(">>>")==0:
-            print l
+            print(l)
             # Code to be executed (waiting a bit after it)
-            retval =  eval(l[3:])
+            retval = eval(l[3:])
             if retval:
-                print retval
+                print(retval)
             prevLineWasExec = True
         else:
             if prevLineWasExec:
@@ -45,7 +47,7 @@ def _runDemo(demo, askGo):
                     for i in range(2000):
                         sleep(0.001)
             # The line must be displayed
-            print l
+            print(l)
             if not askGo:
                 for i in range(len(l)*35):
                     sleep(0.001)
@@ -81,32 +83,32 @@ def getInitFile():
 ################################################################################
 
 # Modify your welcome message here
-print " ! Welcome to Mamba Image ! "
-print "Version :", getVersion()
-print "    more information : www.mamba-image.org"
-print
-print "This is an adapted IDLE shell, change in configuration here will be"
-print "repercuted on your normal IDLE shell."
-print
-print "This script automatically imports Mamba. Here is the complete"
-print "imports performed:"
-print "    from mamba import *"
-print "    from mambaDraw import *"
-print "    from mambaExtra import *"
-print "    from mambaComposed import *"
-print
-print "The following images were created (the [d] indicates that they are"
-print "displayed). All these images have the default size (256x256)."
-print "    binary    : imbin1[d], imbin2, imbin3, imbin4"
-print "    greyscale : im1[d], im2[d], im3, im4"
-print "    32-bit    : im32_1[d], im32_2"
-print
-print "A demo tour is accessible by calling : Demo1()"
-print "Warning ! This demo will modify im1 and im2"
-print
-print "To modify the default behavior of this program, edit file:"
-print "    ", getInitFile()
-print "Feel free to adapt it to your own needs"
+print(" ! Welcome to Mamba Image ! ")
+print("Version :", getVersion())
+print("    more information : www.mamba-image.org")
+print()
+print("This is an adapted IDLE shell, change in configuration here will be")
+print("repercuted on your normal IDLE shell.")
+print()
+print("This script automatically imports Mamba. Here is the complete")
+print("imports performed:")
+print("    from mamba import *")
+print("    from mambaDraw import *")
+print("    from mambaExtra import *")
+print("    from mambaComposed import *")
+print()
+print("The following images were created (the [d] indicates that they are")
+print("displayed). All these images have the default size (256x256).")
+print("    binary    : imbin1[d], imbin2, imbin3, imbin4")
+print("    greyscale : im1[d], im2[d], im3, im4")
+print("    32-bit    : im32_1[d], im32_2")
+print()
+print("A demo tour is accessible by calling : Demo1()")
+print("Warning ! This demo will modify im1 and im2")
+print()
+print("To modify the default behavior of this program, edit file:")
+print("    ", getInitFile())
+print("Feel free to adapt it to your own needs")
 
 # Add your default images here
 

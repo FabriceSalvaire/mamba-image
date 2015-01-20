@@ -27,6 +27,8 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #THE SOFTWARE.
 # 
+from __future__ import print_function
+
 import os
 import glob
 import re
@@ -150,9 +152,9 @@ texOutput = ""
 #  - Description
 #  - Images IN and OUT if there are ones
 for example in exampleList:
-    print example
+    print(example)
     exaInf = ExampleInfo(os.path.basename(example))
-    exaf = file(example)
+    exaf = open(example)
     lines = exaf.readlines()
     exaf.close()
     inDesc = False
@@ -184,6 +186,6 @@ for example in exampleList:
             inSrc = True
     texOutput += exaInf.generateTex()
     
-f = file("examples.tex","w")
+f = open("examples.tex","w")
 f.write(texOutput)
 f.close()
