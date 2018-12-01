@@ -1,5 +1,3 @@
-.bzr/
-.git/
 doc/3Dpy_ref/3Dpyquickref.aux
 doc/3Dpy_ref/3Dpyquickref.log
 doc/3Dpy_ref/3Dpyquickref.pdf
@@ -57,6 +55,7 @@ doc/userman/mamba-um.log
 doc/userman/mamba-um.out
 doc/userman/mamba-um.pdf
 doc/userman/mamba-um.toc
+
 src/mambaAddons-restricted/realtime-linux/build/
 src/mambaAddons-restricted/realtime-linux/dist/
 src/mambaAddons-restricted/realtime-linux/python/mambaRealtime/mambaRTCore.py
@@ -69,3 +68,12 @@ src/mambaApi/build/
 src/mambaApi/dist/
 src/mambaApi/python/mambaCore.py
 src/mambaApi/swig/mambaApi_wrap.c
+
+clean.sh
+examples/log
+examples/output/
+examples/run-all.sh
+examples/tmp
+setenv-py2.sh
+setenv-py3.sh
+trash/
