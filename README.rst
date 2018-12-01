@@ -1,8 +1,10 @@
 Description
 -----------
 
-This Git repository corresponds to an unofficial repository for the `Mamba Image library for Python
-<http://www.mamba-image.org>`_ initialised from the source of the release V1.1.3.
+This Git repository was initialised from the source of `Mamba Image library for Python
+<http://www.mamba-image.org>`_ release V1.1.3.
+
+Later Mamba maintainers created this official repository https://github.com/nicolasBeucher/mamba-image
 
 Mamba is an open-source Mathematical Morphology library written in C and Python.  I believe it is
 the most complete implementation available in open source.  It was developed by `Serge Beucher
