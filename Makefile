@@ -34,9 +34,6 @@ clean:
 	@cd test; ${MAKE} clean
 	@cd doc; ${MAKE} clean
 	find . -name "*~" -exec rm {} \;
-	
+
 doc:
 	@cd doc; ${MAKE} all
-	
-
-
