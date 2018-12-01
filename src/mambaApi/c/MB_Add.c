@@ -288,20 +288,18 @@ MB_errcode MB_Add(MB_Image *src1, MB_Image *src2, MB_Image *dest) {
     Uint32 i;
     
     /* verification over image size compatibility */
-    if (!MB_CHECK_SIZE_3(src1, src2, dest)) {
+    if (!MB_CHECK_SIZE_3(src1, src2, dest))
         return ERR_BAD_SIZE;
-    }
     
     /* image 2 becomes the deeper one */
     if (src1->depth > src2->depth) {
         MB_Image *tmp = src1; src1 = src2; src2 = tmp;
     }
-    
+
     /* Destination image depth must be at least the same or higher */
     /* than image 2 depth otherwise the function returns with an error. */
-    if(dest->depth < src2->depth) {
+    if(dest->depth < src2->depth)
         return ERR_BAD_DEPTH;
-    }
 
     /* Setting up the pointers */
     plines_in1 = &src1->PLINES[MB_Y_TOP(src1)];
@@ -319,7 +317,7 @@ MB_errcode MB_Add(MB_Image *src1, MB_Image *src2, MB_Image *dest) {
      * Only the "legal" ones are being considered. Other cases make
      * The function returns with an error.
       */
-    switch(MB_PROBE_PAIR(src1,src2)) {
+    switch(MB_PROBE_PAIR(src1, src2)) {
 
     /* Two binary images */
     case MB_PAIR_1_1:
