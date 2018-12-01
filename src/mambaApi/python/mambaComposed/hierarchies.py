@@ -7,7 +7,7 @@ operators (enhanced waterfalls, standard hierarchy and P algorithm).
 
 # Contributor: Serge BEUCHER, Nicolas BEUCHER
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 def hierarchy(imIn, imMask, imOut, grid=mamba.DEFAULT_GRID):

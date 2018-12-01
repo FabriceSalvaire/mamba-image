@@ -4,8 +4,8 @@ operators because of their unique nature or other peculiarity. As such, it
 regroups some utility functions.
 """
 
-import mamba
-import mambaCore
+from mambaIm import mamba
+from mambaIm import mambaCore
 import mambaComposed as mC
 
 # Contributors: Serge BEUCHER, Nicolas BEUCHER

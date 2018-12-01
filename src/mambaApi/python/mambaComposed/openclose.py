@@ -9,7 +9,7 @@ a default edge which can be changed (see the modules erodil and geodesy).
 
 # Contributors: Serge BEUCHER, Nicolas, BEUCHER, Michel BILODEAU
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 def open(imIn, imOut, n=1, se=mC.DEFAULT_SE, edge=mamba.FILLED):

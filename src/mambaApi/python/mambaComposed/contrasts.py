@@ -4,7 +4,7 @@ This module provides a set of functions to perform morphological contrast operat
 defined in mamba.
 """
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 # contributors: Serge BEUCHER, Nicolas BEUCHER

@@ -7,9 +7,8 @@ operations on mamba images. It works with imageMb instances as defined in mamba.
 
 from __future__ import division
 
-from mambaCore import ERR_BAD_DEPTH
-import mamba
-import mambaComposed as mC
+from mambaIm.mambaCore import ERR_BAD_DEPTH
+from mambaIm import mamba
 import math
 
 def computeArea(imIn, scale=(1.0, 1.0)):

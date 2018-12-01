@@ -8,7 +8,7 @@ it works with imageMb instances as defined in mamba.
 
 # Contributor: Serge BEUCHER
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 def minDynamics(imIn, imOut, h, grid=mamba.DEFAULT_GRID):

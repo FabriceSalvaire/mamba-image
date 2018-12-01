@@ -7,7 +7,7 @@ It works with imageMb instances as defined in Mamba.
 
 from __future__ import print_function
 
-import mamba
+from mambaIm import mamba
 
 # Contributors : Nicolas BEUCHER, Michel BILODEAU, Serge BEUCHER
 

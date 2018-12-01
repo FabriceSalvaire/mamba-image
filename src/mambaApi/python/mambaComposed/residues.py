@@ -12,7 +12,7 @@ These residues are defined on binary and greytone images.
 
 # Contributor: Serge BEUCHER
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 def _generateMask_(imIn1, imIn2, imOut):

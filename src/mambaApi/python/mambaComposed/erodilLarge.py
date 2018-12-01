@@ -8,8 +8,7 @@ functions.
 
 from __future__ import print_function
 
-import mamba
-import mambaComposed as mC
+from mambaIm import mamba
 
 def _sizeSplit(size):
     """

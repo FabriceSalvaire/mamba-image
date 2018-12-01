@@ -8,11 +8,11 @@ PIL libraries.
 from __future__ import division
 import six
 
-import mambaCore
-import mambaUtils as mbUtls
-import mambaComposed as mC
-import mamba
-import mambaDraw
+from . import mambaCore
+from . import mambaUtils as mbUtls
+from . import mambaComposed as mC
+from . import mamba
+from . import mambaDraw
 
 try:
     if six.PY3:

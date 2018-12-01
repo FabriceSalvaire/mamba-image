@@ -5,7 +5,7 @@ a mamba image.
 
 # contributor: Nicolas BEUCHER
 
-import mamba
+from mambaIm import mamba
 
 def getMean(imIn):
     """

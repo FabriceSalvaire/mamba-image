@@ -12,7 +12,7 @@ need to explicitly define this graph structure from the partition.
 
 # Contributor: Serge BEUCHER
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 def cellsErode(imIn, imOut, n=1, se=mC.DEFAULT_SE, edge=mamba.FILLED):

@@ -4,8 +4,6 @@ Drawing functions include lines, squares, ... The module
 also provides functions to extract pixel information.
 """
 
-import mamba
-
 ### DRAW FUNCTIONS ###
 
 def drawLine(imOut, line, value):

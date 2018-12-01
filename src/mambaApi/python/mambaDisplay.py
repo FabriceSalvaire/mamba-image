@@ -6,9 +6,9 @@ using the Tkinter library.
 from __future__ import division
 import six
 
-import mambaCore
-import mambaUtils as mbUtls
-from mambaError import raiseExceptionOnError, raiseWarning, MambaError
+from . import mambaCore
+from . import mambaUtils as mbUtls
+from .mambaError import raiseExceptionOnError
 
 try:
     if six.PY3:

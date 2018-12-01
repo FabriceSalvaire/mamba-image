@@ -10,8 +10,8 @@ it works with imageMb instances as defined in mamba.
 
 # Contributors: Serge BEUCHER, Nicolas BEUCHER
 
-from mambaCore import ERR_BAD_DEPTH
-import mamba
+from mambaIm.mambaCore import ERR_BAD_DEPTH
+from mambaIm import mamba
 import mambaComposed as mC
 
 def upperGeodesicDilate(imIn, imMask, imOut, n=1, se=mC.DEFAULT_SE):

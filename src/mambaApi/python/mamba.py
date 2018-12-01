@@ -9,10 +9,10 @@ features.
 
 from __future__ import division
 
-import mambaCore
-import mambaUtils as mbUtls
-from mambaDisplay import getDisplayer, setMaxDisplay, setMinDisplay
-from mambaError import raiseExceptionOnError, raiseWarning, MambaError
+from . import mambaCore
+from . import mambaUtils as mbUtls
+from .mambaDisplay import getDisplayer
+from .mambaError import raiseExceptionOnError, raiseWarning
 
 import os.path
 

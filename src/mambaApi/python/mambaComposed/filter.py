@@ -3,7 +3,7 @@ This module provides a set of functions to perform morphological filtering
 operations using mamba. it works with imageMb instances as defined in mamba.
 """
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 # contributors: Serge BEUCHER, Nicolas BEUCHER

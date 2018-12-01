@@ -9,7 +9,7 @@ This module can be considered as a restricted 3-D extension of mamba.
 
 import six
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 import glob
 import os

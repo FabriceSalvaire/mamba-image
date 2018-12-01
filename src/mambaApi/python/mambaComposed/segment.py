@@ -5,7 +5,7 @@ operations using mamba. it works with imageMb instance as defined in mamba.
 
 # Contributors: Nicolas BEUCHER, Serge BEUCHER
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 def markerControlledWatershed(imIn, imMarkers, imOut, grid=mamba.DEFAULT_GRID):

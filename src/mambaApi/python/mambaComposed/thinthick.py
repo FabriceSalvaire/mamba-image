@@ -5,7 +5,7 @@ geodesic functions derived from these operators.
 They use imageMb image instances as defined in the mamba module.
 """
 
-import mamba
+from mambaIm import mamba
 import mambaComposed as mC
 
 # Contributor: Serge BEUCHER

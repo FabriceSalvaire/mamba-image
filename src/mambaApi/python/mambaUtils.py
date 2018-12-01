@@ -9,8 +9,8 @@ from __future__ import division
 
 import struct
 
-import mambaCore
-from mambaError import raiseExceptionOnError, raiseWarning, MambaError
+from . import mambaCore
+from .mambaError import raiseExceptionOnError
 
 try:
     import Image

@@ -4,7 +4,7 @@ This module handles computation errors in mamba module.
 
 from __future__ import print_function
 
-import mambaCore
+from . import mambaCore
 
 class MambaError(Exception):
     """
