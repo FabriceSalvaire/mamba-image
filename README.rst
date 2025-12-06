@@ -1,10 +1,10 @@
-Description
------------
-
 **This Git repository was initialised from the source of** `Mamba Image library for Python
 <http://www.mamba-image.org>`_ **release V1.1.3.**
 
 **Later Nicolas BEUCHER (Serge BEUCHER's son) created this official repository** https://github.com/nicolasBeucher/mamba-image
+
+Description
+-----------
 
 Mamba is an open-source Mathematical Morphology library written in C and Python.  I believe it is
 the most complete implementation available in open source.  It was developed by `Serge Beucher
