@@ -1,8 +1,8 @@
 Description
 -----------
 
-**This Git repository was initialised from the source of `Mamba Image library for Python
-<http://www.mamba-image.org>`_ release V1.1.3.**
+**This Git repository was initialised from the source of** `Mamba Image library for Python
+<http://www.mamba-image.org>`_ **release V1.1.3.**
 
 **Later Nicolas BEUCHER (Serge BEUCHER's son) created this official repository** https://github.com/nicolasBeucher/mamba-image
 
