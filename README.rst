@@ -3,6 +3,8 @@
 
 **Later Nicolas BEUCHER (Serge BEUCHER's son) created this official repository** https://github.com/nicolasBeucher/mamba-image
 
+**A backup is available at** https://archive.softwareheritage.org/browse/origin/directory/?origin_url=https://github.com/nicolasBeucher/mamba-image
+
 Description
 -----------
 
